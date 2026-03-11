@@ -1,0 +1,268 @@
+# Discovery 阶段配置 (包含 Milestone)
+phase:
+  id: "discovery"
+  name: "需求发现阶段"
+  description: "市场调研、需求澄清、PRD形成"
+  version: "1.1.0"
+  
+  # 里程碑定义 (新增)
+  milestones:
+    milestone_1:
+      name: "项目启动和需求分析"
+      description: "完成项目背景调研、利益相关者识别和需求边界确定"
+      estimated_duration: "3-5天"
+      success_criteria:
+        - "项目目标明确"
+        - "需求范围确定"
+        - "团队达成共识"
+        - "利益相关者访谈完成"
+      
+      quality_gates:
+        - gate: "stakeholder_alignment"
+          threshold: 85
+          reviewer: "po"
+        - gate: "requirement_clarity"
+          threshold: 80
+          reviewer: "phase_lead"
+      
+      deliverables:
+        - "project-background.md"
+        - "stakeholder-list.md"
+        - "requirement-boundary.md"
+        - "interview-records.md"
+      
+      # 里程碑下的任务分解
+      tasks:
+        - task_id: "project-background-research"
+          name: "项目背景调研"
+          agent: "phase_lead"
+          variant: "research_specialist"
+          estimated_time: "1-2天"
+          priority: "high"
+          deliverables: ["project-background.md"]
+          quality_gates:
+            - gate: "background_completeness"
+              threshold: 90
+              reviewer: "phase_lead"
+          
+        - task_id: "stakeholder-interview"
+          name: "关键利益相关者访谈"
+          agent: "phase_lead"
+          variant: "research_specialist"
+          estimated_time: "2-3天"
+          priority: "high"
+          deliverables: ["stakeholder-list.md", "interview-records.md"]
+          depends_on: ["project-background-research"]
+          quality_gates:
+            - gate: "interview_coverage"
+              threshold: 80
+              reviewer: "phase_lead"
+          
+        - task_id: "requirement-boundary-definition"
+          name: "需求范围和边界确定"
+          agent: "phase_lead"
+          variant: "research_specialist"
+          estimated_time: "1天"
+          priority: "medium"
+          deliverables: ["requirement-boundary.md"]
+          depends_on: ["stakeholder-interview"]
+          quality_gates:
+            - gate: "boundary_clarity"
+              threshold: 85
+              reviewer: "phase_lead"
+    
+    milestone_2:
+      name: "市场调研和用户研究"
+      description: "完成市场分析、竞品调研和用户需求深度挖掘"
+      estimated_duration: "1-2周"
+      success_criteria:
+        - "市场规模评估完成"
+        - "竞品分析完成"
+        - "用户需求明确"
+        - "机会识别完成"
+      
+      quality_gates:
+        - gate: "market_analysis_depth"
+          threshold: 80
+          reviewer: "phase_lead"
+        - gate: "user_insight_quality"
+          threshold: 75
+          reviewer: "po"
+      
+      deliverables:
+        - "market-analysis-report.xlsx"
+        - "competitor-analysis.xlsx"
+        - "user-research-report.pdf"
+        - "user-personas.md"
+        - "opportunity-assessment.md"
+      
+      tasks:
+        - task_id: "market-analysis"
+          name: "市场分析"
+          agent: "market_analyst"
+          variant: "market_specialist"
+          estimated_time: "3-4天"
+          priority: "high"
+          deliverables: ["market-analysis-report.xlsx", "competitor-analysis.xlsx"]
+          quality_gates:
+            - gate: "data_completeness"
+              threshold: 85
+              reviewer: "phase_lead"
+          
+        - task_id: "user-research"
+          name: "用户研究"
+          agent: "user_researcher"
+          variant: "user_research_specialist"
+          estimated_time: "4-5天"
+          priority: "high"
+          deliverables: ["user-research-report.pdf", "user-personas.md"]
+          depends_on: ["market-analysis"]
+          quality_gates:
+            - gate: "insight_quality"
+              threshold: 75
+              reviewer: "phase_lead"
+          
+        - task_id: "opportunity-identification"
+          name: "机会识别和评估"
+          agent: "phase_lead"
+          variant: "research_specialist"
+          estimated_time: "2-3天"
+          priority: "medium"
+          deliverables: ["opportunity-assessment.md"]
+          depends_on: ["market-analysis", "user-research"]
+          quality_gates:
+            - gate: "opportunity_validity"
+              threshold: 80
+              reviewer: "po"
+    
+    milestone_3:
+      name: "需求定义和PRD形成"
+      description: "完成需求规格定义、用户故事编写和PRD文档形成"
+      estimated_duration: "1-2周"
+      success_criteria:
+        - "需求规格完整"
+        - "用户故事清晰"
+        - "PRD文档完成"
+        - "stakeholder批准"
+      
+      quality_gates:
+        - gate: "requirement_completeness"
+          threshold: 90
+          reviewer: "po"
+        - gate: "user_story_quality"
+          threshold: 85
+          reviewer: "phase_lead"
+      
+      deliverables:
+        - "requirement-spec.md"
+        - "user-stories.md"
+        - "prd-document.md"
+        - "acceptance-criteria.md"
+      
+      tasks:
+        - task_id: "requirement-specification"
+          name: "需求规格定义"
+          agent: "phase_lead"
+          variant: "research_specialist"
+          estimated_time: "3-4天"
+          priority: "high"
+          deliverables: ["requirement-spec.md"]
+          depends_on: ["opportunity-identification"]
+          quality_gates:
+            - gate: "specification_clarity"
+              threshold: 85
+              reviewer: "phase_lead"
+          
+        - task_id: "user-story-writing"
+          name: "用户故事编写"
+          agent: "user_researcher"
+          variant: "user_research_specialist"
+          estimated_time: "2-3天"
+          priority: "high"
+          deliverables: ["user-stories.md"]
+          depends_on: ["requirement-specification"]
+          quality_gates:
+            - gate: "story_quality"
+              threshold: 85
+              reviewer: "phase_lead"
+          
+        - task_id: "prd-creation"
+          name: "PRD文档编写"
+          agent: "phase_lead"
+          variant: "research_specialist"
+          estimated_time: "2-3天"
+          priority: "medium"
+          deliverables: ["prd-document.md"]
+          depends_on: ["requirement-specification", "user-story-writing"]
+          quality_gates:
+            - gate: "document_quality"
+              threshold: 85
+              reviewer: "po"
+          
+        - task_id: "acceptance-criteria"
+          name: "验收标准定义"
+          agent: "phase_lead"
+          variant: "research_specialist"
+          estimated_time: "1-2天"
+          priority: "medium"
+          deliverables: ["acceptance-criteria.md"]
+          depends_on: ["prd-creation"]
+          quality_gates:
+            - gate: "criteria_clarity"
+              threshold: 80
+              reviewer: "po"
+  
+  # 标准任务模板（保留兼容性）
+  standard_tasks:
+    - template_id: "market-analysis"
+      required_agents: ["market_analyst", "data_analyst"]
+      
+    - template_id: "user-research"
+      required_agents: ["user_researcher", "ux_analyst"]
+      
+    - template_id: "requirement-definition"
+      required_agents: ["phase_lead", "business_analyst"]
+  
+  # Free 模式配置
+  free_mode_config:
+    phase_lead_authority:
+      task_planning: true
+      task_assignment: true
+      task_adjustment: true
+      milestone_definition: true
+      
+    dynamic_task_rules:
+      max_tasks_per_milestone: 8
+      min_tasks_per_milestone: 3
+      task_size_range: [200, 800]  # lines of code
+      
+    quality_control:
+      peer_review: true
+      milestone_checkpoints: true
+      final_approval: "po"
+
+# 阶段转换规则
+phase_transitions:
+  - from: "discovery"
+    to: "planning"
+    condition: "all_milestones_completed AND deliverables_complete"
+    quality_gates: ["po_approval", "stakeholder_signoff"]
+    auto_transition: true
+    
+  - from: "planning"
+    to: "development"
+    condition: "all_milestones_completed AND deliverables_complete"
+    quality_gates: ["technical_review", "resource_allocation"]
+    auto_transition: true
+    
+  - from: "development"
+    to: "validation"
+    condition: "all_milestones_completed AND deliverables_complete"
+    quality_gates: ["code_review", "integration_test"]
+    auto_transition: true
+    
+  from: "validation"
+    to: "complete"
+    condition: "all_milestones_completed AND deliverables_complete"
+    quality_gates: ["user_acceptance", "deployment_readiness"]
+    auto_transition: true

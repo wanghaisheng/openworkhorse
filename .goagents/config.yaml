@@ -1,0 +1,94 @@
+# Go Agents 全局配置
+version: "1.0.0"
+last_updated: "2026-03-12"
+
+# 系统配置
+system:
+  # 默认任务模式
+  default_task_mode: "standard"
+  
+  # 支持的模式
+  supported_modes: ["standard", "free", "hybrid"]
+  
+  # 质量门禁配置
+  quality_gates:
+    test_coverage_min: 85
+    lint_pass_rate: 100
+    task_size_min: 200
+    task_size_max: 1200
+    
+  # 粒度控制
+  granularity:
+    sweet_spot_lines: [300, 800]
+    max_files_affected: 12
+    estimated_time_range: [10, 90]  # minutes
+
+# 技能注册表
+skills:
+  # 技能搜索路径
+  search_paths:
+    - "~/.picoclaw/workspace/skills"
+    - "~/.picoclaw/workspace/.goagents/skills"
+    
+  # 技能缓存配置
+  cache:
+    enabled: true
+    ttl: 3600  # seconds
+    max_size: 100
+
+# 工作流配置
+workflows:
+  # 默认工作流
+  default: "standard-development"
+  
+  # 工作流搜索路径
+  search_paths:
+    - "~/.picoclaw/workspace/.goagents/workflows"
+    - "~/.picoclaw/workspace/skills/workflows"
+
+# 团队配置
+teams:
+  # 默认团队
+  default: "general-development"
+  
+  # 团队搜索路径
+  search_paths:
+    - "~/.picoclaw/workspace/.goagents/teams"
+    - "~/.picoclaw/workspace/skills/team-roles"
+
+# 阶段配置
+phases:
+  # 支持的阶段
+  supported: ["discovery", "planning", "development", "validation"]
+  
+  # 阶段搜索路径
+  search_paths:
+    - "~/.picoclaw/workspace/.goagents/phases"
+    - "~/.picoclaw/workspace/skills/phase-templates"
+
+# 任务配置
+tasks:
+  # 任务搜索路径
+  search_paths:
+    - "~/.picoclaw/workspace/.goagents/tasks"
+    - "~/.picoclaw/workspace/skills/task-templates"
+    
+  # 模板缓存
+  template_cache:
+    enabled: true
+    max_templates: 50
+
+# 日志和监控
+logging:
+  level: "info"
+  structured: true
+  output_dir: "~/.picoclaw/workspace/logs"
+  
+# 性能监控
+monitoring:
+  enabled: true
+  metrics:
+    - "task_execution_time"
+    - "skill_loading_time"
+    - "quality_gate_pass_rate"
+    - "agent_collaboration_efficiency"

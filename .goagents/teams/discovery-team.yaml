@@ -1,0 +1,297 @@
+# Discovery 团队配置
+team:
+  id: "discovery-team"
+  name: "Discovery Phase Team"
+  description: "专门用于需求发现阶段的团队配置"
+  version: "1.0.0"
+  category: "phase_specific"
+  
+metadata:
+  author: "PO System Team"
+  created: "2026-03-12"
+  tags: ["discovery", "analysis", "research"]
+  applicable_phases: ["discovery"]
+
+# 团队领导配置
+team_lead:
+  agent: "po"
+  variant: "product_manager"
+  responsibilities:
+    - "整体项目协调"
+    - "阶段转换决策"
+    - "资源分配"
+    - "质量把控"
+    - "利益相关者沟通"
+  authority_level: "team_lead"
+  decision_scope: ["phase_transition", "resource_allocation", "quality_approval"]
+
+# 阶段特定配置
+phases:
+  discovery:
+    description: "市场调研和需求分析阶段"
+    estimated_duration: "1-2周"
+    task_mode: "standard"
+    
+    # 阶段领导
+    phase_lead:
+      agent: "analyst"
+      variant: "research_specialist"
+      responsibilities:
+        - "市场调研主导"
+        - "竞品分析"
+        - "用户研究"
+        - "调研团队协调"
+        - "调研质量把控"
+      capabilities:
+        - "market_research"
+        - "competitive_analysis"
+        - "user_interview"
+        - "data_analysis"
+      priority: "high"
+      experience_level: "senior"
+      specialization: "market_research"
+      
+    # 团队成员
+    team_members:
+      - member_id: "market_analyst"
+        agent: "analyst"
+        variant: "market_specialist"
+        responsibilities:
+          - "市场规模分析"
+          - "竞品功能对比"
+          - "行业趋势研究"
+        capabilities:
+          - "market_analysis"
+          - "competitive_intelligence"
+          - "trend_analysis"
+        experience_level: "senior"
+        specialization: "market"
+        reporting_to: "phase_lead"
+        workload: "full_time"
+        
+      - member_id: "user_researcher"
+        agent: "analyst"
+        variant: "user_researcher"
+        responsibilities:
+          - "用户访谈"
+          - "用户画像构建"
+          - "用户行为分析"
+        capabilities:
+          - "user_interview"
+          - "persona_development"
+          - "behavioral_analysis"
+        experience_level: "mid"
+        specialization: "user"
+        reporting_to: "phase_lead"
+        workload: "full_time"
+        
+      - member_id: "data_analyst"
+        agent: "analyst"
+        variant: "data_specialist"
+        responsibilities:
+          - "数据收集"
+          - "统计分析"
+          - "报告编写"
+        capabilities:
+          - "data_collection"
+          - "statistical_analysis"
+          - "report_generation"
+        experience_level: "junior"
+        specialization: "data"
+        reporting_to: "market_analyst"
+        workload: "full_time"
+        
+      - member_id: "business_analyst"
+        agent: "analyst"
+        variant: "business_specialist"
+        responsibilities:
+          - "业务需求分析"
+          - "功能规格定义"
+          - "业务流程设计"
+        capabilities:
+          - "business_process_analysis"
+          - "functional_specification"
+          - "workflow_design"
+        experience_level: "senior"
+        specialization: "business"
+        reporting_to: "phase_lead"
+        workload: "full_time"
+        
+      - member_id: "ux_analyst"
+        agent: "analyst"
+        variant: "ux_specialist"
+        responsibilities:
+          - "用户体验需求"
+          - "界面设计需求"
+          - "交互流程设计"
+        capabilities:
+          - "ux_requirements"
+          - "interface_design"
+          - "interaction_design"
+        experience_level: "mid"
+        specialization: "ux"
+        reporting_to: "phase_lead"
+        workload: "full_time"
+        
+      - member_id: "technical_analyst"
+        agent: "analyst"
+        variant: "technical_specialist"
+        responsibilities:
+          - "技术可行性分析"
+          - "技术约束识别"
+          - "系统边界定义"
+        capabilities:
+          - "technical_feasibility"
+          - "constraint_analysis"
+          - "system_boundary"
+        experience_level: "senior"
+        specialization: "technical"
+        reporting_to: "phase_lead"
+        workload: "full_time"
+
+# 协作配置
+collaboration:
+  pattern: "lead_coordination"
+  communication:
+    primary_channel: "team_meetings"
+    secondary_channels: ["document_collaboration", "instant_messaging"]
+    meeting_frequency: "daily_standup + weekly_review"
+    
+  decision_making:
+    consensus_required: false
+    phase_lead_authority: "high"
+    escalation_path: "team_member → phase_lead → team_lead"
+    
+  conflict_resolution:
+    primary_method: "phase_lead_mediation"
+    escalation_trigger: "unresolved_conflict > 2_days"
+    final_authority: "team_lead"
+
+# 质量保证
+quality_assurance:
+  reviews:
+    peer_review: true
+    lead_review: true
+    cross_functional_review: true
+    
+  quality_gates:
+    - gate: "research_depth"
+      threshold: 80
+      reviewer: "phase_lead"
+      
+    - gate: "data_accuracy"
+      threshold: 85
+      reviewer: "market_analyst"
+      
+    - gate: "user_insight_quality"
+      threshold: 80
+      reviewer: "user_researcher"
+      
+  deliverable_standards:
+    templates: true
+    format_consistency: true
+    version_control: true
+
+# 技能要求
+skill_requirements:
+  phase_lead:
+    required_skills:
+      - "market_research_expert"
+      - "team_leadership"
+      - "project_management"
+      - "stakeholder_management"
+    optional_skills:
+      - "data_analysis"
+      - "competitive_intelligence"
+      
+  team_members:
+    common_skills:
+      - "analytical_thinking"
+      - "communication"
+      - "documentation"
+      - "collaboration"
+      
+    specialized_skills:
+      market_analyst: ["market_analysis", "competitive_intelligence", "data_analysis"]
+      user_researcher: ["user_interview", "persona_development", "behavioral_analysis"]
+      data_analyst: ["statistics", "data_visualization", "report_writing"]
+      business_analyst: ["business_analysis", "process_modeling", "requirements_gathering"]
+      ux_analyst: ["user_research", "interaction_design", "usability_testing"]
+      technical_analyst: ["technical_analysis", "feasibility_study", "system_architecture"]
+
+# 性能指标
+performance_metrics:
+  productivity:
+    tasks_per_week: 3
+    deliverables_per_week: 2
+    quality_score_target: 85
+    
+  collaboration:
+    meeting_efficiency_target: 80
+    communication_response_time: "<4_hours"
+    conflict_resolution_time: "<48_hours"
+    
+  quality:
+    peer_review_pass_rate: 90
+    stakeholder_satisfaction: 85
+    deliverable_on_time_rate: 90
+
+# 资源配置
+resource_allocation:
+  tools:
+    shared_tools:
+      - "data_analysis_platform"
+      - "survey_tools"
+      - "collaboration_suite"
+      
+    individual_tools:
+      market_analyst: ["market_intelligence_tools", "competitor_analysis_software"]
+      user_researcher: ["interview_platform", "persona_tools"]
+      data_analyst: ["statistical_software", "visualization_tools"]
+      
+  budget:
+    market_research_budget: "moderate"
+    user_research_budget: "moderate"
+    tools_budget: "low"
+
+# 风险管理
+risk_management:
+  identified_risks:
+    - risk: "insufficient_market_data"
+      probability: "medium"
+      impact: "high"
+      mitigation: "multiple_data_sources"
+      
+    - risk: "user_access_difficulties"
+      probability: "medium"
+      impact: "medium"
+      mitigation: "multiple_recruitment_channels"
+      
+    - risk: "stakeholder_conflicts"
+      probability: "low"
+      impact: "high"
+      mitigation: "early_stakeholder_engagement"
+
+# 团队动态调整
+dynamic_adjustments:
+  scaling_rules:
+    add_member_criteria: "workload > 120% OR critical_skill_gap"
+    remove_member_criteria: "workload < 60% for > 2_weeks"
+    
+  role_flexibility:
+    cross_training: true
+    role_rotation: false
+    skill_development: true
+
+# 成功标准
+success_criteria:
+  phase_completion:
+    - "所有质量门禁通过"
+    - "所有交付物完成"
+    - "stakeholder_approval"
+    
+  team_performance:
+    - "productivity_targets_met"
+    - "quality_standards_maintained"
+    - "collaboration_effective"
+    - "on_time_delivery"

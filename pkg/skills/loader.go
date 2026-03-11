@@ -63,6 +63,7 @@ type SkillsLoader struct {
 	workspaceSkills string // workspace skills (project-level)
 	globalSkills    string // global skills (~/.picoclaw/skills)
 	builtinSkills   string // builtin skills
+	executionFramework *ExecutionFramework
 }
 
 // SkillRoots returns all unique skill root directories used by this loader.
@@ -94,6 +95,7 @@ func NewSkillsLoader(workspace string, globalSkills string, builtinSkills string
 		workspaceSkills: filepath.Join(workspace, "skills"),
 		globalSkills:    globalSkills, // ~/.picoclaw/skills
 		builtinSkills:   builtinSkills,
+		executionFramework: NewExecutionFramework(workspace, true), // 默认启用Ralph Wiggum Loop
 	}
 }
 
@@ -189,6 +191,28 @@ func (sl *SkillsLoader) LoadSkillsForContext(skillNames []string) string {
 	}
 
 	return strings.Join(parts, "\n\n---\n\n")
+}
+
+// ExecuteSkill 执行技能，自动集成HARNESS.md和Ralph Wiggum Loop
+func (sl *SkillsLoader) ExecuteSkill(ctx context.Context, skillName string, taskInput string) (*ExecutionResult, error) {
+	// 1. 加载技能内容
+	skillContent, ok := sl.LoadSkill(skillName)
+	if !ok {
+		return nil, fmt.Errorf("技能不存在: %s", skillName)
+	}
+
+	// 2. 通过执行框架执行技能
+	return sl.executionFramework.ExecuteSkill(ctx, skillName, skillContent, taskInput)
+}
+
+// GetExecutionFramework 获取执行框架
+func (sl *SkillsLoader) GetExecutionFramework() *ExecutionFramework {
+	return sl.executionFramework
+}
+
+// SetRalphWiggumLoopEnabled 设置Ralph Wiggum Loop开关
+func (sl *SkillsLoader) SetRalphWiggumLoopEnabled(enabled bool) {
+	sl.executionFramework = NewExecutionFramework(sl.workspace, enabled)
 }
 
 func (sl *SkillsLoader) BuildSkillsSummary() string {

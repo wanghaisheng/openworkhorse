@@ -1,0 +1,164 @@
+# 标准开发工作流
+workflow:
+  id: "standard-development"
+  name: "Standard Development Workflow"
+  description: "适用于标准化项目开发的完整工作流"
+  version: "1.0.0"
+  category: "development"
+  
+metadata:
+  author: "PO System Team"
+  created: "2026-03-12"
+  last_updated: "2026-03-12"
+  tags: ["standard", "development", "full-lifecycle"]
+  
+# 适用场景
+applicable_scenarios:
+  - "企业应用开发"
+  - "标准化功能开发"
+  - "团队协作项目"
+  - "质量要求高的项目"
+
+# 阶段序列
+phases:
+  - id: "discovery"
+    name: "需求发现阶段"
+    description: "市场调研、需求澄清、PRD形成"
+    team_config: "discovery-team"
+    task_mode: "standard"
+    estimated_duration: "1-2周"
+    quality_gates:
+      - gate: "requirement_completeness"
+        threshold: 90
+        reviewer: "po"
+      - gate: "market_analysis_depth"
+        threshold: 80
+        reviewer: "phase_lead"
+    deliverables:
+      - "market-analysis-report.md"
+      - "requirement-spec.md"
+      - "user-stories.md"
+      
+  - id: "planning"
+    name: "架构设计阶段"
+    description: "技术架构设计、实施计划制定"
+    team_config: "planning-team"
+    task_mode: "standard"
+    estimated_duration: "1-2周"
+    depends_on: ["discovery"]
+    quality_gates:
+      - gate: "architecture_approval"
+        threshold: 85
+        reviewer: "tech_lead"
+      - gate: "implementation_feasibility"
+        threshold: 80
+        reviewer: "architect"
+    deliverables:
+      - "architecture-design.md"
+      - "tech-stack-selection.md"
+      - "implementation-plan.md"
+      
+  - id: "development"
+    name: "功能开发阶段"
+    description: "功能实现、单元测试、集成测试"
+    team_config: "development-team"
+    task_mode: "standard"
+    estimated_duration: "3-4周"
+    depends_on: ["planning"]
+    quality_gates:
+      - gate: "code_quality"
+        threshold: 85
+        reviewer: "tech_lead"
+      - gate: "test_coverage"
+        threshold: 85
+        reviewer: "qa"
+      - gate: "performance_baseline"
+        threshold: 75
+        reviewer: "performance_reviewer"
+    deliverables:
+      - "source-code/"
+      - "unit-tests/"
+      - "integration-tests/"
+      - "api-documentation.md"
+      
+  - id: "validation"
+    name: "测试验证阶段"
+    description: "端到端测试、用户验收、部署准备"
+    team_config: "validation-team"
+    task_mode: "standard"
+    estimated_duration: "1周"
+    depends_on: ["development"]
+    quality_gates:
+      - gate: "e2e_test_pass"
+        threshold: 95
+        reviewer: "qa"
+      - gate: "user_acceptance"
+        threshold: 90
+        reviewer: "po"
+      - gate: "deployment_readiness"
+        threshold: 85
+        reviewer: "devops"
+    deliverables:
+      - "e2e-test-results/"
+      - "user-acceptance-report.md"
+      - "deployment-guide.md"
+      - "release-notes.md"
+
+# 阶段转换规则
+transitions:
+  - from: "discovery"
+    to: "planning"
+    condition: "all_quality_gates_passed AND deliverables_complete"
+    auto_transition: true
+    
+  - from: "planning"
+    to: "development"
+    condition: "all_quality_gates_passed AND deliverables_complete"
+    auto_transition: true
+    
+  - from: "development"
+    to: "validation"
+    condition: "all_quality_gates_passed AND deliverables_complete"
+    auto_transition: true
+    
+  - from: "validation"
+    to: "complete"
+    condition: "all_quality_gates_passed AND deliverables_complete"
+    auto_transition: true
+
+# 工作流级别配置
+workflow_config:
+  # 并行执行
+  parallel_execution:
+    enabled: false
+    max_parallel_phases: 1
+    
+  # 回滚策略
+  rollback:
+    enabled: true
+    auto_rollback_on_failure: false
+    rollback_checkpoints: ["planning", "development"]
+    
+  # 通知配置
+  notifications:
+    phase_start: true
+    phase_complete: true
+    quality_gate_failure: true
+    workflow_complete: true
+
+# 性能基准
+performance_benchmarks:
+  total_duration: "6-10周"
+  phase_efficiency:
+    discovery: 85
+    planning: 80
+    development: 75
+    validation: 90
+  quality_score_target: 85
+
+# 使用统计
+usage_stats:
+  times_used: 0
+  success_rate: 0
+  average_duration: 0
+  last_used: null

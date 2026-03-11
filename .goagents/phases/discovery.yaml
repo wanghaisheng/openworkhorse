@@ -1,0 +1,259 @@
+# Discovery 阶段配置
+phase:
+  id: "discovery"
+  name: "需求发现阶段"
+  description: "市场调研、需求澄清、PRD形成的完整阶段"
+  version: "1.0.0"
+  category: "analysis"
+  
+metadata:
+  author: "PO System Team"
+  created: "2026-03-12"
+  tags: ["discovery", "research", "analysis", "requirements"]
+
+# 阶段目标
+objectives:
+  primary: "完成市场调研、需求澄清和PRD形成"
+  secondary:
+    - "识别市场机会和竞争格局"
+    - "明确用户需求和痛点"
+    - "定义项目范围和边界"
+    - "建立项目成功指标"
+
+# 成功标准
+success_criteria:
+  mandatory:
+    - "市场分析报告完成并通过审核"
+    - "用户需求文档完整且清晰"
+    - "产品需求文档(PRD)获得批准"
+    - "项目范围和边界明确"
+    
+  optional:
+    - "竞品分析报告完成"
+    - "用户画像和旅程图完成"
+    - "技术可行性评估完成"
+
+# 标准任务模板
+standard_tasks:
+  - template_id: "market-analysis"
+    name: "市场分析"
+    description: "市场规模、竞争格局、趋势分析"
+    estimated_time: "2-3天"
+    priority: "high"
+    required_agents: ["market_analyst"]
+    deliverables:
+      - "market-size-report.xlsx"
+      - "competitor-analysis.xlsx"
+      - "trend-analysis.md"
+    quality_gates:
+      - gate: "data_completeness"
+        threshold: 90
+      - gate: "analysis_depth"
+        threshold: 80
+        
+  - template_id: "user-research"
+    name: "用户研究"
+    description: "用户访谈、画像构建、需求挖掘"
+    estimated_time: "1-2周"
+    priority: "high"
+    required_agents: ["user_researcher", "ux_analyst"]
+    deliverables:
+      - "user-interview-notes.md"
+      - "user-personas.pdf"
+      - "user-journey-map.png"
+    quality_gates:
+      - gate: "interview_coverage"
+        threshold: 85
+      - gate: "insight_quality"
+        threshold: 80
+        
+  - template_id: "requirement-gathering"
+    name: "需求收集"
+    description: "业务需求收集、功能规格定义"
+    estimated_time: "2-3天"
+    priority: "high"
+    required_agents: ["business_analyst", "pm"]
+    deliverables:
+      - "business-requirements.md"
+      - "functional-specifications.md"
+      - "feature-list.xlsx"
+    quality_gates:
+      - gate: "requirement_clarity"
+        threshold: 90
+      - gate: "specification_completeness"
+        threshold: 85
+        
+  - template_id: "prd-creation"
+    name: "PRD创建"
+    description: "产品需求文档编写和整合"
+    estimated_time: "1-2周"
+    priority: "medium"
+    required_agents: ["pm", "technical_writer"]
+    deliverables:
+      - "product-requirements-document.md"
+      - "user-stories.md"
+      - "acceptance-criteria.md"
+    quality_gates:
+      - gate: "document_quality"
+        threshold: 85
+      - gate: "stakeholder_alignment"
+        threshold: 80
+
+# 自由模式支持
+free_mode_config:
+  # Phase Lead 权限
+  phase_lead_authority:
+    task_planning: true
+    task_assignment: true
+    task_adjustment: true
+    milestone_definition: true
+    
+  # 动态任务生成规则
+  dynamic_task_rules:
+    max_tasks_per_milestone: 8
+    min_tasks_per_milestone: 3
+    task_size_range: [200, 800]  # lines of code
+    
+  # 质量控制
+  quality_control:
+    peer_review: true
+    milestone_checkpoints: true
+    final_approval: "po"
+
+# 团队角色需求
+role_requirements:
+  mandatory_roles:
+    - role: "phase_lead"
+      agent_type: "analyst"
+      experience_level: "senior"
+      specializations: ["market_research", "user_research"]
+      
+  optional_roles:
+    - role: "market_analyst"
+      agent_type: "analyst"
+      experience_level: "mid"
+      specializations: ["market_analysis"]
+      
+    - role: "user_researcher"
+      agent_type: "analyst"
+      experience_level: "mid"
+      specializations: ["user_research"]
+      
+    - role: "business_analyst"
+      agent_type: "analyst"
+      experience_level: "senior"
+      specializations: ["business_analysis"]
+
+# 输入要求
+inputs:
+  required:
+    - "项目背景文档"
+    - "业务目标说明"
+    - "初始需求描述"
+    
+  optional:
+    - "现有市场数据"
+    - "用户反馈数据"
+    - "竞品信息"
+    - "技术约束条件"
+
+# 输出定义
+outputs:
+  artifacts:
+    - name: "market-analysis-report"
+      format: "markdown + excel"
+      template: "market-analysis-template.md"
+      
+    - name: "user-research-report"
+      format: "pdf + markdown"
+      template: "user-research-template.md"
+      
+    - name: "requirement-spec"
+      format: "markdown"
+      template: "requirement-spec-template.md"
+      
+    - name: "prd"
+      format: "markdown"
+      template: "prd-template.md"
+
+  metrics:
+    - "market_size_estimate"
+    - "competitor_landscape_score"
+    - "user_need_priority_matrix"
+    - "requirement_completeness_score"
+
+# 质量门禁
+quality_gates:
+  gate_definitions:
+    - gate: "requirement_completeness"
+      description: "需求完整性检查"
+      check_type: "automated + manual"
+      threshold: 90
+      reviewer: "po"
+      
+    - gate: "market_analysis_depth"
+      description: "市场分析深度检查"
+      check_type: "manual"
+      threshold: 80
+      reviewer: "phase_lead"
+      
+    - gate: "stakeholder_alignment"
+      description: "利益相关者一致性检查"
+      check_type: "manual"
+      threshold: 80
+      reviewer: "po"
+
+# 工具和资源
+tools_and_resources:
+  required_tools:
+    - "数据分析工具"
+    - "文档编辑工具"
+    - "图表制作工具"
+    
+  optional_tools:
+    - "用户访谈工具"
+    - "调研平台"
+    - "竞品分析工具"
+
+# 时间估算
+time_estimation:
+  base_duration: "1-2周"
+  complexity_factors:
+    simple: 1.0
+    medium: 1.5
+    complex: 2.0
+    
+  team_size_factors:
+    small: 1.2
+    medium: 1.0
+    large: 0.8
+
+# 风险识别
+risk_factors:
+  high_risk:
+    - "需求不明确"
+    - "市场数据不足"
+    - "利益相关者冲突"
+    
+  medium_risk:
+    - "用户访问困难"
+    - "竞品信息不全"
+    - "时间压力"
+    
+  mitigation_strategies:
+    - "增加用户访谈轮次"
+    - "多数据源验证"
+    - "定期利益相关者同步"
+
+# 阶段完成检查
+completion_checklist:
+  mandatory:
+    - [ ] "所有标准任务完成"
+    - [ ] "所有质量门禁通过"
+    - [ ] "所有交付物生成"
+    - [ ] "PO审核通过"
+    
+  optional:
+    - [ ] "风险评估完成"
+    - [ ] "下阶段准备就绪"
+    - [ ] "经验教训记录"
