@@ -1,0 +1,88 @@
+# OpenSpec Configuration for PicoClaw PO System
+version: "1.0.0"
+
+# AI Tools Integration
+ai_tools:
+  - "codex"
+  - "claude"
+  - "cursor"
+  - "picoclaw"
+
+# Default Schema Configuration
+default_schema: "spec-driven"
+
+# Context Rules
+context_rules:
+  read_first: "HARNESS.md,WBS.md"
+  spec_prefix: "openspec/specs/"
+  validation_required: true
+  auto_update: true
+
+# Custom Schemas
+schemas:
+  spec_driven:
+    description: "Standard spec-driven development schema"
+    required_fields:
+      - "goals"
+      - "non_functional"
+      - "acceptance_criteria"
+      - "edge_cases"
+      - "dependencies"
+      - "success_metrics"
+    
+  po_system:
+    description: "PO system specific schema"
+    required_fields:
+      - "stakeholder_analysis"
+      - "requirement_breakdown"
+      - "mode_selection_criteria"
+      - "team_composition"
+      - "quality_gates"
+      - "milestone_definition"
+    
+  skill_definition:
+    description: "Skill definition schema"
+    required_fields:
+      - "role_definition"
+      - "capabilities"
+      - "workflows"
+      - "integration_points"
+      - "quality_standards"
+      - "collaboration_rules"
+
+# Validation Rules
+validation_rules:
+  code_coverage:
+    minimum: 85
+    tool: "go test -cover"
+    
+  code_quality:
+    minimum: 80
+    tool: "golangci-lint"
+    
+  documentation:
+    minimum: 90
+    check: "public_api_documented"
+    
+  security:
+    required: true
+    tool: "gosec"
+
+# Integration Settings
+integration:
+  harness_enabled: true
+  wbs_enabled: true
+  ralph_loop_enabled: true
+  granularity_control: true
+  
+# Output Configuration
+output:
+  format: "markdown"
+  include_metrics: true
+  auto_generate_reports: true
+  
+# Notification Settings
+notifications:
+  on_violation: true
+  on_completion: true
+  on_quality_gate_fail: true

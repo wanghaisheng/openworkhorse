@@ -1,8 +1,8 @@
-# 技能执行框架 - HARNESS.md 和 Ralph Wiggum Loop 集成
+# 技能执行框架 - HARNESS.md、WBS 和 OpenSpec 集成
 
 ## 概述
 
-技能执行框架为 PicoClaw 的技能系统提供了统一的执行环境，自动集成 HARNESS.md 约束和 Ralph Wiggum Loop 质量保证机制。这样，每个技能在执行时都会自动遵循项目的质量标准，无需在每个技能定义中重复这些约束。
+技能执行框架为 PicoClaw 的技能系统提供了统一的执行环境，自动集成 HARNESS.md 约束、WBS 工作分解结构和 OpenSpec 规范驱动，以及 Ralph Wiggum Loop 质量保证机制。这样，每个技能在执行时都会自动遵循项目的质量标准和结构化任务分解，无需在每个技能定义中重复这些约束。
 
 ## 🎯 核心特性
 
@@ -11,12 +11,28 @@
 - 将约束规则注入到技能执行过程中
 - 支持自定义约束规则解析
 
-### 2. Ralph Wiggum Loop 自动化
+### 2. WBS 工作分解结构集成 🆕
+- 自动加载 WBS.md 工作分解结构
+- 提供项目目标、Epic、Feature、Milestone 层级视图
+- 支持任务粒度控制（300-800行代码）
+
+### 3. OpenSpec 规范驱动 🆕
+- 自动加载 OpenSpec 配置和规范
+- 强制技能执行遵循具体业务规范
+- 支持 /openspec:verify 和 /openspec:apply 命令
+
+### 4. 粒度控制机制 🆕
+- 智能任务粒度验证（300-800行）
+- 文件数量控制（3-12个文件）
+- 自动粒度建议和优化
+
+### 5. Ralph Wiggum Loop 自动化（升级版）
 - 自动执行质量检查循环
 - 自我审查和违规检测
+- WBS 更新和 OpenSpec 验证
 - 质量分数计算和改进建议
 
-### 3. 零负担设计
+### 6. 零负担设计
 - 技能开发者无需额外配置
 - 默认启用所有质量保证机制
 - 可选择性禁用特定功能
@@ -27,16 +43,28 @@
 技能执行框架
 ├── ExecutionFramework (执行框架)
 │   ├── HARNESS.md 加载器
+│   ├── WBS 工作分解结构加载器 🆕
+│   ├── OpenSpec 配置加载器 🆕
 │   ├── 约束规则解析器
+│   ├── 粒度控制器 🆕
 │   ├── 技能内容增强器
 │   └── Ralph Wiggum Loop 执行器
 ├── SkillsLoader (技能加载器)
 │   ├── 技能发现和加载
 │   ├── 执行框架集成
 │   └── 上下文管理
+├── GranularityControl (粒度控制) 🆕
+│   ├── 任务规模验证
+│   ├── 文件数量控制
+│   └── 粒度建议生成
+├── WBSWorkBreakdown (工作分解) 🆕
+│   ├── Epic/Feature/Milestone 层级
+│   ├── 估算信息管理
+│   └── 依赖关系跟踪
 └── ExecutionResult (执行结果)
     ├── 质量指标
     ├── 违规记录
+    ├── 粒度验证结果 🆕
     └── 改进建议
 ```
 
@@ -53,10 +81,10 @@ import (
 )
 
 func main() {
-    // 创建技能加载器（自动启用HARNESS.md和Ralph Wiggum Loop）
+    // 创建技能加载器（自动启用HARNESS.md、WBS和OpenSpec集成）
     loader := skills.NewSkillsLoader(workspace, "", "")
     
-    // 执行技能（自动集成质量保证）
+    // 执行技能（自动集成质量保证和粒度控制）
     ctx := context.Background()
     result, err := loader.ExecuteSkill(ctx, "po-core", "开发电商购物车功能")
     
@@ -68,6 +96,68 @@ func main() {
     // 检查执行结果
     if result.Success && result.RalphLoopPassed {
         fmt.Println("技能执行成功，质量检查通过")
+        fmt.Printf("质量分数: %.1f\n", result.QualityScore)
+        fmt.Printf("粒度验证: %v\n", result.Metadata["granularity_valid"])
+    }
+}
+```
+
+### WBS集成使用 🆕
+
+```go
+// 获取WBS信息
+framework := loader.GetExecutionFramework()
+wbs, err := framework.LoadWBS()
+if err != nil {
+    log.Printf("加载WBS失败: %v", err)
+    return
+}
+
+// 查看相关里程碑
+for _, milestone := range wbs.Milestones {
+    if strings.Contains(milestone.Title, "电商") {
+        fmt.Printf("找到相关里程碑: %s\n", milestone.Title)
+        fmt.Printf("估算: %d行, %d小时\n", 
+            milestone.Estimate.Lines, milestone.Estimate.Hours)
+    }
+}
+```
+
+### 粒度控制使用 🆕
+
+```go
+// 验证任务粒度
+granularityControl := framework.GetGranularityControl()
+result := granularityControl.ValidateTaskSize(estimatedLines, fileCount)
+
+if !result.Valid {
+    fmt.Printf("粒度验证失败: %s\n", result.Recommendation)
+    // 根据建议调整任务范围
+} else {
+    fmt.Println("任务粒度合适，可以执行")
+}
+```
+
+### OpenSpec集成使用 🆕
+
+```go
+// 加载OpenSpec配置
+config, err := framework.LoadOpenSpecConfig()
+if err != nil {
+    log.Printf("加载OpenSpec配置失败: %v", err)
+    return
+}
+
+// 检查规范要求
+fmt.Printf("使用Schema: %s\n", config.DefaultSchema)
+fmt.Printf("AI工具: %v\n", config.AITools)
+
+// 验证代码与spec一致性
+if config.ContextRules["validation_required"] == "true" {
+    // 运行/openspec:verify
+    verifyResult := framework.RunOpenSpecVerify("po-system-001")
+    if !verifyResult.Passed {
+        fmt.Printf("Spec验证失败: %s\n", verifyResult.Issues)
     }
 }
 ```

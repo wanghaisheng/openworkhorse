@@ -16,7 +16,10 @@ import (
 type ExecutionFramework struct {
 	workspace       string
 	harnessPath     string
+	wbsPath         string
+	openspecPath     string
 	enableRalphLoop bool
+	granularityControl *GranularityControl
 	logger          *slog.Logger
 }
 
@@ -25,7 +28,10 @@ func NewExecutionFramework(workspace string, enableRalphLoop bool) *ExecutionFra
 	return &ExecutionFramework{
 		workspace:       workspace,
 		harnessPath:     filepath.Join(workspace, "HARNESS.md"),
+		wbsPath:         filepath.Join(workspace, "WBS.md"),
+		openspecPath:     filepath.Join(workspace, "openspec"),
 		enableRalphLoop: enableRalphLoop,
+		granularityControl: NewGranularityControl(),
 		logger:          logger.GetLogger("skills.execution"),
 	}
 }
@@ -98,6 +104,9 @@ type ExecutionResult struct {
 	Violations     []Violation       `json:"violations"`
 	QualityScore   float64           `json:"quality_score"`
 	RalphLoopPassed bool             `json:"ralph_loop_passed"`
+	GranularityResult *GranularityResult `json:"granularity_result,omitempty"`
+	WBSUpdate      *WBSUpdate        `json:"wbs_update,omitempty"`
+	OpenSpecResult *OpenSpecResult    `json:"openspec_result,omitempty"`
 	Metadata       map[string]string `json:"metadata"`
 }
 
@@ -107,6 +116,23 @@ type Violation struct {
 	Description string `json:"description"`
 	Severity    string `json:"severity"`    // critical, high, medium, low
 	Suggestion  string `json:"suggestion"`
+}
+
+// WBSUpdate WBS更新信息
+type WBSUpdate struct {
+	MilestoneID string    `json:"milestone_id"`
+	Status      string    `json:"status"`
+	ActualLines int       `json:"actual_lines"`
+	ActualHours int       `json:"actual_hours"`
+	CompletedAt time.Time `json:"completed_at"`
+}
+
+// OpenSpecResult OpenSpec验证结果
+type OpenSpecResult struct {
+	SpecID    string   `json:"spec_id"`
+	Passed     bool     `json:"passed"`
+	Issues     []string `json:"issues"`
+	VerifiedAt time.Time `json:"verified_at"`
 }
 
 // loadHarnessRules 加载HARNESS.md规则
@@ -447,4 +473,350 @@ func (ef *ExecutionFramework) GetFrameworkStatus() map[string]interface{} {
 	}
 	
 	return status
+}
+
+// GranularityControl 粒度控制器
+type GranularityControl struct {
+	MinLines int
+	MaxLines int
+	TargetFiles int
+	MaxFiles int
+}
+
+// NewGranularityControl 创建粒度控制器
+func NewGranularityControl() *GranularityControl {
+	return &GranularityControl{
+		MinLines:    300,  // 最小行数
+		MaxLines:    800,  // 最大行数
+		TargetFiles: 6,    // 目标文件数
+		MaxFiles:    12,   // 最大文件数
+	}
+}
+
+// ValidateTaskSize 验证任务粒度
+func (gc *GranularityControl) ValidateTaskSize(estimatedLines int, fileCount int) *GranularityResult {
+	result := &GranularityResult{
+		EstimatedLines: estimatedLines,
+		FileCount:      fileCount,
+		Valid:          true,
+		Recommendation: "",
+	}
+
+	// 检查行数范围
+	if estimatedLines < gc.MinLines {
+		result.Valid = false
+		result.Recommendation = fmt.Sprintf("任务太小（%d行），建议合并到其他任务或增加功能范围", estimatedLines)
+	} else if estimatedLines > gc.MaxLines {
+		result.Valid = false
+		result.Recommendation = fmt.Sprintf("任务太大（%d行），建议拆分为多个%d行左右的子任务", estimatedLines, gc.TargetLines())
+	}
+
+	// 检查文件数范围
+	if fileCount > gc.MaxFiles {
+		result.Valid = false
+		result.Recommendation += fmt.Sprintf(" 影响文件太多（%d个），建议控制在%d个以内", fileCount, gc.MaxFiles)
+	}
+
+	return result
+}
+
+// TargetLines 目标行数
+func (gc *GranularityControl) TargetLines() int {
+	return (gc.MinLines + gc.MaxLines) / 2
+}
+
+// GranularityResult 粒度验证结果
+type GranularityResult struct {
+	EstimatedLines int    `json:"estimated_lines"`
+	FileCount      int    `json:"file_count"`
+	Valid          bool   `json:"valid"`
+	Recommendation string `json:"recommendation"`
+}
+
+// WBSWorkBreakdown WBS工作分解结构
+type WBSWorkBreakdown struct {
+	ProjectGoal    string      `json:"project_goal"`
+	Epics          []WBSItem    `json:"epics"`
+	Features       []WBSItem    `json:"features"`
+	Milestones     []WBSItem    `json:"milestones"`
+	LastUpdated    time.Time    `json:"last_updated"`
+}
+
+// WBSItem WBS项目
+type WBSItem struct {
+	ID          string            `json:"id"`
+	Title       string            `json:"title"`
+	Description string            `json:"description"`
+	Level       int               `json:"level"`
+	ParentID    string            `json:"parent_id"`
+	Estimate    *Estimate         `json:"estimate"`
+	Dependencies []string          `json:"dependencies"`
+	Status      string            `json:"status"`
+	Metadata    map[string]string `json:"metadata"`
+}
+
+// Estimate 估算信息
+type Estimate struct {
+	Lines        int    `json:"lines"`
+	Files        int    `json:"files"`
+	Hours        int    `json:"hours"`
+	Complexity   string `json:"complexity"`
+}
+
+// OpenSpecConfig OpenSpec配置
+type OpenSpecConfig struct {
+	Version     string            `json:"version"`
+	AITools     []string          `json:"ai_tools"`
+	DefaultSchema string           `json:"default_schema"`
+	ContextRules map[string]string `json:"context_rules"`
+	Schemas     map[string]string `json:"schemas"`
+}
+
+// loadWBS 加载WBS工作分解结构
+func (ef *ExecutionFramework) loadWBS() (*WBSWorkBreakdown, error) {
+	if _, err := os.Stat(ef.wbsPath); os.IsNotExist(err) {
+		return nil, fmt.Errorf("WBS.md文件不存在: %s", ef.wbsPath)
+	}
+
+	content, err := os.ReadFile(ef.wbsPath)
+	if err != nil {
+		return nil, fmt.Errorf("读取WBS.md失败: %w", err)
+	}
+
+	return ef.parseWBS(string(content))
+}
+
+// parseWBS 解析WBS内容
+func (ef *ExecutionFramework) parseWBS(content string) (*WBSWorkBreakdown, error) {
+	wbs := &WBSWorkBreakdown{
+		ProjectGoal: "",
+		Epics:       []WBSItem{},
+		Features:    []WBSItem{},
+		Milestones:  []WBSItem{},
+		LastUpdated: time.Now(),
+	}
+
+	lines := strings.Split(content, "\n")
+	var currentSection string
+	var currentItem *WBSItem
+
+	for _, line := range lines {
+		line = strings.TrimSpace(line)
+		if line == "" {
+			continue
+		}
+
+		// 解析章节
+		if strings.Contains(line, "项目总体目标") {
+			currentSection = "goal"
+			continue
+		}
+		if strings.Contains(line, "Epic") || strings.Contains(line, "大模块") {
+			currentSection = "epic"
+			continue
+		}
+		if strings.Contains(line, "Feature") || strings.Contains(line, "可独立上线") {
+			currentSection = "feature"
+			continue
+		}
+		if strings.Contains(line, "Milestone") || strings.Contains(line, "核心执行单位") {
+			currentSection = "milestone"
+			continue
+		}
+
+		// 解析具体项目
+		if strings.HasPrefix(line, "- ") || strings.HasPrefix(line, "  - ") {
+			item := ef.parseWBSItem(line, currentSection)
+			if item != nil {
+				switch currentSection {
+				case "epic":
+					wbs.Epics = append(wbs.Epics, *item)
+				case "feature":
+					wbs.Features = append(wbs.Features, *item)
+				case "milestone":
+					wbs.Milestones = append(wbs.Milestones, *item)
+				}
+			}
+		}
+	}
+
+	return wbs, nil
+}
+
+// parseWBSItem 解析WBS项目
+func (ef *ExecutionFramework) parseWBSItem(line string, section string) *WBSItem {
+	// 清理行首的标记
+	line = strings.TrimLeft(line, "- ")
+	
+	// 提取ID和标题
+	var id, title string
+	if strings.Contains(line, ".") {
+		parts := strings.SplitN(line, " ", 2)
+		if len(parts) >= 2 {
+			id = strings.TrimSpace(parts[0])
+			title = strings.TrimSpace(parts[1])
+		}
+	} else {
+		title = line
+	}
+
+	// 确定层级
+	level := 1
+	switch section {
+	case "epic":
+		level = 1
+	case "feature":
+		level = 2
+	case "milestone":
+		level = 3
+	}
+
+	return &WBSItem{
+		ID:          id,
+		Title:       title,
+		Description: "",
+		Level:       level,
+		ParentID:    "",
+		Estimate:    ef.extractEstimate(line),
+		Dependencies: []string{},
+		Status:      "pending",
+		Metadata:    map[string]string{},
+	}
+}
+
+// extractEstimate 从行中提取估算信息
+func (ef *ExecutionFramework) extractEstimate(line string) *Estimate {
+	estimate := &Estimate{
+		Lines:      ef.granularityControl.TargetLines(),
+		Files:      ef.granularityControl.TargetFiles,
+		Hours:      4, // 默认4小时
+		Complexity: "medium",
+	}
+
+	// 简单的估算提取逻辑
+	if strings.Contains(line, "预计") {
+		// 提取数字信息
+		var lines, hours int
+		fmt.Sscanf(line, "%d行 %d小时", &lines, &hours)
+		if lines > 0 {
+			estimate.Lines = lines
+		}
+		if hours > 0 {
+			estimate.Hours = hours
+		}
+	}
+
+	return estimate
+}
+
+// loadOpenSpecConfig 加载OpenSpec配置
+func (ef *ExecutionFramework) loadOpenSpecConfig() (*OpenSpecConfig, error) {
+	configPath := filepath.Join(ef.openspecPath, "config.yaml")
+	if _, err := os.Stat(configPath); os.IsNotExist(err) {
+		return ef.getDefaultOpenSpecConfig(), nil
+	}
+
+	content, err := os.ReadFile(configPath)
+	if err != nil {
+		return nil, fmt.Errorf("读取OpenSpec配置失败: %w", err)
+	}
+
+	var config OpenSpecConfig
+	err = yaml.Unmarshal(content, &config)
+	if err != nil {
+		return nil, fmt.Errorf("解析OpenSpec配置失败: %w", err)
+	}
+
+	return &config, nil
+}
+
+// getDefaultOpenSpecConfig 获取默认OpenSpec配置
+func (ef *ExecutionFramework) getDefaultOpenSpecConfig() *OpenSpecConfig {
+	return &OpenSpecConfig{
+		Version: "1.0.0",
+		AITools: []string{"codex", "claude", "cursor"},
+		DefaultSchema: "spec-driven",
+		ContextRules: map[string]string{
+			"read_first": "HARNESS.md,WBS.md",
+			"spec_prefix": "openspec/specs/",
+		},
+		Schemas: map[string]string{
+			"spec-driven": "goals,non_functional,acceptance_criteria,edge_cases",
+		},
+	}
+}
+
+// buildEnhancedSkillContent 构建增强的技能内容（优化版）
+func (ef *ExecutionFramework) buildEnhancedSkillContent(skillName, skillContent string, rules *HarnessRules) string {
+	var builder strings.Builder
+
+	// 1. 添加HARNESS.md约束
+	builder.WriteString("# 🛡️ HARNESS.md 集成约束\n\n")
+	builder.WriteString("## 🚫 禁止清单\n")
+	for _, prohibition := range rules.Prohibitions {
+		builder.WriteString(fmt.Sprintf("- ❌ %s\n", prohibition))
+	}
+	builder.WriteString("\n")
+
+	builder.WriteString("## ✅ 必须遵守\n")
+	for _, requirement := range rules.Requirements {
+		builder.WriteString(fmt.Sprintf("- ✅ %s\n", requirement))
+	}
+	builder.WriteString("\n")
+
+	// 2. 添加WBS工作分解结构
+	if wbs, err := ef.loadWBS(); err == nil {
+		builder.WriteString("# 📋 WBS 工作分解结构\n\n")
+		builder.WriteString(fmt.Sprintf("## 项目目标\n%s\n\n", wbs.ProjectGoal))
+		
+		if len(wbs.Milestones) > 0 {
+			builder.WriteString("## 相关里程碑\n")
+			for _, milestone := range wbs.Milestones {
+				builder.WriteString(fmt.Sprintf("- **%s**: %s", milestone.ID, milestone.Title))
+				if milestone.Estimate != nil {
+					builder.WriteString(fmt.Sprintf(" (预计%d行, %d小时)", milestone.Estimate.Lines, milestone.Estimate.Hours))
+				}
+				builder.WriteString("\n")
+			}
+			builder.WriteString("\n")
+		}
+	}
+
+	// 3. 添加OpenSpec规范
+	if config, err := ef.loadOpenSpecConfig(); err == nil {
+		builder.WriteString("# 📖 OpenSpec 规范驱动\n\n")
+		builder.WriteString("## 规范要求\n")
+		builder.WriteString(fmt.Sprintf("- 使用Schema: %s\n", config.DefaultSchema))
+		builder.WriteString("- 必须遵循相关spec.md中的Acceptance Criteria\n")
+		builder.WriteString("- 实现后需要通过/openspec:verify验证\n\n")
+	}
+
+	// 4. 添加粒度控制要求
+	builder.WriteString("# 🎯 粒度控制要求\n\n")
+	builder.WriteString(fmt.Sprintf("## 任务规模约束\n"))
+	builder.WriteString(fmt.Sprintf("- 最小行数: %d行\n", ef.granularityControl.MinLines))
+	builder.WriteString(fmt.Sprintf("- 最大行数: %d行\n", ef.granularityControl.MaxLines))
+	builder.WriteString(fmt.Sprintf("- 目标文件数: %d个\n", ef.granularityControl.TargetFiles))
+	builder.WriteString(fmt.Sprintf("- 最大文件数: %d个\n\n", ef.granularityControl.MaxFiles))
+
+	// 5. 添加Ralph Wiggum Loop说明
+	if ef.enableRalphLoop {
+		builder.WriteString("## 🔄 Ralph Wiggum Loop (升级版)\n\n")
+		builder.WriteString("完成任务后，必须执行以下步骤：\n")
+		builder.WriteString("1. 运行所有测试 + lint + 类型检查直到100%通过\n")
+		builder.WriteString("2. 根据HARNESS.md进行自我审查（列出违规项）\n")
+		builder.WriteString("3. 如果失败 → 分析根因 → 修复 → 重复\n")
+		builder.WriteString("4. 只有在绿色+自我审查干净时才创建PR\n")
+		builder.WriteString("5. 如果架构变更，更新HARNESS.md/ADR\n")
+		builder.WriteString("6. 更新WBS.md（标记完成、记录实际行数）\n")
+		builder.WriteString("7. 运行/openspec:verify验证代码与spec一致性\n")
+		builder.WriteString("8. 如需要，运行/openspec:apply更新spec\n")
+		builder.WriteString("9. 提出2-3个改进建议\n\n")
+	}
+
+	// 6. 添加原始技能内容
+	builder.WriteString("## 📋 原始技能内容\n\n")
+	builder.WriteString(skillContent)
+
+	return builder.ToString()
 }
