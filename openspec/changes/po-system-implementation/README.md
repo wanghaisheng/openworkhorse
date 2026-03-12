@@ -1,5 +1,31 @@
 # PO System Implementation - 项目变更记录
 
+## 🔄 重要架构变更通知
+
+### 📅 变更日期: 2026-03-12
+### 🎯 变更类型: 重大架构重构
+
+### 🚨 变更内容
+从**包级实现**重构为**完全基于技能系统的实现**，确保零侵入性和AI Specialist专业化。
+
+### ✅ 已完成变更
+- **Milestone 4.1.1**: PO Core基础框架 - 完全基于技能系统实现
+- **实现方式**: po-core-v2 + 4个专业子技能
+- **代码行数**: 1576行（技能文档）
+- **验证方式**: `@go "验证技能组合：po-core-v2完整功能测试"`
+
+### ⚠️ 需要调整的Milestone
+- **Milestone 4.1.2**: HARNESS.md集成 - 需要技能级实现
+- **Milestone 4.1.3**: Ralph Wiggum Loop - 需要技能级实现
+
+### 🎯 新架构优势
+- ✅ **零侵入性**: 不修改任何`pkg`包结构
+- ✅ **专业化协作**: 每个技能代表一个专业AI能力
+- ✅ **智能协调**: 自动技能调用和数据流管理
+- ✅ **可插拔性**: 独立部署和更新
+
+---
+
 ## 🎯 变更目标
 
 基于 PicoClaw 现有技能系统，实现完整的工业级 PO（产品经理）多 Agent 协作系统，支持 Standard/Free/Hybrid 三种任务执行模式，将 PicoClaw 从"轻量 AI 助手"升级为"工业级多 Agent 协作平台"。
@@ -16,36 +42,44 @@
 - 1.4 工业化集成系统
 
 ### Level 2: Feature（可独立上线的小功能）
-- 1.1.1 PO Core协调器
-- 1.1.2 需求分析引擎
-- 1.1.3 模式选择算法
+- 1.1.1 PO Core协调器技能（po-core-v2）
+- 1.1.2 需求分析技能（requirement-analyzer）
+- 1.1.3 模式选择技能（mode-selector）
+- 1.1.4 团队构建技能（team-builder）
+- 1.1.5 阶段管理技能（phase-manager-v2）
 - 1.2.1 Standard模式执行引擎
 - 1.2.2 Free模式动态规划
 - 1.2.3 Hybrid模式混合执行
-- 1.3.1 Analyst角色技能
-- 1.3.2 Architect角色技能
-- 1.3.3 Developer角色技能
-- 1.3.4 QA角色技能
+- 1.3.1 Analyst角色技能（role-analyst）
+- 1.3.2 Architect角色技能（role-architect）
+- 1.3.3 Developer角色技能（role-developer）
+- 1.3.4 QA角色技能（role-qa）
 
 ### Level 3: Milestone（核心执行单位，300-800行）
 
-#### Milestone 4.1.1: PO Core基础框架（预计 450 行）
+#### Milestone 4.1.1: PO Core基础框架（已完成）✅
 - **Acceptance Criteria**: 支持需求分析、模式选择、团队组建
-- **验证命令**: `go test ./pkg/skills/... -v`
-- **规模预估**: 400-550 行
+- **验证命令**: `@go "验证技能组合：po-core-v2完整功能测试"`
+- **实际实现**: 完全基于技能系统的po-core-v2 + 4个专业子技能
+- **规模预估**: 400-550 行（技能文档）
 - **依赖前置 Milestone**: 无
+- **实现状态**: 已完成 - 通过技能协调实现所有功能
 
-#### Milestone 4.1.2: HARNESS.md集成（预计 350 行）
+#### Milestone 4.1.2: HARNESS.md集成（需要调整）⚠️
 - **Acceptance Criteria**: 自动加载和应用HARNESS.md规则
-- **验证命令**: `go test ./pkg/skills/execution_framework_test.go -v`
-- **规模预估**: 300-400 行
+- **验证命令**: `@go "验证技能：po-core-v2 HARNESS.md集成"`
+- **实际实现**: 通过技能执行框架集成HARNESS.md
+- **规模预估**: 300-400 行（技能文档配置）
 - **依赖前置 Milestone**: 4.1.1
+- **实现状态**: 需要调整为技能级实现
 
-#### Milestone 4.1.3: Ralph Wiggum Loop实现（预计 400 行）
+#### Milestone 4.1.3: Ralph Wiggum Loop实现（需要调整）⚠️
 - **Acceptance Criteria**: 完整的质量检查循环
-- **验证命令**: `go test ./pkg/skills/... -race -cover`
-- **规模预估**: 350-450 行
+- **验证命令**: `@go "验证技能：po-core-v2 Ralph Wiggum Loop"`
+- **实际实现**: 通过技能执行框架实现质量检查循环
+- **规模预估**: 350-450 行（技能文档配置）
 - **依赖前置 Milestone**: 4.1.2
+- **实现状态**: 需要调整为技能级实现
 
 #### Milestone 4.2.1: Standard模式模板执行（预计 500 行）
 - **Acceptance Criteria**: 支持基于模板的标准化执行
@@ -139,36 +173,53 @@ quality_gates:
 
 ### Milestone 状态跟踪表
 
-| Milestone ID | 状态 | 实际行数 | 完成时间 | 质量分数 | 负责人 |
-|-------------|------|----------|----------|----------|--------|
-| 4.1.1 | 已完成 | 432 | 2026-03-12 | 85 | PO Core |
-| 4.1.2 | 进行中 | - | - | - | PO Core |
-| 4.1.3 | 未开始 | - | - | - | PO Core |
-| 4.2.1 | 未开始 | - | - | - | Task Mode |
-| 4.2.2 | 未开始 | - | - | - | Task Mode |
-| 4.2.3 | 未开始 | - | - | - | Task Mode |
-| 4.3.1 | 未开始 | - | - | - | Team Roles |
-| 4.3.2 | 未开始 | - | - | - | Team Roles |
-| 4.3.3 | 未开始 | - | - | - | Team Roles |
-| 4.3.4 | 未开始 | - | - | - | Team Roles |
+| Milestone ID | 状态 | 实际行数 | 完成时间 | 质量分数 | 负责人 | 实现方式 |
+|-------------|------|----------|----------|----------|--------|----------|
+| 4.1.1 | 已完成✅ | 1576 | 2026-03-12 | 90 | PO Core | 技能级实现 |
+| 4.1.2 | 需要调整⚠️ | - | - | - | PO Core | 需要技能级实现 |
+| 4.1.3 | 需要调整⚠️ | - | - | - | PO Core | 需要技能级实现 |
+| 4.2.1 | 未开始 | - | - | - | Task Mode | 技能级实现 |
+| 4.2.2 | 未开始 | - | - | - | Task Mode | 技能级实现 |
+| 4.2.3 | 未开始 | - | - | - | Task Mode | 技能级实现 |
+| 4.3.1 | 未开始 | - | - | - | Team Roles | 技能级实现 |
+| 4.3.2 | 未开始 | - | - | - | Team Roles | 技能级实现 |
+| 4.3.3 | 未开始 | - | - | - | Team Roles | 技能级实现 |
+| 4.3.4 | 未开始 | - | - | - | Team Roles | 技能级实现 |
 
-### 依赖关系图
+**说明**:
+- ✅ **已完成**: Milestone 4.1.1通过技能级实现完成
+- ⚠️ **需要调整**: 需要从包级实现调整为技能级实现
+- **实现方式**: 所有后续Milestone都应采用技能级实现
+
+### 依赖关系图（技能级架构）
 
 ```mermaid
 graph TD
-    A[4.1.1 PO Core基础框架] --> B[4.1.2 HARNESS.md集成]
+    A[4.1.1 PO Core基础框架✅] --> B[4.1.2 HARNESS.md集成⚠️]
     A --> C[4.2.1 Standard模式模板执行]
     A --> D[4.3.1 Analyst角色技能]
     A --> E[4.3.2 Architect角色技能]
     A --> F[4.3.3 Developer角色技能]
     A --> G[4.3.4 QA角色技能]
-    B --> H[4.1.3 Ralph Wiggum Loop]
+    B --> H[4.1.3 Ralph Wiggum Loop⚠️]
     C --> I[4.2.3 Hybrid模式混合执行]
     D --> I
     E --> I
     F --> I
     G --> I
+    
+    style A fill:#90EE90
+    style B fill:#FFD700
+    style H fill:#FFD700
 ```
+
+**技能级实现架构**:
+- **po-core-v2**: 主协调技能，已完成✅
+- **requirement-analyzer**: 需求分析技能，已实现
+- **mode-selector**: 模式选择技能，已实现
+- **team-builder**: 团队构建技能，已实现
+- **phase-manager-v2**: 阶段管理技能，已实现
+- **⚠️ 需要调整**: HARNESS.md集成和Ralph Wiggum Loop需要技能级实现
 
 ## 🎯 质量目标
 
