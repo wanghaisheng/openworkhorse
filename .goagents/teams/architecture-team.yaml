@@ -1,0 +1,459 @@
+# Architecture Team配置文件
+# 架构团队的完整配置
+
+team:
+  id: "architecture-team"
+  name: "架构团队"
+  description: "负责系统架构设计和技术规划的团队"
+  version: "1.0.0"
+  category: "design"
+  
+  # 团队元数据
+  metadata:
+    author: "system"
+    created: "2026-03-12"
+    tags: ["architecture", "design", "technical", "system"]
+    team_size: "3-5"
+    complexity: "high"
+    
+    # 适用项目类型
+    applicable_projects:
+      - "new_system_development"
+      - "system_refactoring"
+      - "integration_project"
+      - "performance_optimization"
+  
+  # 团队目标
+  objectives:
+    primary:
+      - "设计高质量的系统架构"
+      - "确保技术方案的可行性"
+      - "制定清晰的技术规格"
+      - "支持开发团队的技术需求"
+    
+    secondary:
+      - "评估和选择技术栈"
+      - "制定集成和部署策略"
+      - "确保架构的可扩展性"
+      - "建立技术标准和规范"
+  
+  # 团队成员
+  members:
+    - member_id: "architect_lead_01"
+      agent: "agent_architect_01"
+      role: "system_architect"
+      responsibilities: ["架构设计", "技术决策", "团队领导", "质量保证"]
+      availability: "full_time"
+      
+      # Task执行配置
+      task_execution:
+        max_concurrent_tasks: 2
+        preferred_task_types: ["system-architecture", "technical-design", "architecture-review"]
+        quality_focus: ["feasibility", "scalability", "maintainability", "security"]
+      
+      # 协作配置
+      collaboration:
+        collaboration_style: "lead"
+        communication_preference: "technical"
+        conflict_resolution: "technical_expertise"
+        mentoring: true
+    
+    - member_id: "technical_architect_01"
+      agent: "agent_architect_02"
+      role: "technical_architect"
+      responsibilities: ["技术设计", "API设计", "接口规范", "技术验证"]
+      availability: "full_time"
+      
+      task_execution:
+        max_concurrent_tasks: 2
+        preferred_task_types: ["technical-design", "api-design", "interface-specification"]
+        quality_focus: ["performance", "security", "usability", "testability"]
+      
+      collaboration:
+        collaboration_style: "collaborative"
+        communication_preference: "detailed"
+        conflict_resolution: "technical_discussion"
+        mentoring: false
+    
+    - member_id: "database_architect_01"
+      agent: "agent_architect_03"
+      role: "database_architect"
+      responsibilities: ["数据库设计", "数据建模", "性能优化", "数据安全"]
+      availability: "full_time"
+      
+      task_execution:
+        max_concurrent_tasks: 2
+        preferred_task_types: ["database-design", "data-modeling", "performance-tuning"]
+        quality_focus: ["data_integrity", "query_performance", "scalability", "security"]
+      
+      collaboration:
+        collaboration_style: "support"
+        communication_preference: "data_focused"
+        conflict_resolution: "data_expertise"
+        mentoring: false
+    
+    - member_id: "security_architect_01"
+      agent: "agent_qa_01"
+      role: "security_architect"
+      responsibilities: ["安全架构", "威胁建模", "合规检查", "安全评估"]
+      availability: "full_time"
+      
+      task_execution:
+        max_concurrent_tasks: 1
+        preferred_task_types: ["security-design", "threat-modeling", "compliance-check"]
+        quality_focus: ["security", "compliance", "risk_assessment", "best_practices"]
+      
+      collaboration:
+        collaboration_style: "consultant"
+        communication_preference: "security_focused"
+        conflict_resolution: "security_standards"
+        mentoring: false
+  
+  # 团队角色定义
+  roles:
+    - role_id: "system_architect"
+      name: "系统架构师"
+      description: "负责整体系统架构设计"
+      responsibilities:
+        - "设计系统整体架构"
+        - "定义技术栈和组件"
+        - "制定集成策略"
+        - "评估技术风险"
+        - "确保架构的可扩展性"
+      required_skills:
+        - "系统设计"
+        - "架构模式"
+        - "技术评估"
+        - "性能分析"
+        - "安全设计"
+      quality_standards:
+        - "架构完整性"
+        - "技术可行性"
+        - "可扩展性"
+        - "可维护性"
+        - "安全性"
+    
+    - role_id: "technical_architect"
+      name: "技术架构师"
+      description: "负责具体技术设计和实现"
+      responsibilities:
+        - "详细技术设计"
+        - "API接口设计"
+        - "技术规格制定"
+        - "开发支持"
+        - "技术验证"
+      required_skills:
+        - "技术设计"
+        - "API设计"
+        - "接口规范"
+        - "性能优化"
+        - "安全实现"
+      quality_standards:
+        - "设计完整性"
+        - "技术准确性"
+        - "可实现性"
+        - "性能考虑"
+        - "安全合规"
+    
+    - role_id: "database_architect"
+      name: "数据库架构师"
+      description: "负责数据库设计和数据管理"
+      responsibilities:
+        - "数据库设计"
+        - "数据建模"
+        - "性能优化"
+        - "数据安全"
+        - "数据迁移策略"
+      required_skills:
+        - "数据库设计"
+        - "数据建模"
+        - "性能调优"
+        - "数据安全"
+        - "备份策略"
+      quality_standards:
+        - "数据完整性"
+        - "查询性能"
+        - "可扩展性"
+        - "数据安全"
+        - "备份可靠性"
+    
+    - role_id: "security_architect"
+      name: "安全架构师"
+      description: "负责系统安全架构和合规"
+      responsibilities:
+        - "安全架构设计"
+        - "威胁建模"
+        - "合规检查"
+        - "安全评估"
+        - "安全策略制定"
+      required_skills:
+        - "安全架构"
+        - "威胁建模"
+        - "合规标准"
+        - "安全评估"
+        - "加密技术"
+      quality_standards:
+        - "安全完整性"
+        - "威胁覆盖"
+        - "合规符合"
+        - "风险评估"
+        - "安全最佳实践"
+  
+  # 团队协作配置
+  collaboration:
+    # 协作模式
+    collaboration_model: "hierarchical_with_peer_review"
+    decision_making: "lead_architect_final"
+    communication_style: "technical_focused"
+    
+    # 协作工具
+    tools:
+      - tool: "architecture_modeling"
+        purpose: "架构建模"
+        usage: "system_design"
+      - tool: "version_control"
+        purpose: "版本控制"
+        usage: "code_management"
+      - tool: "document_collaboration"
+        purpose: "文档协作"
+        usage: "specification_management"
+      - tool: "communication"
+        purpose: "团队沟通"
+        usage: "daily_coordination"
+    
+    # 协作流程
+    workflows:
+      - workflow: "architecture_design"
+        participants: ["all_members"]
+        frequency: "continuous"
+        steps: ["requirements_analysis", "conceptual_design", "detailed_design", "review", "approval"]
+      
+      - workflow: "technical_review"
+        participants: ["technical_architect", "system_architect"]
+        frequency: "per_design"
+        steps: ["design_review", "technical_validation", "feedback_incorporation"]
+      
+      - workflow: "security_review"
+        participants: ["security_architect", "system_architect"]
+        frequency: "per_milestone"
+        steps: ["security_assessment", "threat_analysis", "compliance_check", "recommendations"]
+  
+  # 团队质量保证
+  quality_assurance:
+    # 质量标准
+    quality_standards:
+      architecture_quality:
+        completeness: 0.95
+        feasibility: 0.85
+        scalability: 0.8
+        maintainability: 0.85
+        security: 0.9
+        measurement: "architecture_assessment"
+      
+      design_quality:
+        clarity: 0.9
+        accuracy: 0.95
+        consistency: 0.9
+        innovation: 0.7
+        practicality: 0.9
+        measurement: "design_assessment"
+      
+      documentation_quality:
+        completeness: 0.9
+        accuracy: 0.95
+        clarity: 0.9
+        maintainability: 0.85
+        measurement: "documentation_assessment"
+    
+    # 质量检查流程
+    quality_checks:
+      - check: "peer_review"
+        frequency: "per_design"
+        reviewers: ["senior_architect", "technical_expert"]
+        checklist: ["architecture_principles", "design_patterns", "best_practices"]
+      
+      - check: "technical_validation"
+        frequency: "per_design"
+        validators: ["implementation_team", "domain_expert"]
+        checklist: ["feasibility", "performance", "security", "integration_complexity"]
+      
+      - check: "security_review"
+        frequency: "per_milestone"
+        reviewers: ["security_team", "compliance_officer"]
+        checklist: ["security_principles", "threat_modeling", "compliance_standards", "vulnerability_assessment"]
+      
+      - check: "stakeholder_approval"
+        frequency: "per_milestone"
+        approvers: ["technical_lead", "product_owner", "business_stakeholder"]
+        checklist: ["requirement_alignment", "technical_feasibility", "resource_allocation"]
+    
+    # 质量门禁
+    quality_gates:
+      - gate: "architecture_review"
+        threshold: 0.85
+        weight: 0.3
+        description: "架构评审门禁"
+        criteria: ["completeness", "feasibility", "scalability", "maintainability"]
+      
+      - gate: "technical_validation"
+        threshold: 0.8
+        weight: 0.25
+        description: "技术验证门禁"
+        criteria: ["technical_feasibility", "performance_considerations", "integration_complexity"]
+      
+      - gate: "security_compliance"
+        threshold: 0.9
+        weight: 0.25
+        description: "安全合规门禁"
+        criteria: ["security_principles", "threat_modeling", "compliance_standards", "vulnerability_assessment"]
+      
+      - gate: "stakeholder_approval"
+        threshold: 0.8
+        weight: 0.2
+        description: "利益相关者批准门禁"
+        criteria: ["stakeholder_agreement", "requirement_alignment", "resource_allocation"]
+  
+  # 团队绩效管理
+  performance_management:
+    # 绩效指标
+    performance_metrics:
+      - metric: "architecture_quality_score"
+        target: ">= 85"
+        measurement: "quality_assessment"
+        description: "架构质量评分"
+      
+      - metric: "design_cycle_time"
+        target: "< 2 weeks"
+        measurement: "time_tracking"
+        description: "设计周期时间"
+      
+      - metric: "technical_accuracy"
+        target: ">= 90%"
+        measurement: "accuracy_validation"
+        description: "技术准确性"
+      
+      - metric: "innovation_score"
+        target: ">= 70%"
+        measurement: "innovation_assessment"
+        description: "创新评分"
+    
+    # 绩效评估
+    performance_review:
+      frequency: "monthly"
+      participants: ["team_members", "team_lead"]
+      review_criteria:
+        - "architecture_quality"
+        - "technical_excellence"
+        - "collaboration_effectiveness"
+        - "innovation_contribution"
+        - "knowledge_sharing"
+    
+    # 反馈机制
+    feedback_mechanism:
+      - type: "360_degree_feedback"
+        frequency: "quarterly"
+        participants: ["peers", "team_lead", "stakeholders"]
+      
+      - type: "continuous_feedback"
+        frequency: "continuous"
+        channels: ["peer_review", "suggestions", "improvement_ideas"]
+  
+  # 团队学习和发展
+  learning_development:
+    # 技能发展
+    skill_development:
+      - skill: "architecture_patterns"
+        current_level: "advanced"
+        target_level: "expert"
+        development_plan: ["study", "practice", "mentoring", "certification"]
+      
+      - skill: "emerging_technologies"
+        current_level: "intermediate"
+        target_level: "advanced"
+        development_plan: ["research", "training", "experimentation", "proof_of_concept"]
+      
+      - skill: "security_best_practices"
+        current_level: "advanced"
+        target_level: "expert"
+        development_plan: ["certification", "training", "conferences", "community_participation"]
+      
+      - skill: "leadership"
+        current_level: "intermediate"
+        target_level: "advanced"
+        development_plan: ["mentoring", "leadership_training", "project_leadership", "strategic_thinking"]
+    
+    # 知识管理
+    knowledge_management:
+      - type: "knowledge_base"
+        content: ["architecture_patterns", "design_decisions", "best_practices", "lessons_learned"]
+        update_frequency: "weekly"
+      
+      - type: "documentation"
+        content: ["architecture_documents", "design_guidelines", "standards", "templates"]
+        version_control: "git"
+      
+      - type: "community_participation"
+        content: ["conferences", "workshops", "open_source", "blog_writing"]
+        frequency: "monthly"
+    
+    # 导师制度
+    mentorship:
+      - type: "internal_mentoring"
+        mentors: ["senior_architect"]
+        mentees: ["junior_architects"]
+        focus_areas: ["architecture_design", "technical_skills", "career_development"]
+      
+      - type: "external_mentoring"
+        mentors: ["industry_experts"]
+        mentees: ["team_members"]
+        focus_areas: ["emerging_technologies", "industry_trends", "best_practices"]
+
+---
+# 配置验证规则
+validation_rules:
+  - rule: "required_fields"
+    fields: ["team.id", "team.name", "team.objectives"]
+    error_message: "缺少必需的配置字段"
+  
+  - rule: "members_completeness"
+    check: "members.*role"
+    error_message: "团队成员必须定义角色"
+  
+  - rule: "roles_defined"
+    check: "roles.*responsibilities"
+    error_message: "团队角色必须定义职责"
+  
+  - rule: "quality_assurance_defined"
+    check: "quality_assurance.*quality_standards"
+    error_message: "质量保证必须定义质量标准"
+
+---
+# 配置元数据
+metadata:
+  name: "Architecture Team配置"
+  description: "架构团队的完整配置"
+  version: "1.0.0"
+  author: "system"
+  created: "2026-03-12"
+  updated: "2026-03-12"
+  
+  # 配置类别
+  categories:
+    - "team"
+    - "collaboration"
+    - "quality_assurance"
+    - "performance_management"
+    - "learning_development"
+  
+  # 依赖关系
+  dependencies:
+    - "architecture-phase.yaml"
+    - "system-architecture-task.yaml"
+    - "technical-design-task.yaml"
+    - "database-design-task.yaml"
+    - "security-design-task.yaml"
+  
+  # 兼容性
+  compatibility:
+    min_version: "1.0.0"
+    max_version: "2.0.0"

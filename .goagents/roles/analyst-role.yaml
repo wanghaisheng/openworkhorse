@@ -1,0 +1,138 @@
+# Analyst Role Definition
+role:
+  id: "analyst"
+  name: "业务分析师角色"
+  description: "负责业务分析、需求挖掘、市场调研的角色"
+  category: "team_role"
+  version: "1.0.0"
+  
+# 角色职责
+responsibilities:
+  primary:
+    - "业务需求分析"
+    - "市场调研"
+    - "用户研究"
+    - "竞品分析"
+    - "业务流程优化"
+    - "数据驱动决策"
+    
+  secondary:
+    - "需求文档编写"
+    - "业务建模"
+    - "利益相关者沟通"
+    - "业务价值评估"
+    
+# 角色能力要求
+capabilities:
+  required:
+    - "业务分析能力"
+    - "市场研究能力"
+    - "用户研究能力"
+    - "数据分析能力"
+    - "沟通协调能力"
+    
+  preferred:
+    - "行业知识"
+    - "技术理解"
+    - "项目管理"
+    - "演示技能"
+    
+# 角色工具要求
+tool_requirements:
+  primary:
+    - "business_analysis_tools"
+    - "market_research_platforms"
+    - "user_research_tools"
+    - "data_visualization_tools"
+    
+  secondary:
+    - "presentation_tools"
+    - "documentation_tools"
+    - "collaboration_platforms"
+    
+# 角色质量标准
+quality_standards:
+  analysis_quality:
+    completeness: "high"
+    accuracy: "high"
+    insight_depth: "medium"
+    business_value: "high"
+    
+  communication_quality:
+    clarity: "high"
+    professionalism: "high"
+    stakeholder_satisfaction: "high"
+    
+  deliverable_quality:
+    documentation: "high"
+    presentation: "high"
+    timeliness: "medium"
+
+# 角色协作模式
+collaboration_patterns:
+  with_architect:
+    type: "collaborative"
+    interaction: "requirements_to_design"
+    frequency: "daily"
+    
+  with_developer:
+    type: "advisory"
+    interaction: "requirements_to_implementation"
+    frequency: "as_needed"
+    
+  with_qa:
+    type: "supportive"
+    interaction: "requirements_to_testing"
+    frequency: "milestone"
+    
+  with_product_owner:
+    type: "strategic"
+    interaction: "business_alignment"
+    frequency: "weekly"
+
+# 角色绩效指标
+performance_metrics:
+  analysis_accuracy: ">= 90%"
+  stakeholder_satisfaction: ">= 90%"
+  deliverable_timeliness: ">= 85%"
+  communication_effectiveness: ">= 85%"
+
+# 角色发展路径
+development_path:
+  junior_to_mid:
+    requirements:
+      - "完成3个完整项目分析"
+      - " stakeholder_satisfaction >= 85%"
+      - "分析质量 >= 85%"
+    training:
+      - "高级分析方法"
+      - "行业知识培训"
+      - "沟通技巧提升"
+      
+  mid_to_senior:
+    requirements:
+      - "完成5个复杂项目分析"
+      - " stakeholder_satisfaction >= 90%"
+      - "分析质量 >= 90%"
+    training:
+      - "战略分析能力"
+      - "团队领导能力"
+      - "业务咨询能力"
+
+# 角色适用场景
+applicable_scenarios:
+  project_types:
+    - "discovery"
+    - "planning"
+    - "requirements_analysis"
+    - "market_research"
+    
+  team_sizes:
+    - "small_team": "1-2 analysts"
+    - "medium_team": "3-5 analysts"
+    - "large_team": "5+ analysts"
+    
+  project_complexity:
+    - "simple": "junior_analyst"
+    - "medium": "mid_analyst"
+    - "complex": "senior_analyst"

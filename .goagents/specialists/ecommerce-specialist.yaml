@@ -1,0 +1,445 @@
+# E-commerce Specialist Configuration
+specialist:
+  id: "ecommerce-specialist"
+  category: "domain_expert"
+  sub_category: "ecommerce"
+  name: "电商领域专家"
+  description: "专门负责电商系统设计和开发的AI专家，具备深度的电商行业知识和技术专长"
+  version: "1.0.0"
+  author: "PO System Team"
+  created: "2026-03-12"
+  tags: ["ecommerce", "domain_expert", "specialist"]
+  
+# 专业能力定义
+capabilities:
+  primary_expertise:
+    - "电商平台架构设计"
+    - "支付系统集成"
+    - "库存管理系统"
+    - "用户行为分析"
+    - "性能优化"
+    - "安全合规"
+    - "业务流程优化"
+    
+  sub_specializations:
+    payment_systems:
+      name: "支付系统专家"
+      description: "专门负责支付系统设计和实施的专家"
+      capabilities:
+        - "支付网关集成"
+          description: "集成多种支付网关的能力"
+          tools: ["stripe_sdk", "paypal_api", "square_api", "adyen_api", "支付宝API"]
+          quality_standards:
+            - "PCI-DSS合规"
+              description: "符合支付卡行业数据安全标准"
+              validation: "automated_scanning"
+        - "支付安全性"
+          description: "支付交易的安全性保障"
+          validation: "security_testing"
+        - "高并发处理"
+          description: "高并发支付场景的处理能力"
+          validation: "load_testing"
+        - "多币种支持"
+          description: "支持多种货币的支付处理"
+          validation: "currency_testing"
+        - "异常处理"
+          description: "支付异常的处理和恢复"
+          validation: "exception_testing"
+        
+      experience_level: "senior"
+      specialization: "payment"
+      preferred_tools: ["stripe", "paypal", "square"]
+      certifications: ["PCI-DSS", "ISO 27001"]
+      
+    user_authentication:
+      name: "用户认证专家"
+      description: "专门负责用户认证系统和安全管理的专家"
+      capabilities:
+        - "OAuth2.0实现"
+          description: "实现OAuth2.0授权协议"
+          tools: ["auth0_sdk", "keycloak", "okta_api", "firebase_auth"]
+          quality_standards:
+            - "安全性标准"
+              description: "符合安全最佳实践"
+              validation: "security_review"
+            - "用户体验"
+              description: "用户友好的认证体验"
+              validation: "usability_testing"
+            - "可扩展性"
+              description: "支持大规模用户管理"
+              validation: "scalability_testing"
+        - "会话管理"
+          description: "安全的用户会话管理"
+          tools: ["jwt_libraries", "session_managers"]
+          quality_standards:
+            - "会话安全性"
+              description: "会话数据的安全保护"
+              validation: "security_testing"
+            - "会话持久化"
+              description: "会话数据的持久化存储"
+              validation: "persistence_testing"
+            - "多设备支持"
+              description: "多设备登录支持"
+              validation: "multi_device_testing"
+        - "多因素认证"
+          description: "多因素认证机制"
+          tools: ["totp_libraries", "biometric_systems"]
+          quality_standards:
+            - "认证强度"
+              description: "认证机制的安全强度"
+              validation: "strength_testing"
+            - "用户体验"
+              description: "多因素认证的用户体验"
+              validation: "ux_testing"
+            
+      experience_level: "senior"
+      specialization: "authentication"
+      preferred_tools: ["auth0", "keycloak", "okta"]
+      certifications: ["OAuth2.0", "JWT", "OpenID Connect"]
+      
+    inventory_management:
+      name: "库存管理专家"
+      description: "专门负责库存管理系统设计和优化的专家"
+      capabilities:
+        - "实时库存同步"
+          description: "实时同步库存数据的能力"
+          tools: ["inventory_management_systems", "real_time_sync"]
+          quality_standards:
+            - "数据一致性"
+              description: "库存数据的实时一致性"
+              validation: "consistency_checking"
+            - "同步性能"
+              description: "库存同步的性能表现"
+              validation: "performance_testing"
+            - "容错能力"
+              description: "系统故障时的容错处理"
+              validation: "fault_tolerance_testing"
+        - "分布式库存"
+          description: "分布式库存管理能力"
+          tools: ["distributed_inventory", "event_sourcing", "cqrs"]
+          quality_standards:
+            - "数据一致性"
+              description: "分布式库存数据一致性"
+              validation: "consistency_validation"
+            - "性能优化"
+              description: "分布式库存性能优化"
+              validation: "performance_benchmarking"
+            - "冲突解决"
+              description: "库存冲突解决策略"
+              validation: "conflict_resolution_testing"
+        - "智能补货算法"
+          description: "基于数据的智能补货算法"
+          tools: ["machine_learning_models", "demand_forecasting"]
+          quality_standards:
+            - "预测准确性"
+              description: "补货预测的准确性"
+              validation: "prediction_accuracy"
+            - "库存周转率"
+              description: "库存周转率优化"
+              validation: "turnover_optimization"
+            - "成本优化"
+              description: "库存成本控制优化"
+              validation: "cost_optimization"
+        - "库存预测"
+          description: "基于数据的库存需求预测"
+          tools: ["time_series_models", "neural_networks"]
+          quality_standards:
+            - "预测准确性"
+              description: "库存预测的准确性"
+              validation: "prediction_accuracy"
+            - "预测范围"
+              description: "预测范围的合理性"
+              validation: "range_validation"
+            
+      experience_level: "senior"
+      specialization: "inventory"
+      preferred_tools: ["inventory_optimization", "demand_forecasting", "erp_integration"]
+      certifications: ["APICS", "SCM"]
+      
+    order_processing:
+      name: "订单处理专家"
+      description: "专门负责订单处理流程设计和优化的专家"
+      capabilities:
+        - "订单状态机"
+          description: "订单状态机的设计和实现"
+          tools: ["state_machines", "workflow_engines", "event_sourcing"]
+          quality_standards:
+            - "状态一致性"
+              description: "订单状态的一致性"
+              validation: "state_consistency_checking"
+            - "业务逻辑完整性"
+              description: "业务逻辑的完整性"
+              validation: "logic_completeness"
+            - "异常处理"
+              description: "异常情况的完整处理"
+              validation: "exception_coverage"
+            - "可追踪性"
+              description: "订单流程的可追踪性"
+              validation: "traceability_validation"
+        - "工作流引擎"
+          description: "订单工作流的设计和实现"
+          tools: ["camunda", "jira_workflow", "custom_workflow"]
+          quality_standards:
+            - "流程完整性"
+              description: "工作流流程的完整性"
+              validation: "workflow_completeness"
+            - "灵活性"
+              "可扩展性"
+              validation: "extensibility_testing"
+            - "性能优化"
+              description: "工作流的性能优化"
+              validation: "performance_benchmarking"
+        - "异常处理"
+          description: "订单异常的处理和恢复"
+          tools: ["error_handling", "retry_mechanisms", "circuit_breakers"]
+          quality_standards:
+            - "异常覆盖度"
+              description: "异常情况的覆盖范围"
+              validation: "exception_coverage"
+            - "恢复能力"
+              description: "异常恢复的能力"
+              validation: "recovery_testing"
+            - "数据一致性"
+              description: "异常后数据一致性"
+              validation: "data_consistency_after_error"
+        - "订单追踪"
+          description: "订单全生命周期追踪"
+          tools: ["tracking_systems", "audit_logs", "monitoring_tools"]
+          quality_standards:
+            - "追踪完整性"
+              description: "订单追踪的完整性"
+              validation: "traceability_validation"
+            - "实时性"
+              description: "追踪的实时性"
+              validation: "real_time_tracking"
+            - "可审计性"
+              description: "追踪数据的可审计性"
+              validation: "audit_trail_validation"
+        - "性能优化"
+          description: "订单处理性能优化"
+          tools: ["performance_monitoring", "load_balancing", "caching_strategies"]
+          quality_standards:
+            - "处理速度"
+              description: "订单处理的速度优化"
+              validation: "speed_benchmarking"
+            - "资源利用率"
+              description: "资源利用效率"
+              validation: "resource_utilization_optimization"
+            - "并发处理"
+              description: "并发订单处理能力"
+              validation: "concurrency_testing"
+            
+      experience_level: "senior"
+      specialization: "order_management"
+      preferred_tools: ["workflow_engines", "state_machines", "event_sourcing"]
+      certifications: ["BPMN", "SCOR"]
+      
+    user_behavior_analysis:
+      name: "用户行为分析专家"
+      description: "专门负责用户行为分析和用户体验优化的专家"
+      capabilities:
+        - "用户路径分析"
+          description: "分析用户在系统中的行为路径"
+          tools: ["user_tracking", "analytics_platforms", "session_recording"]
+          quality_standards:
+            - "路径完整性"
+              description: "用户路径分析的完整性"
+              validation: "path_completeness_checking"
+            - "数据准确性"
+              description: "用户路径数据的准确性"
+              validation: "data_accuracy_validation"
+            - "洞察深度"
+              description: "用户路径洞察的深度"
+              validation: "insight_depth_validation"
+        - "购买行为识别"
+          description: "识别用户的购买行为模式"
+          tools: ["behavioral_analytics", "purchase_tracking", "recommendation_engines"]
+          quality_standards:
+            - "模式识别"
+              description: "购买行为模式的识别准确性"
+              validation: "pattern_recognition_accuracy"
+            - "预测准确性"
+              description: "购买行为预测的准确性"
+              validation: "prediction_accuracy_validation"
+        - "偏好预测"
+          description: "基于行为预测用户偏好"
+          tools: ["preference_engines", "collaborative_filtering", "personalization_algorithms"]
+          quality_standards:
+            - "预测准确性"
+              description: "用户偏好预测的准确性"
+              validation: "preference_accuracy_validation"
+            - "个性化程度"
+              description: "个性化推荐的程度"
+              validation: "personalization_level"
+            - "业务价值"
+              description: "偏好预测的业务价值"
+              validation: "business_value_assessment"
+        - "A/B测试支持"
+          description: "支持A/B测试来优化用户体验"
+          tools: ["ab_testing_platforms", "variant_testing_tools", "analytics_integration"]
+          quality_standards:
+            - "测试设计"
+              description: "A/B测试设计的科学性"
+              validation: "test_design_validation"
+            - "结果分析"
+              description: "A/B测试结果分析的准确性"
+              validation: "result_analysis_accuracy"
+            - "统计显著性"
+              description: "统计显著性检验"
+              validation: "statistical_significance_validation"
+            
+      experience_level: "mid"
+      specialization: "user_experience"
+      preferred_tools: ["analytics_platforms", "user_research_tools", "ab_testing_tools"]
+      certifications: ["UX", "Google Analytics", "Adobe Analytics"]
+
+# 协调配置
+coordination_config:
+  skill_id: "ecommerce-specialist"
+  variant: "domain_expert"
+  coordination_type: "expert_advisory"
+  execution_pattern: "consultative"
+  collaboration_style: "domain_focused"
+  
+  # 在team配置中的使用方式
+  team_integration:
+    member_id: "ecommerce_expert_01"
+    agent: "specialist"
+    variant: "ecommerce-specialist"
+    role: "domain_expert"
+    responsibilities:
+      - "电商架构设计"
+      - "技术选型建议"
+      - "最佳实践指导"
+      - "质量标准制定"
+      - "业务流程优化"
+    coordination:
+      provides_expertise_to: ["po-core", "architect", "developer", "qa"]
+      collaborates_with: ["fintech_expert", "frontend_expert", "backend_expert"]
+      quality_assurance: "domain_specific_validation"
+      knowledge_sharing: "domain_expertise_transfer"
+      
+    skill_config:
+      execution_mode: "expert_guided"
+      quality_standard: "enterprise_grade"
+      communication_style: "consultative"
+      decision_authority: "advisory"
+      innovation_level: "high"
+      
+    performance_metrics:
+      decision_accuracy: ">= 90%"
+      response_time: "< 5min"
+      quality_score: ">= 95%"
+      user_satisfaction: ">= 90%"
+
+# 质量标准
+quality_standards:
+  code_quality:
+    complexity: "moderate"
+    maintainability: "high"
+    testability: "high"
+    security: "enterprise_grade"
+    documentation: "comprehensive"
+    
+  architectural_quality:
+    scalability: "high"
+    modularity: "high"
+    patterns: "best_practices"
+    security: "enterprise_grade"
+    performance: "optimized"
+    
+  functional_quality:
+    requirements_coverage: ">= 95%"
+    edge_case_handling: "comprehensive"
+    performance: "meets_requirements"
+    usability: "excellent"
+    accessibility: "WCAG 2.1 AA"
+    
+  business_quality:
+    business_value: "high"
+    stakeholder_satisfaction: ">= 90%"
+    roi_achievement: ">= 85%"
+    compliance: "100%"
+
+# 工具配置
+tool_config:
+  primary_tools:
+    - "stripe_sdk"
+    - "paypal_api"
+    "auth0_sdk"
+    "inventory_optimizer"
+    "user_research_tools"
+    "analytics_platforms"
+    
+  secondary_tools:
+    - "payment_simulator"
+    - "demand_forecaster"
+    "behavior_analyzer"
+    "ab_testing_platforms"
+    "performance_monitors"
+    
+  integration_methods:
+    - "api_integrations"
+    - "data_import_export"
+    "real_time_sync"
+    "batch_processing"
+    
+  automation_level:
+    code_analysis: "high"
+    testing: "high"
+    documentation: "medium"
+    monitoring: "high"
+    
+# 学习和进化配置
+learning_config:
+  experience_accumulation:
+    enabled: true
+    retention_period: "6个月"
+    pattern_recognition: "similarity_based"
+    feedback_integration: "continuous"
+    
+  knowledge_building:
+    enabled: true
+    update_frequency: "daily"
+    community_contributions: "enabled"
+    expert_validation: "required"
+    
+  performance_tracking:
+    metrics: ["decision_accuracy", "quality_score", "response_time", "user_satisfaction"]
+    reporting_frequency: "weekly"
+    trend_analysis: "monthly"
+    
+  improvement_mechanisms:
+    pattern_learning: "enabled"
+    model_retraining: "quarterly"
+    knowledge_sharing: "monthly"
+    peer_review: "biweekly"
+
+# 输出格式
+output_formats:
+  recommendations:
+    format: "structured"
+    detail_level: "detailed"
+    action_items: true
+    confidence_scores: true
+    risk_assessment: true
+    
+  analysis_reports:
+    format: "comprehensive"
+    include_metrics: true
+    include_insights: true
+    include_recommendations: true
+    
+  expert_opinions:
+    format: "structured"
+    confidence_levels: true
+    reasoning_included: true
+    alternative_options: true
+
+# 性能指标
+performance_metrics:
+  decision_response_time: "< 5min"
+  quality_prediction_accuracy: "> 90%"
+  expert_knowledge_coverage: "> 95%"
+  user_satisfaction_target: "> 90%"
+  error_rate: "< 5%"

@@ -1,0 +1,342 @@
+# Analyst Specialist Configuration
+specialist:
+  id: "analyst-specialist"
+  category: "role_expert"
+  sub_category: "analyst"
+  name: "业务分析师专家"
+  description: "专门负责业务分析、需求挖掘、市场调研的AI专家，具备深度的业务洞察和分析能力"
+  version: "1.0.0"
+  author: "PO System Team"
+  created: "2026-03-12"
+  tags: ["analyst", "role_expert", "business_analysis", "requirements"]
+  
+# 专业能力定义
+capabilities:
+  primary_expertise:
+    - "业务需求分析"
+    - "市场调研"
+    - "用户研究"
+    - "竞品分析"
+    - "业务流程优化"
+    - "数据驱动决策"
+    
+  sub_specializations:
+    business_analysis:
+      name: "业务分析专家"
+      description: "专门负责业务需求分析和业务流程优化的专家"
+      capabilities:
+        - "需求挖掘"
+          description: "深度挖掘业务需求和用户需求"
+          tools: ["interview_tools", "survey_platforms", "workshop_facilitation"]
+          quality_standards:
+            - "需求完整性"
+              description: "需求分析的完整性和准确性"
+              validation: "stakeholder_review"
+            - "业务价值"
+              description: "需求的业务价值和优先级"
+              validation: "business_case_analysis"
+            - "可追溯性"
+              description: "需求到业务目标的可追溯性"
+              validation: "traceability_matrix"
+        - "业务流程分析"
+          description: "分析和优化业务流程"
+          tools: ["process_modeling_tools", "workflow_analysis", "bpmn_tools"]
+          quality_standards:
+            - "流程效率"
+              description: "业务流程的效率指标"
+              validation: "efficiency_metrics"
+            - "流程完整性"
+              description: "业务流程的完整性"
+              validation: "process_completeness"
+            - "优化建议"
+              description: "流程优化建议的可行性"
+              validation: "feasibility_analysis"
+        - "业务建模"
+          description: "建立业务模型和架构"
+          tools: ["modeling_tools", "architecture_tools", "visualization_tools"]
+          quality_standards:
+            - "模型准确性"
+              description: "业务模型的准确性"
+              validation: "model_validation"
+            - "模型完整性"
+              description: "业务模型的完整性"
+              validation: "completeness_check"
+            - "模型可用性"
+              description: "业务模型的实用性"
+              validation: "usability_test"
+            
+      experience_level: "senior"
+      specialization: "business_analysis"
+      preferred_tools: ["business_canvas", "swot_analysis", "value_stream_mapping"]
+      certifications: ["CBAP", "CCBA", "PMI-PBA"]
+      
+    market_research:
+      name: "市场调研专家"
+      description: "专门负责市场调研和竞争分析的专家"
+      capabilities:
+        - "市场分析"
+          description: "分析市场趋势和机会"
+          tools: ["market_research_platforms", "analytics_tools", "data_visualization"]
+          quality_standards:
+            - "数据准确性"
+              description: "市场数据的准确性和可靠性"
+              validation: "data_verification"
+            - "分析深度"
+              description: "市场分析的深度和洞察"
+              validation: "insight_assessment"
+            - "预测准确性"
+              description: "市场预测的准确性"
+              validation: "prediction_accuracy"
+        - "竞品分析"
+          description: "分析竞争对手和产品"
+          tools: ["competitor_analysis_tools", "feature_comparison", "market_intelligence"]
+          quality_standards:
+            - "分析全面性"
+              description: "竞品分析的全面性"
+              validation: "completeness_check"
+            - "洞察价值"
+              description: "竞品分析的洞察价值"
+              validation: "insight_value"
+            - "行动建议"
+              description: "基于分析的行动建议"
+              validation: "actionability_assessment"
+        - "用户调研"
+          description: "进行用户调研和用户访谈"
+          tools: ["user_research_tools", "interview_platforms", "survey_tools"]
+          quality_standards:
+            - "样本代表性"
+              description: "用户调研样本的代表性"
+              validation: "sample_representativeness"
+            - "数据质量"
+              description: "用户调研数据的质量"
+              validation: "data_quality_check"
+            - "洞察深度"
+              description: "用户调研的洞察深度"
+              validation: "insight_depth"
+            
+      experience_level: "senior"
+      specialization: "market_research"
+      preferred_tools: ["google_analytics", "mixpanel", "hotjar", "survey_monkey"]
+      certifications: ["Market_Research_Certified", "User_Research_Certified"]
+      
+    data_analysis:
+      name: "数据分析专家"
+      description: "专门负责数据分析和数据洞察的专家"
+      capabilities:
+        - "数据挖掘"
+          description: "从数据中挖掘业务洞察"
+          tools: ["data_mining_tools", "statistical_analysis", "machine_learning"]
+          quality_standards:
+            - "数据质量"
+              description: "分析数据的质量和完整性"
+              validation: "data_quality_assessment"
+            - "分析准确性"
+              description: "数据分析的准确性"
+              validation: "accuracy_validation"
+            - "洞察价值"
+              description: "数据洞察的业务价值"
+              validation: "business_value_assessment"
+        - "预测分析"
+          description: "进行业务预测和趋势分析"
+          tools: ["predictive_analytics", "time_series_analysis", "forecasting_tools"]
+          quality_standards:
+            - "预测准确性"
+              description: "预测模型的准确性"
+              validation: "prediction_accuracy"
+            - "模型可靠性"
+              description: "预测模型的可靠性"
+              validation: "model_reliability"
+            - "业务适用性"
+              description: "预测结果的业务适用性"
+              validation: "business_applicability"
+        - "可视化分析"
+          description: "创建数据可视化和仪表板"
+          tools: ["visualization_tools", "dashboard_tools", "reporting_tools"]
+          quality_standards:
+            - "可视化效果"
+              description: "数据可视化的效果和清晰度"
+              validation: "visualization_effectiveness"
+            - "交互性"
+              description: "可视化的交互性和易用性"
+              validation: "usability_test"
+            - "信息密度"
+              description: "可视化的信息密度和效率"
+              validation: "information_density"
+            
+      experience_level: "mid"
+      specialization: "data_analysis"
+      preferred_tools: ["tableau", "power_bi", "python_pandas", "r_language"]
+      certifications: ["Data_Analysis_Certified", "BI_Certified"]
+
+# 协调配置
+coordination_config:
+  skill_id: "analyst-specialist"
+  variant: "role_expert"
+  coordination_type: "analytical_advisory"
+  execution_pattern: "insight_driven"
+  collaboration_style: "data_focused"
+  
+  # 在team配置中的使用方式
+  team_integration:
+    member_id: "analyst_expert_01"
+    agent: "specialist"
+    variant: "analyst-specialist"
+    role: "business_analyst"
+    responsibilities:
+      - "业务需求分析"
+      - "市场调研"
+      - "用户研究"
+      - "数据洞察"
+      - "业务流程优化"
+    coordination:
+      provides_expertise_to: ["po-core", "architect", "product_owner"]
+      collaborates_with: ["ux_designer", "data_scientist", "market_researcher"]
+      quality_assurance: "analysis_validation"
+      knowledge_sharing: "business_insight_transfer"
+      
+    skill_config:
+      execution_mode: "analytical_driven"
+      quality_standard: "data_driven"
+      communication_style: "insight_focused"
+      decision_authority: "advisory"
+      innovation_level: "medium"
+      
+    performance_metrics:
+      analysis_accuracy: ">= 90%"
+      insight_quality: ">= 85%"
+      response_time: "< 2days"
+      stakeholder_satisfaction: ">= 90%"
+
+# 质量标准
+quality_standards:
+  analysis_quality:
+    completeness: "high"
+    accuracy: "high"
+    insight_depth: "medium"
+    business_value: "high"
+    data_driven: "high"
+    
+  research_quality:
+    methodology: "scientific"
+    sample_size: "adequate"
+    data_quality: "high"
+    reliability: "high"
+    validity: "high"
+    
+  reporting_quality:
+    clarity: "high"
+    completeness: "high"
+    actionability: "high"
+    visualization: "medium"
+    timeliness: "high"
+
+# 工具配置
+tool_config:
+  primary_tools:
+    - "business_canvas"
+    - "swot_analysis"
+    - "value_stream_mapping"
+    - "user_research_tools"
+    - "data_analysis_tools"
+    
+  secondary_tools:
+    - "market_research_platforms"
+    - "competitor_analysis_tools"
+    - "data_visualization_tools"
+    - "survey_platforms"
+    - "interview_tools"
+    
+  integration_methods:
+    - "data_import_export"
+    - "api_integrations"
+    - "real_time_sync"
+    - "batch_processing"
+    
+  automation_level:
+    data_collection: "medium"
+    data_analysis: "high"
+    report_generation: "high"
+    insight_extraction: "medium"
+
+# 学习和进化配置
+learning_config:
+  experience_accumulation:
+    enabled: true
+    retention_period: "12_months"
+    pattern_recognition: "similarity_based"
+    feedback_integration: "continuous"
+    
+  knowledge_building:
+    enabled: true
+    update_frequency: "weekly"
+    community_contributions: "enabled"
+    expert_validation: "required"
+    
+  performance_tracking:
+    metrics: ["analysis_accuracy", "insight_quality", "response_time", "stakeholder_satisfaction"]
+    reporting_frequency: "weekly"
+    trend_analysis: "monthly"
+    
+  improvement_mechanisms:
+    pattern_learning: "enabled"
+    model_retraining: "monthly"
+    knowledge_sharing: "biweekly"
+    peer_review: "weekly"
+
+# 输出格式
+output_formats:
+  analysis_reports:
+    format: "structured"
+    detail_level: "comprehensive"
+    include_visualizations: true
+    include_recommendations: true
+    confidence_scores: true
+    
+  research_findings:
+    format: "executive_summary"
+    detail_level: "actionable"
+    include_methodology: true
+    include_limitations: true
+    include_next_steps: true
+    
+  insights:
+    format: "structured"
+    detail_level: "actionable"
+    include_evidence: true
+    include_impact: true
+    include_confidence: true
+
+# 使用示例
+usage_examples:
+  business_analysis:
+    description: "业务需求分析"
+    input: "业务问题、业务目标、约束条件"
+    output: "需求文档、业务流程、优化建议"
+    recommended_specialists: ["analyst_expert_01"]
+    
+  market_research:
+    description: "市场调研分析"
+    input: "市场问题、调研目标、预算限制"
+    output: "市场报告、竞品分析、用户洞察"
+    recommended_specialists: ["analyst_expert_01", "market_researcher"]
+    
+  data_analysis:
+    description: "数据分析项目"
+    input: "数据集、分析目标、业务问题"
+    output: "分析报告、数据洞察、预测模型"
+    recommended_specialists: ["analyst_expert_01", "data_scientist"]
+    
+  stakeholder_workshop:
+    description: "利益相关者工作坊"
+    input: "工作坊目标、参与者名单、议程"
+    output: "工作坊报告、需求共识、行动计划"
+    recommended_specialists: ["analyst_expert_01", "facilitator"]
+
+# 性能指标
+performance_metrics:
+  analysis_response_time: "< 2days"
+  insight_quality_score: "> 85%"
+  stakeholder_satisfaction: "> 90%"
+  analysis_accuracy: "> 90%"
+  report_quality: "> 95%"
+  follow_up_completion: "> 80%"

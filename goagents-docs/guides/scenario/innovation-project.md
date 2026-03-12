@@ -2,32 +2,36 @@
 
 ## 🎯 概述
 
-创新项目具有探索性强、不确定性高、需求不明确等特点。Go Agents 的 Free 模式为创新项目提供灵活的探索机制，让 Phase Lead 能够主导动态规划和任务分解。
+创新项目具有探索性强、不确定性高、需求不明确等特点。Go Agents v2.0 的 Free 模式为创新项目提供灵活的探索机制，让 Phase Lead 能够主导动态规划和任务分解，通过配置驱动实现灵活的创新项目管理。
 
 ## 🏗️ 推荐配置
 
-### 工作流配置
+### Phase配置
 ```bash
-# 创建创新项目专用工作流
-picoclaw goagents workflow create innovation-development
+# 创建创新项目专用Phase配置
+picoclaw goagents phase create innovation-discovery
+picoclaw goagents phase create innovation-architecture
+picoclaw goagents phase create innovation-development
+picoclaw goagents phase create innovation-validation
 
 # 配置特点：
-# - Research: 深度探索 + 机会发现
-# - Requirements: 迭代需求 + 快速验证
-# - Planning: 敏捷规划 + 风险控制
-# - Development: 原型开发 + 快速迭代
-# - Validation: 用户验证 + 市场验证
+# - Discovery: 深度探索 + 机会发现 + 需求迭代
+# - Architecture: 敏捷架构 + 快速原型 + 技术验证
+# - Development: 原型开发 + 快速迭代 + 实验验证
+# - Validation: 用户验证 + 市场验证 + 反馈迭代
 ```
 
-### 团队配置
+### Team配置
 ```bash
 # 创建创新项目团队
-picoclaw goagents team create innovation-team
+picoclaw goagents team create innovation-discovery-team
+picoclaw goagents team create innovation-architecture-team
+picoclaw goagents team create innovation-development-team
+picoclaw goagents team create innovation-validation-team
 
 # 推荐团队构成：
-# - Research: innovation_lead + market_researcher + technology_researcher
-# - Requirements: product_visionary + ux_innovator + business_strategist
-# - Planning: agile_architect + innovation_engineer + risk_manager
+# - Discovery: innovation_lead + market_researcher + technology_researcher
+# - Architecture: agile_architect + innovation_engineer + prototype_designer
 # - Development: prototype_developer + rapid_builder + experiment_runner
 # - Validation: user_tester + market_validator + feedback_analyst
 ```
@@ -39,7 +43,7 @@ picoclaw goagents team create innovation-team
 
 ## 📋 阶段指南
 
-### Research（调研与机会识别）
+### Discovery（发现阶段）
 
 #### 目标
 - 深度市场调研

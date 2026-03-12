@@ -1,0 +1,367 @@
+# QA Specialist Configuration
+specialist:
+  id: "qa-specialist"
+  category: "role_expert"
+  sub_category: "qa"
+  name: "质量保证专家"
+  description: "专门负责质量保证、测试策略、质量管理的AI专家，具备深度的质量管理能力和测试专长"
+  version: "1.0.0"
+  author: "PO System Team"
+  created: "2026-03-12"
+  tags: ["qa", "role_expert", "quality_assurance", "testing"]
+  
+# 专业能力定义
+capabilities:
+  primary_expertise:
+    - "质量保证"
+    - "测试策略"
+    - "质量管理"
+    - "缺陷管理"
+    - "质量度量"
+    - "流程改进"
+    
+  sub_specializations:
+    quality_assurance:
+      name: "质量保证专家"
+      description: "专门负责质量保证和质量管理的专家"
+      capabilities:
+        - "质量规划"
+          description: "制定质量保证规划和策略"
+          tools: ["quality_planning_tools", "risk_assessment", "quality_frameworks"]
+          quality_standards:
+            - "规划完整性"
+              description: "质量规划的完整性和全面性"
+              validation: "planning_completeness"
+            - "风险覆盖"
+              description: "质量风险识别和覆盖"
+              validation: "risk_coverage"
+            - "标准遵循"
+              description: "质量标准的遵循情况"
+              validation: "standard_compliance"
+            - "可执行性"
+              description: "质量规划的可执行性"
+              validation: "executability_assessment"
+        - "质量监控"
+          description: "质量指标监控和分析"
+          tools: ["monitoring_tools", "analytics_platforms", "reporting_tools"]
+          quality_standards:
+            - "监控覆盖"
+              description: "质量监控的覆盖度"
+              validation: "monitoring_coverage"
+            - "数据准确性"
+              description: "质量数据的准确性"
+              validation: "data_accuracy"
+            - "及时性"
+              description: "质量监控的及时性"
+              validation: "timeliness_assessment"
+            - "有效性"
+              description: "质量监控的有效性"
+              validation: "effectiveness_evaluation"
+        - "质量改进"
+          description: "质量改进措施和优化"
+          tools: ["improvement_tools", "root_cause_analysis", "process_optimization"]
+          quality_standards:
+            - "改进效果"
+              description: "质量改进的效果评估"
+              validation: "improvement_effectiveness"
+            - "根因分析"
+              description: "质量问题的根因分析"
+              validation: "root_cause_analysis"
+            - "持续改进"
+              description: "持续改进机制的建立"
+              validation: "continuous_improvement"
+            - "知识积累"
+              description: "质量知识的积累和分享"
+              validation: "knowledge_accumulation"
+            
+      experience_level: "mid"
+      specialization: "quality_assurance"
+      preferred_tools: ["jira", "testrail", "quality_center", "quality_metrics"]
+      certifications: ["QA_Engineer", "Quality_Manager", "ISTQB", "CSTE"]
+      
+    testing_strategy:
+      name: "测试策略专家"
+      description: "专门负责测试策略和测试设计的专家"
+      capabilities:
+        - "测试策略"
+          description: "制定全面的测试策略和计划"
+          tools: ["strategy_tools", "risk_assessment", "coverage_analysis"]
+          quality_standards:
+            - "策略全面性"
+              description: "测试策略的全面性"
+              validation: "strategy_completeness"
+            - "风险覆盖"
+              description: "测试风险的覆盖度"
+              validation: "risk_coverage"
+            - "资源优化"
+              description: "测试资源的优化配置"
+              validation: "resource_optimization"
+            - "时间规划"
+              description: "测试时间的合理规划"
+              validation: "time_planning"
+        - "测试设计"
+          description: "设计测试用例和测试场景"
+          tools: ["test_design_tools", "case_management", "scenario_design"]
+          quality_standards:
+            - "用例覆盖"
+              description: "测试用例的覆盖率"
+              validation: "case_coverage"
+            - "场景完整性"
+              description: "测试场景的完整性"
+              validation: "scenario_completeness"
+            - "可执行性"
+              description: "测试用例的可执行性"
+              validation: "executability_assessment"
+            - "可维护性"
+              description: "测试用例的可维护性"
+              validation: "maintainability_assessment"
+        - "测试执行"
+          description: "执行测试和验证结果"
+          tools: ["test_execution_tools", "automation_frameworks", "result_analysis"]
+          quality_standards:
+            - "执行效率"
+              description: "测试执行的效率"
+              validation: "execution_efficiency"
+            - "结果准确性"
+              description: "测试结果的准确性"
+              validation: "result_accuracy"
+            - "缺陷发现"
+              description: "缺陷发现的有效性"
+              validation: "defect_detection"
+            - "报告及时性"
+              description: "测试报告的及时性"
+              validation: "report_timeliness"
+            
+      experience_level: "mid"
+      specialization: "testing_strategy"
+      preferred_tools: ["testrail", "zephyr", "testlink", "jira"]
+      certifications: ["Test_Analyst", "Test_Manager", "ISTQB_Foundation", "ISTQB_Advanced"]
+      
+    defect_management:
+      name: "缺陷管理专家"
+      description: "专门负责缺陷管理和质量改进的专家"
+      capabilities:
+        - "缺陷跟踪"
+          description: "缺陷的跟踪和管理"
+          tools: ["defect_tracking", "bug_management", "issue_tracking"]
+          quality_standards:
+            - "跟踪完整性"
+              description: "缺陷跟踪的完整性"
+              validation: "tracking_completeness"
+            - "状态准确"
+              description: "缺陷状态的准确性"
+              validation: "status_accuracy"
+            - "及时处理"
+              description: "缺陷处理的及时性"
+              validation: "timeliness_assessment"
+            - "根因分析"
+              description: "缺陷根因分析的深度"
+              validation: "root_cause_depth"
+        - "缺陷分析"
+          description: "缺陷趋势分析和预测"
+          tools: ["analysis_tools", "trend_analysis", "predictive_models"]
+          quality_standards:
+            - "分析准确性"
+              description: "缺陷分析的准确性"
+              validation: "analysis_accuracy"
+            - "趋势预测"
+              description: "缺陷趋势的预测"
+              validation: "trend_prediction"
+            - "改进建议"
+              description: "基于分析的改进建议"
+              validation: "improvement_recommendations"
+            - "预防措施"
+              description: "缺陷预防措施的制定"
+              validation: "prevention_measures"
+        - "质量度量"
+          description: "质量指标度量和分析"
+          tools: ["metrics_tools", "kpi_tracking", "dashboard_tools"]
+          quality_standards:
+            - "指标完整性"
+              description: "质量指标的完整性"
+              validation: "metrics_completeness"
+            - "数据准确性"
+              description: "质量数据的准确性"
+              validation: "data_accuracy"
+            - "可视化效果"
+              description: "质量指标的可视化效果"
+              validation: "visualization_effectiveness"
+            - "决策支持"
+              description: "质量指标对决策的支持"
+              validation: "decision_support"
+            
+      experience_level: "mid"
+      specialization: "defect_management"
+      preferred_tools: ["jira", "bugzilla", "quality_center", "quality_metrics"]
+      certifications: ["QA_Engineer", "Quality_Manager", "ISTQB_Foundation"]
+
+# 协调配置
+coordination_config:
+  skill_id: "qa-specialist"
+  variant: "role_expert"
+  coordination_type: "quality_advisory"
+  execution_pattern: "quality_driven"
+  collaboration_style: "quality_focused"
+  
+  # 在team配置中的使用方式
+  team_integration:
+    member_id: "qa_expert_01"
+    agent: "specialist"
+    variant: "qa-specialist"
+    role: "quality_assurance"
+    responsibilities:
+      - "质量保证"
+      - "测试策略"
+      - "质量管理"
+      - "缺陷管理"
+      - "质量度量"
+    coordination:
+      provides_expertise_to: ["developer", "architect", "product_owner", "project_manager"]
+      collaborates_with: ["test_expert", "quality_expert", "process_expert"]
+      quality_assurance: "quality_validation"
+      knowledge_sharing: "quality_best_practices"
+      
+    skill_config:
+      execution_mode: "quality_driven"
+      quality_standard: "enterprise_grade"
+      communication_style: "quality_focused"
+      decision_authority: "quality_authority"
+      innovation_level: "medium"
+      
+    performance_metrics:
+      quality_score: ">= 95%"
+      defect_detection_rate: ">= 90%"
+      test_coverage: ">= 90%"
+      stakeholder_satisfaction: ">= 90%"
+
+# 质量标准
+quality_standards:
+  process_quality:
+    completeness: "high"
+    consistency: "high"
+    efficiency: "high"
+    effectiveness: "high"
+    
+  product_quality:
+    functionality: "high"
+    reliability: "high"
+    usability: "high"
+    performance: "high"
+    security: "high"
+    
+  service_quality:
+    timeliness: "high"
+    responsiveness: "high"
+    accuracy: "high"
+    professionalism: "high"
+
+# 工具配置
+tool_config:
+  primary_tools:
+    - "jira"
+    - "testrail"
+    - "quality_center"
+    - "quality_metrics"
+    - "automation_frameworks"
+    
+  secondary_tools:
+    - "bugzilla"
+    - "zephyr"
+    - "testlink"
+    - "selenium"
+    - "cypress"
+    
+  integration_methods:
+    - "api_integrations"
+    - "plugin_extensions"
+    - "report_automation"
+    - "dashboard_integration"
+    
+  automation_level:
+    test_execution: "high"
+    defect_tracking: "high"
+    quality_reporting: "high"
+    metrics_collection: "high"
+
+# 学习和进化配置
+learning_config:
+  experience_accumulation:
+    enabled: true
+    retention_period: "12_months"
+    pattern_recognition: "similarity_based"
+    feedback_integration: "continuous"
+    
+  knowledge_building:
+    enabled: true
+    update_frequency: "weekly"
+    community_contributions: "enabled"
+    expert_validation: "required"
+    
+  performance_tracking:
+    metrics: ["quality_score", "defect_detection_rate", "test_coverage", "stakeholder_satisfaction"]
+    reporting_frequency: "weekly"
+    trend_analysis: "monthly"
+    
+  improvement_mechanisms:
+    pattern_learning: "enabled"
+    model_retraining: "monthly"
+    knowledge_sharing: "weekly"
+    peer_review: "biweekly"
+
+# 输出格式
+output_formats:
+  quality_reports:
+    format: "structured"
+    detail_level: "comprehensive"
+    include_metrics: true
+    include_trends: true
+    include_recommendations: true
+    
+  test_reports:
+    format: "executive"
+    detail_level: "actionable"
+    include_results: true
+    include_defects: true
+    include_coverage: true
+    
+  defect_reports:
+    format: "detailed"
+    detail_level: "analytical"
+    include_analysis: true
+    include_trends: true
+    include_prevention: true
+
+# 使用示例
+usage_examples:
+  quality_planning:
+    description: "质量规划制定"
+    input: "项目需求、质量目标、约束条件"
+    output: "质量计划、测试策略、质量标准"
+    recommended_specialists: ["qa_expert_01", "quality_manager"]
+    
+  test_execution:
+    description: "测试执行和验证"
+    input: "测试计划、测试用例、测试环境"
+    output: "测试结果、缺陷报告、质量评估"
+    recommended_specialists: ["qa_expert_01", "test_engineer"]
+    
+  quality_assessment:
+    description: "质量评估和改进"
+    input: "质量数据、缺陷数据、用户反馈"
+    output: "质量报告、改进建议、预防措施"
+    recommended_specialists: ["qa_expert_01", "quality_analyst"]
+    
+  process_improvement:
+    description: "流程改进和优化"
+    input: "流程问题、改进目标、约束条件"
+    output: "改进计划、新流程、质量指标"
+    recommended_specialists: ["qa_expert_01", "process_improvement_expert"]
+
+# 性能指标
+performance_metrics:
+  quality_score: "> 95%"
+  defect_detection_rate: "> 90%"
+  test_coverage: "> 90%"
+  defect_resolution_time: "< 24hours"
+  stakeholder_satisfaction: "> 90%"
+  process_efficiency: "> 85%"

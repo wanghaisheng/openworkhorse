@@ -1,0 +1,419 @@
+# Product Development Team Configuration
+team:
+  id: "product-development-team"
+  name: "产品开发团队"
+  description: "标准产品开发团队配置，支持完整的产品开发生命周期"
+  version: "1.0.0"
+  category: "product_development"
+  
+metadata:
+  author: "PO System Team"
+  created: "2026-03-12"
+  tags: ["product", "development", "standard"]
+  applicable_phases: ["discovery", "planning", "development", "validation"]
+
+# 团队领导配置
+team_lead:
+  agent: "po"
+  variant: "senior_product_manager"
+  responsibilities:
+    - "产品战略规划"
+    - "跨团队协调"
+    - "质量把控"
+    - "利益相关者沟通"
+    - "项目进度管理"
+  authority_level: "team_lead"
+  decision_scope: ["phase_transition", "resource_allocation", "quality_approval"]
+  capabilities:
+    - "strategic_planning"
+    - "stakeholder_management"
+    - "quality_assurance"
+    - "project_coordination"
+  experience_level: "senior"
+  specialization: "product_management"
+  reporting_to: "program_manager"
+  workload: "full_time"
+
+# 团队成员配置
+members:
+  - member_id: "po_core_01"
+    agent: "po"
+    variant: "po-core-v2"
+    role: "product_owner"
+    responsibilities:
+      - "需求管理"
+      - "产品规划"
+      - "团队协调"
+      - "质量保证"
+    capabilities:
+      - "product_planning"
+      - "requirement_management"
+      - "team_coordination"
+      - "quality_assurance"
+    experience_level: "senior"
+    specialization: "product_management"
+    reporting_to: "team_lead"
+    workload: "full_time"
+    coordination:
+      leads: ["requirement_analyst", "mode_selector"]
+      collaborates_with: ["team_builder", "phase_manager"]
+      provides_input_to: ["mode_selector", "team_builder"]
+      receives_input_from: ["team_lead"]
+      skill_config:
+        execution_mode: "coordinated"
+        quality_standard: "high"
+        communication_style: "structured"
+        decision_authority: "medium"
+        
+  - member_id: "req_analyst_01"
+    agent: "analyst"
+    variant: "requirement-analyzer"
+    role: "requirement_analyst"
+    responsibilities:
+      - "需求分析"
+      - "市场调研"
+      - "用户研究"
+      - "需求文档编写"
+    capabilities:
+      - "requirement_analysis"
+      - "market_research"
+      - "user_research"
+      - "documentation"
+    experience_level: "mid"
+    specialization: "requirements"
+    reporting_to: "po_core_01"
+    workload: "full_time"
+    coordination:
+      led_by: ["po_core_01"]
+      collaborates_with: ["mode_selector", "user_researcher"]
+      provides_input_to: ["mode_selector", "team_builder"]
+      receives_input_from: ["po_core_01", "market_specialist", "user_researcher"]
+      skill_config:
+        analysis_depth: "comprehensive"
+        research_methods: ["user_interview", "market_analysis", "competitive_analysis"]
+        documentation_format: "structured"
+        validation_approach: "stakeholder_review"
+        
+  - member_id: "market_specialist"
+    agent: "analyst"
+    variant: "market_specialist"
+    role: "market_analyst"
+    responsibilities:
+      - "市场规模分析"
+      - "竞品功能对比"
+      - "行业趋势研究"
+      - "市场机会识别"
+    capabilities:
+      - "market_analysis"
+      - "competitive_intelligence"
+      - "trend_analysis"
+      - "opportunity_assessment"
+    experience_level: "senior"
+    specialization: "market"
+    reporting_to: "po_core_01"
+    workload: "full_time"
+    coordination:
+      led_by: ["po_core_01"]
+      collaborates_with: ["req_analyst_01"]
+      provides_input_to: ["req_analyst_01", "mode_selector"]
+      receives_input_from: ["po_core_01"]
+      skill_config:
+        analysis_scope: "global"
+        data_sources: ["primary_research", "secondary_research", "industry_reports"]
+        competitive_analysis_depth: "detailed"
+        trend_forecasting_method: "quantitative"
+        
+  - member_id: "user_researcher"
+    agent: "analyst"
+    variant: "user_researcher"
+    role: "user_researcher"
+    responsibilities:
+      - "用户访谈"
+      - "用户画像构建"
+      - "用户行为分析"
+      - "用户体验评估"
+    capabilities:
+      - "user_interview"
+      - "persona_development"
+      - "behavioral_analysis"
+      - "ux_evaluation"
+    experience_level: "mid"
+    specialization: "user"
+    reporting_to: "po_core_01"
+    workload: "full_time"
+    coordination:
+      led_by: ["po_core_01"]
+      collaborates_with: ["req_analyst_01"]
+      provides_input_to: ["req_analyst_01", "mode_selector"]
+      receives_input_from: ["po_core_01"]
+      skill_config:
+        interview_methods: ["structured", "semi_structured", "ethnographic"]
+        persona_development_approach: "data_driven"
+        analysis_tools: ["behavioral_analytics", "journey_mapping"]
+        validation_criteria: "usability_heuristics"
+        
+  - member_id: "mode_selector_01"
+    agent: "planner"
+    variant: "mode-selector"
+    role: "mode_selector"
+    responsibilities:
+      - "执行模式选择"
+      - "策略规划"
+      - "风险评估"
+      - "执行建议"
+    capabilities:
+      - "mode_selection"
+      - "strategic_planning"
+      - "risk_assessment"
+      - "execution_advisory"
+    experience_level: "senior"
+    specialization: "planning"
+    reporting_to: "po_core_01"
+    workload: "full_time"
+    coordination:
+      led_by: ["po_core_01"]
+      receives_input_from: ["po_core_01", "req_analyst_01", "market_specialist", "user_researcher"]
+      provides_output_to: ["team_builder", "phase_manager", "mode_executors"]
+      collaborates_with: ["team_builder", "phase_manager"]
+      skill_config:
+        selection_criteria: "project_characteristics"
+        available_modes: ["standard", "free", "hybrid"]
+        risk_tolerance: "medium"
+        decision_framework: "multi_criteria_analysis"
+        
+  - member_id: "team_builder_01"
+    agent: "coordinator"
+    variant: "team-builder"
+    role: "team_coordinator"
+    responsibilities:
+      - "团队组建"
+      - "角色分配"
+      - "技能匹配"
+      - "团队优化"
+    capabilities:
+      - "team_composition"
+      - "role_assignment"
+      - "skill_matching"
+      - "team_optimization"
+    experience_level: "senior"
+    specialization: "coordination"
+    reporting_to: "po_core_01"
+    workload: "full_time"
+    coordination:
+      led_by: ["po_core_01"]
+      receives_input_from: ["po_core_01", "mode_selector_01"]
+      provides_output_to: ["phase_manager", "all_team_members"]
+      collaborates_with: ["phase_manager"]
+      skill_config:
+        composition_strategy: "skill_based"
+        optimization_criteria: "efficiency, quality, collaboration"
+        role_flexibility: "adaptive"
+        team_size_optimization: true
+        
+  - member_id: "phase_manager_01"
+    agent: "coordinator"
+    variant: "phase-manager-v2"
+    role: "phase_manager"
+    responsibilities:
+      - "阶段规划"
+      - "里程碑管理"
+      - "进度跟踪"
+      - "阶段转换"
+    capabilities:
+      - "phase_planning"
+      - "milestone_management"
+      - "progress_tracking"
+      - "phase_transition"
+    experience_level: "senior"
+    specialization: "coordination"
+    reporting_to: "po_core_01"
+    workload: "full_time"
+    coordination:
+      led_by: ["po_core_01"]
+      receives_input_from: ["po_core_01", "mode_selector_01", "team_builder_01"]
+      provides_output_to: ["mode_executors", "team_members"]
+      collaborates_with: ["mode_executors"]
+      skill_config:
+        planning_method: "milestone_driven"
+        tracking_frequency: "daily"
+        transition_criteria: "quality_based"
+        risk_monitoring: "continuous"
+
+# 阶段特定配置
+phases:
+  discovery:
+    description: "产品发现阶段"
+    estimated_duration: "2-4周"
+    task_mode: "standard"
+    phase_lead:
+      agent: "po"
+      variant: "senior_product_manager"
+      responsibilities:
+        - "发现阶段主导"
+        - "需求探索"
+        - "团队协调"
+        - "质量把控"
+      capabilities:
+        - "discovery_leadership"
+        - "requirement_exploration"
+        - "team_coordination"
+        - "quality_assurance"
+      priority: "high"
+      
+    team_members:
+      - member_id: "po_core_01"
+        role: "phase_coordinator"
+        responsibilities: ["阶段协调", "进度管理"]
+        
+      - member_id: "req_analyst_01"
+        role: "requirement_lead"
+        responsibilities: ["需求分析主导", "文档编写"]
+        
+      - member_id: "market_specialist"
+        role: "market_analyst"
+        responsibilities: ["市场分析", "竞品研究"]
+        
+      - member_id: "user_researcher"
+        role: "user_researcher"
+        responsibilities: ["用户研究", "用户画像"]
+        
+    quality_gates:
+      - gate: "requirement_completeness"
+        threshold: 90
+        reviewer: "po_core_01"
+        description: "需求完整性检查"
+        
+      - gate: "market_validation"
+        threshold: 85
+        reviewer: "market_specialist"
+        description: "市场验证检查"
+        
+    deliverables:
+      - "product_requirements_document"
+      - "market_analysis_report"
+      - "user_personas"
+      - "competitive_analysis"
+      
+  planning:
+    description: "产品规划阶段"
+    estimated_duration: "1-2周"
+    task_mode: "standard"
+    phase_lead:
+      agent: "po"
+      variant: "senior_product_manager"
+      responsibilities:
+        - "规划阶段主导"
+        - "路线图制定"
+        - "资源规划"
+        - "风险评估"
+      capabilities:
+        - "planning_leadership"
+        - "roadmap_development"
+        - "resource_planning"
+        - "risk_assessment"
+      priority: "high"
+      
+    team_members:
+      - member_id: "po_core_01"
+        role: "phase_coordinator"
+        responsibilities: ["规划协调", "路线图制定"]
+        
+      - member_id: "mode_selector_01"
+        role: "execution_planner"
+        responsibilities: ["模式选择", "执行规划"]
+        
+      - member_id: "team_builder_01"
+        role: "resource_planner"
+        responsibilities: ["资源规划", "团队分配"]
+        
+      - member_id: "phase_manager_01"
+        role: "milestone_planner"
+        responsibilities: ["里程碑规划", "进度计划"]
+        
+    quality_gates:
+      - gate: "roadmap_completeness"
+        threshold: 90
+        reviewer: "po_core_01"
+        description: "路线图完整性检查"
+        
+      - gate: "resource_adequacy"
+        threshold: 85
+        reviewer: "team_builder_01"
+        description: "资源充足性检查"
+        
+    deliverables:
+      - "product_roadmap"
+      - "resource_plan"
+      - "milestone_plan"
+      - "risk_assessment_report"
+
+# 协作配置
+collaboration:
+  communication:
+    frequency: "daily_standup, weekly_review"
+    channels: ["team_meeting", "slack", "documentation"]
+    escalation: "phase_lead -> team_lead"
+    
+  decision_making:
+    consensus_required: false
+    decision_authority: "phase_lead"
+    escalation_threshold: "blocker_issues"
+    
+  conflict_resolution:
+    approach: "collaborative"
+    mediator: "phase_lead"
+    escalation: "team_lead"
+    
+  knowledge_sharing:
+    documentation: "mandatory"
+    knowledge_base: "team_wiki"
+    peer_review: "required"
+
+# 质量保证配置
+quality_assurance:
+  standards:
+    documentation: "structured"
+    code_quality: "enterprise_grade"
+    user_experience: "user_centric"
+    
+  reviews:
+    peer_review: "required"
+    stakeholder_review: "periodic"
+    quality_gate_review: "mandatory"
+    
+  metrics:
+    quality_kpis: ["requirement_coverage", "user_satisfaction", "delivery_timeliness"]
+    tracking_frequency: "weekly"
+    reporting: "monthly"
+
+# 技能配置映射
+skill_configurations:
+  po-core-v2:
+    execution_context: "product_management"
+    coordination_style: "leadership"
+    decision_scope: "strategic"
+    quality_standard: "high"
+    
+  requirement-analyzer:
+    execution_context: "analysis"
+    coordination_style: "collaborative"
+    analysis_depth: "comprehensive"
+    documentation_format: "structured"
+    
+  mode-selector:
+    execution_context: "planning"
+    coordination_style: "decision_driven"
+    selection_framework: "multi_criteria"
+    risk_tolerance: "medium"
+    
+  team-builder:
+    execution_context: "coordination"
+    coordination_style: "facilitative"
+    optimization_criteria: "efficiency"
+    role_flexibility: "adaptive"
+    
+  phase-manager-v2:
+    execution_context: "management"
+    coordination_style: "process_oriented"
+    tracking_method: "milestone_driven"
+    transition_criteria: "quality_based"

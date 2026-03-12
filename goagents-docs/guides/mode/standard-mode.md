@@ -2,12 +2,13 @@
 
 ## 🎯 概述
 
-Standard 模式是 Go Agents 的标准化执行模式，适用于模板化、质量一致性要求高的项目。该模式通过预定义的任务模板和严格的质量门禁，确保项目交付的一致性和可靠性。
+Standard 模式是 Go Agents v2.0 的标准化执行模式，适用于模板化、质量一致性要求高的项目。该模式通过配置驱动的任务模板和严格的质量门禁，确保项目交付的一致性和可靠性。
 
 ## 🏗️ 模式特点
 
 ### 核心特征
-- **模板驱动**: 基于预定义任务模板执行
+- **配置驱动**: 基于配置文件驱动的标准化执行
+- **模板化**: 使用通用Task模板进行标准化执行
 - **质量优先**: 严格的质量门禁控制
 - **流程标准化**: 统一的执行流程和标准
 - **可预测性**: 高度可预测的时间和结果
@@ -20,13 +21,16 @@ Standard 模式是 Go Agents 的标准化执行模式，适用于模板化、质
 
 ## 📋 执行流程
 
-### 1. 模板选择
+### 1. 配置初始化
 ```bash
-# 查看可用模板
-picoclaw goagents task list --template
+# 查看可用Phase配置
+picoclaw goagents phase list
 
-# 选择合适模板
-picoclaw goagents workflow use standard-development
+# 选择Standard模式配置
+picoclaw goagents phase use standard-phase
+
+# 配置Standard模式参数
+picoclaw goagents config set mode=standard
 ```
 
 ### 2. 任务分解
@@ -40,14 +44,22 @@ picoclaw goagents workflow use standard-development
 # **需求**: 开发用户登录功能
 # **推荐模式**: Standard（标准化用户功能）
 # **任务分解**:
-# - task-1: 数据库设计 (基于模板)
-# - task-2: 后端API开发 (基于模板)
-# - task-3: 前端界面开发 (基于模板)
-# - task-4: 集成测试 (基于模板)
-# - task-5: 部署上线 (基于模板)
+# - milestone: requirements-analysis
+#   - task: business-analysis
+#   - task: user-research
+# - milestone: architecture-design
+#   - task: system-architecture
+#   - task: technical-design
+# - milestone: development
+#   - task: frontend-development
+#   - task: backend-development
+#   - task: database-development
+# - milestone: validation
+#   - task: unit-testing
+#   - task: integration-testing
 ```
 
-### 3. 模板执行
+### 3. 配置驱动执行
 ```bash
 # 按模板顺序执行
 @go --execute-template user-login-template

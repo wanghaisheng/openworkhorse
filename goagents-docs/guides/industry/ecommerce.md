@@ -2,34 +2,38 @@
 
 ## 🎯 概述
 
-电商项目具有用户量大、交易复杂、性能要求高等特点。Go Agents 为电商项目提供完整的端到端开发流程，从需求分析到上线部署的全生命周期管理。
+电商项目具有用户量大、交易复杂、性能要求高等特点。Go Agents v2.0 采用配置驱动架构，为电商项目提供完整的端到端开发流程，从需求分析到上线部署的全生命周期管理。
 
 ## 🏗️ 推荐配置
 
-### 工作流配置
+### Phase配置
 ```bash
-# 创建电商专用工作流
-picoclaw goagents workflow create ecommerce-development
+# 创建电商专用Phase配置
+picoclaw goagents phase create ecommerce-discovery
+picoclaw goagents phase create ecommerce-architecture
+picoclaw goagents phase create ecommerce-development
+picoclaw goagents phase create ecommerce-validation
 
 # 配置特点：
-# - Research: 市场调研 + 竞品分析
-# - Requirements: 用户故事 + 业务流程
-# - Planning: 微服务架构 + 性能设计
-# - Development: 功能开发 + 集成测试
-# - Validation: 压力测试 + 安全验证
+# - Discovery: 市场调研 + 竞品分析 + 用户研究
+# - Architecture: 微服务架构 + 性能设计 + 安全架构
+# - Development: 功能开发 + 集成测试 + 性能优化
+# - Validation: 压力测试 + 安全验证 + 用户验收
 ```
 
-### 团队配置
+### Team配置
 ```bash
 # 创建电商团队
-picoclaw goagents team create ecommerce-team
+picoclaw goagents team create ecommerce-discovery-team
+picoclaw goagents team create ecommerce-architecture-team
+picoclaw goagents team create ecommerce-development-team
+picoclaw goagents team create ecommerce-validation-team
 
 # 推荐团队构成：
-# - Research: market_analyst + ux_researcher + business_analyst
-# - Requirements: product_manager + business_analyst + ux_designer
-# - Planning: solution_architect + performance_engineer + security_expert
-# - Development: frontend_dev + backend_dev + mobile_dev + devops
-# - Validation: qa_engineer + security_tester + performance_tester
+# - Discovery: business_analyst + user_researcher + market_analyst
+# - Architecture: system_architect + technical_architect + security_architect
+# - Development: frontend_developer + backend_developer + database_developer
+# - Validation: qa_engineer + performance_engineer + security_engineer
 ```
 
 ### 任务模式推荐
@@ -39,7 +43,7 @@ picoclaw goagents team create ecommerce-team
 
 ## 📋 阶段指南
 
-### Research（调研与机会识别）
+### Discovery（发现阶段）
 
 #### 目标
 - 市场规模和趋势分析
@@ -50,7 +54,8 @@ picoclaw goagents team create ecommerce-team
 #### 典型任务
 ```bash
 # 市场分析任务
-picoclaw goagents task create ecommerce-market-analysis
+picoclaw goagents milestone create market-analysis-milestone
+picoclaw goagents task create market-analysis
 
 # 竞品分析任务
 picoclaw goagents task create competitor-analysis
@@ -65,33 +70,7 @@ picoclaw goagents task create user-research
 - 用户画像和需求清单
 - 技术选型建议
 
-### Requirements（需求澄清与PRD形成）
-
-#### 目标
-- 业务流程梳理
-- 功能规格定义
-- 用户体验设计
-- 验收标准制定
-
-#### 典型任务
-```bash
-# 业务流程分析
-picoclaw goagents task create business-flow-analysis
-
-# 功能规格设计
-picoclaw goagents task create feature-specification
-
-# UX/UI 设计
-picoclaw goagents task create ux-ui-design
-```
-
-#### 预期输出
-- 业务流程图
-- 功能规格文档
-- 原型设计稿
-- 验收标准清单
-
-### Planning（架构设计与实施计划）
+### Architecture（架构阶段）
 
 #### 目标
 - 系统架构设计
@@ -102,6 +81,7 @@ picoclaw goagents task create ux-ui-design
 #### 典型任务
 ```bash
 # 系统架构设计
+picoclaw goagents milestone create architecture-design-milestone
 picoclaw goagents task create system-architecture
 
 # 数据库设计
@@ -117,7 +97,7 @@ picoclaw goagents task create performance-optimization
 - 数据库设计文档
 - 性能优化方案
 
-### Development（开发与联调）
+### Development（开发阶段）
 
 #### 目标
 - 功能开发实现
@@ -128,6 +108,7 @@ picoclaw goagents task create performance-optimization
 #### 典型任务
 ```bash
 # 前端开发
+picoclaw goagents milestone create development-milestone
 picoclaw goagents task create frontend-development
 
 # 后端开发
@@ -143,17 +124,18 @@ picoclaw goagents task create api-integration-test
 - 单元测试
 - 集成测试报告
 
-### Validation（测试与验收）
+### Validation（验证阶段）
 
 #### 目标
-- 功能完整性测试
+- 功能验证测试
 - 性能压力测试
-- 安全漏洞扫描
+- 安全漏洞检测
 - 用户验收测试
 
 #### 典型任务
 ```bash
 # 功能测试
+picoclaw goagents milestone create validation-milestone
 picoclaw goagents task create functional-testing
 
 # 性能测试
@@ -166,8 +148,8 @@ picoclaw goagents task create security-testing
 #### 预期输出
 - 测试报告
 - 性能基准
-- 安全评估报告
-- 用户验收确认
+- 安全评估
+- 用户验收报告
 
 ## 🎯 具体使用示例
 
@@ -186,18 +168,16 @@ picoclaw goagents task create security-testing
 # **预估工期**: 5-7天
 # 
 # **阶段规划**:
-# 1. Research (1天) - 市场调研和竞品分析
-# 2. Requirements (1天) - 需求澄清和规格定义
-# 3. Planning (1天) - 架构设计和技术选型
-# 4. Development (3-4天) - 功能开发和测试
-# 5. Validation (1天) - 集成测试和验收
+# 1. Discovery (1天) - 市场调研和竞品分析
+# 2. Architecture (1天) - 架构设计和技术选型
+# 3. Development (3-4天) - 功能开发和测试
+# 4. Validation (1天) - 验收测试和部署
 # 
 # **团队配置**:
-# - Research: market_analyst(主导) + ux_researcher(支持)
-# - Requirements: product_manager(主导) + business_analyst(支持)
-# - Planning: solution_architect(主导) + performance_engineer(支持)
-# - Development: frontend_dev(主导) + backend_dev(支持)
-# - Validation: qa_engineer(主导) + security_tester(支持)
+# - Discovery: business_analyst(主导) + user_researcher(支持) + market_analyst(支持)
+# - Architecture: system_architect(主导) + technical_architect(支持) + security_architect(支持)
+# - Development: frontend_developer(主导) + backend_developer(支持) + database_developer(支持)
+# - Validation: qa_engineer(主导) + performance_engineer(支持) + security_engineer(支持)
 ```
 
 ### 示例2：双十一营销活动

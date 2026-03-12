@@ -1,0 +1,509 @@
+# Product Development Phase Configuration
+phase:
+  id: "product-development"
+  name: "产品开发阶段"
+  description: "完整的产品开发生命周期，从发现到验证的标准化流程"
+  version: "1.0.0"
+  category: "development"
+  
+metadata:
+  author: "PO System Team"
+  created: "2026-03-12"
+  tags: ["product", "development", "standard", "lifecycle"]
+  applicable_teams: ["product-development-team", "startup-team", "enterprise-team"]
+
+# 阶段目标
+objectives:
+  primary: "完成完整的产品开发生命周期，从需求发现到产品验证"
+  secondary:
+    - "建立清晰的产品愿景和路线图"
+    - "确保产品质量符合企业级标准"
+    - "实现团队高效协作和知识共享"
+    - "建立可持续的产品开发流程"
+
+# 成功标准
+success_criteria:
+  mandatory:
+    - "产品需求文档完整且通过审核"
+    - "产品路线图获得利益相关者批准"
+    - "产品原型通过用户验证"
+    - "质量门禁全部通过"
+    - "团队协作效率达到预期"
+    
+  optional:
+    - "市场分析报告完成"
+    - "竞品分析报告完成"
+    - "用户画像和旅程图完成"
+    - "技术可行性评估完成"
+    - "产品演示获得积极反馈"
+
+# 执行策略配置
+execution_strategy:
+  coordination_pattern: "sequential_with_feedback"
+  decision_points:
+    - "requirement_validation"
+    - "mode_selection"
+    - "team_approval"
+    - "quality_gates"
+    - "phase_transition"
+    
+  feedback_loops:
+    - "daily_standup"
+    - "weekly_review"
+    - "milestone_review"
+    - "stakeholder_demo"
+    
+  risk_management:
+    approach: "proactive"
+    monitoring_frequency: "continuous"
+    escalation_threshold: "medium"
+    contingency_planning: true
+
+# 技能协调配置
+skill_coordination:
+  # 步骤1: 产品规划和协调
+  po_core:
+    execution_order: 1
+    dependencies: []
+    inputs: ["project_request", "team_composition", "phase_configuration"]
+    outputs: ["product_plan", "coordination_instructions", "quality_standards"]
+    coordination_type: "leadership"
+    quality_requirements:
+      completeness: 95
+      strategic_alignment: 90
+      stakeholder_buy_in: 85
+      
+  # 步骤2: 需求分析
+  requirement_analyzer:
+    execution_order: 2
+    dependencies: ["po_core.product_plan", "po_core.coordination_instructions"]
+    inputs: ["product_plan", "coordination_instructions", "market_context"]
+    outputs: ["requirements_analysis", "user_stories", "acceptance_criteria"]
+    coordination_type: "collaborative"
+    quality_requirements:
+      requirement_completeness: 90
+      user_centricity: 85
+      traceability: 80
+      
+  # 步骤3: 市场和用户研究
+  market_research:
+    execution_order: 3
+    dependencies: ["po_core.product_plan"]
+    inputs: ["product_plan", "market_context", "competitive_landscape"]
+    outputs: ["market_analysis", "competitive_analysis", "opportunity_assessment"]
+    coordination_type: "research_driven"
+    quality_requirements:
+      data_reliability: 85
+      insight_depth: 80
+      actionability: 85
+      
+  user_research:
+    execution_order: 4
+    dependencies: ["po_core.product_plan"]
+    inputs: ["product_plan", "target_user_profile", "research_objectives"]
+    outputs: ["user_personas", "user_journeys", "usability_insights"]
+    coordination_type: "empathy_driven"
+    quality_requirements:
+      user_representation: 85
+      insight_validity: 80
+      practical_applicability: 85
+      
+  # 步骤4: 模式选择和策略规划
+  mode_selector:
+    execution_order: 5
+    dependencies: ["po_core.coordination_instructions", "requirement_analyzer.requirements_analysis", "market_research.opportunity_assessment", "user_research.usability_insights"]
+    inputs: ["coordination_instructions", "requirements_analysis", "market_analysis", "user_insights"]
+    outputs: ["mode_selection", "execution_strategy", "resource_allocation"]
+    coordination_type: "decision_driven"
+    quality_requirements:
+      selection_rationale: 90
+      risk_assessment: 85
+      feasibility_analysis: 80
+      
+  # 步骤5: 团队组建和资源分配
+  team_builder:
+    execution_order: 6
+    dependencies: ["mode_selector.mode_selection", "mode_selector.execution_strategy"]
+    inputs: ["mode_selection", "execution_strategy", "available_resources", "skill_requirements"]
+    outputs: ["team_composition", "role_assignments", "resource_plan"]
+    coordination_type: "facilitative"
+    quality_requirements:
+      skill_coverage: 90
+      role_clarity: 85
+      resource_optimization: 80
+      
+  # 步骤6: 阶段规划和里程碑管理
+  phase_manager:
+    execution_order: 7
+    dependencies: ["team_builder.team_composition", "mode_selector.execution_strategy"]
+    inputs: ["team_composition", "execution_strategy", "quality_requirements", "timeline_constraints"]
+    outputs: ["phase_plan", "milestones", "quality_gates", "risk_mitigation"]
+    coordination_type: "process_oriented"
+    quality_requirements:
+      plan_completeness: 90
+      milestone_achievability: 85
+      risk_coverage: 80
+      
+  # 步骤7: 执行协调（根据选择的模式）
+  mode_executors:
+    execution_order: 8
+    dependencies: ["phase_manager.phase_plan", "team_builder.team_composition", "mode_selector.mode_selection"]
+    inputs: ["phase_plan", "team_composition", "mode_selection"]
+    outputs: ["execution_results", "deliverables", "quality_metrics"]
+    coordination_type: "execution_driven"
+    quality_requirements:
+      deliverable_quality: 85
+      timeline_adherence: 80
+      budget_compliance: 85
+      
+  # 步骤8: 质量保证和验证
+  quality_assurance:
+    execution_order: 9
+    dependencies: ["mode_executors.execution_results", "phase_manager.quality_gates"]
+    inputs: ["execution_results", "quality_gates", "quality_standards"]
+    outputs: ["quality_report", "compliance_status", "improvement_recommendations"]
+    coordination_type: "quality_driven"
+    quality_requirements:
+      compliance_score: 90
+      defect_density: 95
+      user_satisfaction: 85
+
+# 标准任务模板
+standard_tasks:
+  - template_id: "product_planning"
+    name: "产品规划"
+    description: "制定产品愿景、目标和路线图"
+    estimated_time: "1-2周"
+    priority: "high"
+    required_skills: ["po-core-v2"]
+    deliverables:
+      - "product_vision_document"
+      - "product_roadmap"
+      - "success_metrics"
+    quality_gates:
+      - gate: "strategic_alignment"
+        threshold: 90
+        reviewer: "team_lead"
+      - gate: "stakeholder_buy_in"
+        threshold: 85
+        reviewer: "stakeholder_representative"
+        
+  - template_id: "requirement_analysis"
+    name: "需求分析"
+    description: "收集、分析和验证产品需求"
+    estimated_time: "2-3周"
+    priority: "high"
+    required_skills: ["requirement-analyzer", "user_researcher", "market_specialist"]
+    deliverables:
+      - "requirements_specification"
+      - "user_stories"
+      - "acceptance_criteria"
+    quality_gates:
+      - gate: "requirement_completeness"
+        threshold: 90
+        reviewer: "product_owner"
+      - gate: "user_validation"
+        threshold: 85
+        reviewer: "user_researcher"
+        
+  - template_id: "market_research"
+    name: "市场研究"
+    description: "分析市场环境、竞争对手和用户需求"
+    estimated_time: "1-2周"
+    priority: "medium"
+    required_skills: ["market_specialist", "requirement-analyzer"]
+    deliverables:
+      - "market_analysis_report"
+      - "competitive_analysis"
+      - "opportunity_assessment"
+    quality_gates:
+      - gate: "data_reliability"
+        threshold: 85
+        reviewer: "market_specialist"
+      - gate: "insight_depth"
+        threshold: 80
+        reviewer: "product_owner"
+        
+  - template_id: "user_research"
+    name: "用户研究"
+    description: "理解用户需求、行为和体验"
+    estimated_time: "2-3周"
+    priority: "medium"
+    required_skills: ["user_researcher", "requirement-analyzer"]
+    deliverables:
+      - "user_personas"
+      - "user_journeys"
+      - "usability_insights"
+    quality_gates:
+      - gate: "user_representation"
+        threshold: 85
+        reviewer: "user_researcher"
+      - gate: "insight_validity"
+        threshold: 80
+        reviewer: "product_owner"
+        
+  - template_id: "mode_selection"
+    name: "执行模式选择"
+    description: "根据项目特征选择最优执行模式"
+    estimated_time: "3-5天"
+    priority: "high"
+    required_skills: ["mode-selector", "po-core-v2"]
+    deliverables:
+      - "mode_selection_report"
+      - "execution_strategy"
+      - "risk_assessment"
+    quality_gates:
+      - gate: "selection_rationale"
+        threshold: 90
+        reviewer: "team_lead"
+      - gate: "feasibility_analysis"
+        threshold: 80
+        reviewer: "technical_lead"
+        
+  - template_id: "team_composition"
+    name: "团队组建"
+    description: "组建和配置项目团队"
+    estimated_time: "1周"
+    priority: "high"
+    required_skills: ["team-builder", "po-core-v2"]
+    deliverables:
+      - "team_structure"
+      - "role_assignments"
+      - "resource_plan"
+    quality_gates:
+      - gate: "skill_coverage"
+        threshold: 90
+        reviewer: "team_lead"
+      - gate: "role_clarity"
+        threshold: 85
+        reviewer: "hr_representative"
+        
+  - template_id: "phase_planning"
+    name: "阶段规划"
+    description: "制定详细的阶段执行计划"
+    estimated_time: "1-2周"
+    priority: "high"
+    required_skills: ["phase-manager", "po-core-v2"]
+    deliverables:
+      - "phase_plan"
+      - "milestones"
+      - "quality_gates"
+    quality_gates:
+      - gate: "plan_completeness"
+        threshold: 90
+        reviewer: "project_manager"
+      - gate: "milestone_achievability"
+        threshold: 85
+        reviewer: "technical_lead"
+
+# Free模式配置
+free_mode_config:
+  phase_lead_authority:
+    task_planning: true
+    task_assignment: true
+    resource_allocation: true
+    technical_decisions: true
+    priority_setting: true
+    iteration_control: true
+    
+  iteration_config:
+    default_duration: "2周"
+    max_iterations: 5
+    success_criteria: "prototype_validation"
+    failure_tolerance: "medium"
+    
+  exploration_config:
+    research_methods: ["prototype", "proof_of_concept", "experiment"]
+    innovation_encouragement: "high"
+    risk_tolerance: "medium"
+    resource_allocation: "flexible"
+    
+  quality_config:
+    adaptive_standards: true
+    focus_on: ["functionality", "innovation", "user_feedback"]
+    documentation_level: "minimal"
+    testing_approach: "exploratory"
+
+# Hybrid模式配置
+hybrid_mode_config:
+  mode_switching:
+    enabled: true
+    auto_switching: false
+    manual_approval: true
+    switching_criteria: "risk_assessment,team_capability,timeline"
+    
+  phase_strategy:
+    default_mode: "standard"
+    free_mode_phases: ["development", "research"]
+    standard_mode_phases: ["discovery", "validation", "deployment"]
+    
+  risk_balancing:
+    innovation_tolerance: "medium"
+    stability_requirement: "high"
+    risk_monitoring: "continuous"
+    escalation_threshold: "medium"
+    
+  quality_assurance:
+    adaptive_standards: true
+    phase_specific_gates: true
+    continuous_monitoring: true
+    stakeholder_validation: true
+    
+  delivery_strategy:
+    progressive_delivery: true
+    milestone_based: true
+    stakeholder_demo: true
+    feedback_integration: true
+
+# 质量门禁
+quality_gates:
+  task_level:
+    - gate: "task_completion"
+      threshold: 100
+      reviewer: "self"
+      description: "任务完成度检查"
+      
+    - gate: "deliverable_quality"
+      threshold: 85
+      reviewer: "phase_lead"
+      description: "交付物质量检查"
+      
+    - gate: "documentation_completeness"
+      threshold: 80
+      reviewer: "team_lead"
+      description: "文档完整性检查"
+      
+  milestone_level:
+    - gate: "milestone_success"
+      threshold: 80
+      reviewer: "po"
+      description: "里程碑成功标准检查"
+      
+    - gate: "quality_compliance"
+      threshold: 85
+      reviewer: "quality_assurance"
+      description: "质量合规性检查"
+      
+  phase_level:
+    - gate: "phase_completion"
+      threshold: 90
+      reviewer: "program_manager"
+      description: "阶段完成度检查"
+      
+    - gate: "stakeholder_approval"
+      threshold: 85
+      reviewer: "stakeholder_representative"
+      description: "利益相关者批准检查"
+
+# 输入配置
+inputs:
+  required:
+    - "project_request"
+    - "team_composition"
+    - "quality_requirements"
+    
+  optional:
+    - "market_context"
+    - "technical_constraints"
+    - "budget_limitations"
+    - "timeline_constraints"
+    - "stakeholder_requirements"
+
+# 输出配置
+outputs:
+  required:
+    - "product_plan"
+    - "requirements_specification"
+    - "execution_strategy"
+    - "quality_report"
+    
+  optional:
+    - "market_analysis"
+    - "user_research"
+    - "risk_assessment"
+    - "compliance_report"
+    - "improvement_recommendations"
+
+# 工具和资源配置
+tools_and_resources:
+  required_tools:
+    - "project_management_software"
+    - "collaboration_platform"
+    - "documentation_tools"
+    - "quality_assurance_tools"
+    
+  optional_tools:
+    - "market_research_tools"
+    - "user_testing_platforms"
+    - "prototyping_tools"
+    - "analytics_platforms"
+    
+  resources:
+    - "meeting_rooms"
+    - "development_environments"
+    - "testing_environments"
+    - "demo_environments"
+
+# 时间估算配置
+time_estimation:
+  phase_duration: "8-12周"
+  buffer_time: "20%"
+  parallel_tasks: "30%"
+  review_time: "15%"
+  
+  task_estimates:
+    product_planning: "1-2周"
+    requirement_analysis: "2-3周"
+    market_research: "1-2周"
+    user_research: "2-3周"
+    mode_selection: "3-5天"
+    team_composition: "1周"
+    phase_planning: "1-2周"
+    execution: "4-8周"
+    quality_assurance: "1-2周"
+
+# 风险因素配置
+risk_factors:
+  high_risk:
+    - "requirements_volatility"
+    - "resource_constraints"
+    - "timeline_pressure"
+    - "stakeholder_conflicts"
+    
+  medium_risk:
+    - "technical_complexity"
+    - "market_uncertainty"
+    - "team_coordination"
+    - "quality_standards"
+    
+  low_risk:
+    - "documentation"
+    - "tools_availability"
+    - "communication"
+    - "knowledge_transfer"
+
+# 完成检查清单
+completion_checklist:
+  planning:
+    - "产品愿景明确"
+    - "路线图制定完成"
+    - "成功指标定义"
+    - "风险评估完成"
+    
+  requirements:
+    - "需求收集完整"
+    - "需求分析深入"
+    - "用户故事编写"
+    - "验收标准定义"
+    
+  execution:
+    - "团队组建完成"
+    - "执行计划制定"
+    - "质量门禁设置"
+    - "风险缓解计划"
+    
+  quality:
+    - "质量标准定义"
+    - "检查清单完成"
+    - "验证计划制定"
+    - "改进措施确定"

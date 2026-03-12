@@ -1,0 +1,550 @@
+# DynamicCoordinator配置文件
+# 提供动态协调和执行计划生成功能
+
+dynamic_coordinator:
+  # 基础配置
+  enabled: true
+  version: "1.0.0"
+  
+  # 执行计划配置
+  execution_planning:
+    enabled: true
+    auto_generate: true
+    
+    # 计划生成策略
+    strategy: "intelligent"
+    fallback_strategy: "template_based"
+    
+    # 计划优化
+    optimization:
+      enabled: true
+      objectives:
+        - "minimize_execution_time"
+        - "maximize_quality"
+        - "minimize_resource_usage"
+        - "balance_workload"
+      
+      # 优化算法
+      algorithm: "genetic_algorithm"
+      parameters:
+        population_size: 50
+        generations: 100
+        mutation_rate: 0.1
+        crossover_rate: 0.8
+  
+  # 动态任务规则配置
+  dynamic_task_rules:
+    # 任务数量控制
+    max_tasks_per_milestone: 10
+    min_tasks_per_milestone: 2
+    
+    # 任务大小范围（行数）
+    task_size_range: [50, 500]
+    
+    # 任务复杂度评估
+    complexity_assessment:
+      enabled: true
+      factors:
+        - factor: "skill_requirements"
+          weight: 0.3
+        - factor: "dependency_complexity"
+          weight: 0.25
+        - factor: "estimated_time"
+          weight: 0.2
+        - factor: "resource_requirements"
+          weight: 0.15
+        - factor: "quality_requirements"
+          weight: 0.1
+  
+  # 质量控制配置
+  quality_control:
+    # 同行评审
+    peer_review:
+      enabled: true
+      required_reviewers: 2
+      auto_assign: true
+      
+      # 评审策略
+      strategy: "skill_based"
+      min_skill_level: "intermediate"
+      
+      # 评审检查项
+      review_checklist:
+        - "completeness"
+        - "accuracy"
+        - "consistency"
+        - "actionability"
+        - "alignment"
+    
+    # 里程碑检查点
+    milestone_checkpoints:
+      enabled: true
+      auto_create: true
+      
+      # 检查点类型
+      checkpoint_types:
+        - type: "start"
+          required: true
+          actions: ["validate_inputs", "confirm_resources"]
+        - type: "mid"
+          required: false
+          actions: ["progress_review", "quality_check"]
+        - type: "end"
+          required: true
+          actions: ["validate_outputs", "generate_report"]
+    
+    # 最终批准
+    final_approval:
+      required: true
+      approvers:
+        - role: "phase_lead"
+          required: true
+        - role: "quality_manager"
+          required: false
+        - role: "stakeholder"
+          required: false
+      
+      # 批准标准
+      approval_criteria:
+        - criterion: "quality_score"
+          threshold: 85
+          weight: 0.4
+        - criterion: "timeline_adherence"
+          threshold: 0.9
+          weight: 0.3
+        - criterion: "stakeholder_satisfaction"
+          threshold: 4.0
+          weight: 0.2
+        - criterion: "budget_compliance"
+          threshold: 1.0
+          weight: 0.1
+  
+  # 角色需求配置
+  role_requirements:
+    # 必需角色
+    mandatory_roles:
+      - role: "analyst"
+        agent_type: "specialist"
+        experience_level: "senior"
+        specializations: ["business_analysis", "requirement_gathering"]
+        min_count: 1
+        max_count: 3
+      
+      - role: "architect"
+        agent_type: "specialist"
+        experience_level: "senior"
+        specializations: ["system_architecture", "technical_design"]
+        min_count: 1
+        max_count: 2
+      
+      - role: "developer"
+        agent_type: "generalist"
+        experience_level: "intermediate"
+        specializations: ["frontend", "backend", "database"]
+        min_count: 2
+        max_count: 5
+      
+      - role: "qa"
+        agent_type: "specialist"
+        experience_level: "intermediate"
+        specializations: ["testing", "quality_assurance"]
+        min_count: 1
+        max_count: 2
+    
+    # 可选角色
+    optional_roles:
+      - role: "ui_ux_designer"
+        agent_type: "specialist"
+        experience_level: "intermediate"
+        specializations: ["ui_design", "ux_research"]
+        min_count: 0
+        max_count: 2
+      
+      - role: "devops"
+        agent_type: "specialist"
+        experience_level: "intermediate"
+        specializations: ["deployment", "monitoring"]
+        min_count: 0
+        max_count: 1
+      
+      - role: "project_manager"
+        agent_type: "generalist"
+        experience_level: "senior"
+        specializations: ["planning", "coordination"]
+        min_count: 0
+        max_count: 1
+  
+  # 动态协调配置
+  dynamic_coordination:
+    enabled: true
+    coordination_mode: "adaptive"
+    
+    # 协调策略
+    coordination_strategies:
+      - strategy: "centralized"
+        conditions:
+          - condition: "team_size <= 3"
+            priority: "high"
+          - condition: "task_complexity = high"
+            priority: "medium"
+        
+        # 集中协调配置
+        config:
+          coordinator: "phase_lead"
+          decision_making: "authoritative"
+          communication: "top_down"
+      
+      - strategy: "decentralized"
+        conditions:
+          - condition: "team_size >= 5"
+            priority: "high"
+          - condition: "task_type = creative"
+            priority: "medium"
+        
+        # 去中心化协调配置
+        config:
+          coordinator: "team_consensus"
+          decision_making: "collaborative"
+          communication: "peer_to_peer"
+      
+      - strategy: "hybrid"
+        conditions:
+          - condition: "default"
+            priority: "low"
+        
+        # 混合协调配置
+        config:
+          coordinator: "adaptive"
+          decision_making: "context_based"
+          communication: "flexible"
+    
+    # 动态调整
+    dynamic_adjustment:
+      enabled: true
+      adjustment_frequency: "1h"
+      
+      # 调整触发器
+      triggers:
+        - trigger: "performance_degradation"
+          threshold: 0.8
+          action: "rebalance_tasks"
+        - trigger: "quality_issue"
+          threshold: 0.7
+          action: "increase_review"
+        - trigger: "resource_conflict"
+          threshold: 0.9
+          action: "resolve_conflict"
+        - trigger: "timeline_delay"
+          threshold: 0.8
+          action: "replan_schedule"
+  
+  # 任务分配配置
+  task_assignment:
+    enabled: true
+    assignment_strategy: "intelligent"
+    
+    # 分配算法
+    algorithms:
+      - algorithm: "skill_based"
+        weight: 0.4
+        parameters:
+          skill_match_threshold: 0.7
+          experience_bonus: 0.2
+          workload_balance: 0.3
+      
+      - algorithm: "load_balanced"
+        weight: 0.3
+        parameters:
+          max_tasks_per_agent: 3
+          workload_variance: 0.2
+          priority_weighting: 0.1
+      
+      - algorithm: "availability_based"
+        weight: 0.2
+        parameters:
+          availability_threshold: 0.8
+          timezone_consideration: true
+          break_time_respect: true
+      
+      - algorithm: "performance_based"
+        weight: 0.1
+        parameters:
+          historical_performance: 0.6
+          current_performance: 0.4
+          quality_weight: 0.3
+    
+    # 任务重新分配
+    reassignment:
+      enabled: true
+      trigger_conditions:
+        - condition: "task_timeout"
+          action: "reassign_to_available"
+        - condition: "quality_failure"
+          action: "reassign_to_higher_skill"
+        - condition: "agent_unavailable"
+          action: "redistribute_tasks"
+  
+  # 依赖管理配置
+  dependency_management:
+    enabled: true
+    
+    # 依赖检测
+    dependency_detection:
+      enabled: true
+      auto_detect: true
+      
+      # 检测规则
+      detection_rules:
+        - rule: "explicit_dependency"
+          pattern: "depends_on:"
+          required: true
+        - rule: "implicit_dependency"
+          pattern: "uses_output_of:"
+          required: false
+        - rule: "resource_dependency"
+          pattern: "requires_resource:"
+          required: true
+    
+    # 依赖解决
+    dependency_resolution:
+      enabled: true
+      resolution_strategy: "topological_sort"
+      
+      # 循环依赖处理
+      circular_dependency:
+        detection: true
+        resolution: "break_at_weakest_link"
+        notification: true
+    
+    # 依赖可视化
+    dependency_visualization:
+      enabled: true
+      format: "mermaid"
+      output_file: "dependency_graph.md"
+      
+      # 可视化选项
+      options:
+        show_critical_path: true
+        show_parallel_tasks: true
+        show_bottlenecks: true
+        color_by_status: true
+  
+  # 风险管理配置
+  risk_management:
+    enabled: true
+    
+    # 风险识别
+    risk_identification:
+      enabled: true
+      auto_identify: true
+      
+      # 风险类型
+      risk_types:
+        - type: "schedule_risk"
+          indicators:
+            - indicator: "task_delay"
+              threshold: 0.8
+            - indicator: "resource_shortage"
+              threshold: 0.7
+            - indicator: "dependency_block"
+              threshold: 0.9
+        
+        - type: "quality_risk"
+          indicators:
+            - indicator: "quality_score_drop"
+              threshold: 0.8
+            - indicator: "review_failure"
+              threshold: 0.7
+            - indicator: "defect_rate_increase"
+              threshold: 0.6
+        
+        - type: "resource_risk"
+          indicators:
+            - indicator: "agent_overload"
+              threshold: 0.8
+            - indicator: "skill_shortage"
+              threshold: 0.7
+            - indicator: "budget_overrun"
+              threshold: 0.9
+    
+    # 风险评估
+    risk_assessment:
+      enabled: true
+      assessment_method: "probability_impact"
+      
+      # 评估矩阵
+      assessment_matrix:
+        probability_levels: ["very_low", "low", "medium", "high", "very_high"]
+        impact_levels: ["very_low", "low", "medium", "high", "very_high"]
+        risk_score_calculation: "probability * impact"
+    
+    # 风险缓解
+    risk_mitigation:
+      enabled: true
+      auto_mitigation: true
+      
+      # 缓解策略
+      mitigation_strategies:
+        - strategy: "avoidance"
+          applicable_risks: ["schedule_risk", "resource_risk"]
+          actions: ["replan", "reallocate_resources"]
+        
+        - strategy: "mitigation"
+          applicable_risks: ["quality_risk", "technical_risk"]
+          actions: ["increase_review", "add_safeguards"]
+        
+        - strategy: "acceptance"
+          applicable_risks: ["low_impact_risks"]
+          actions: ["monitor", "document"]
+        
+        - strategy: "transfer"
+          applicable_risks: ["external_dependency_risk"]
+          actions: ["outsource", "insurance"]
+  
+  # 性能监控配置
+  performance_monitoring:
+    enabled: true
+    
+    # 监控指标
+    metrics:
+      - metric: "task_completion_rate"
+        target: 0.95
+        alert_threshold: 0.8
+      
+      - metric: "average_task_time"
+        target: "2h"
+        alert_threshold: "4h"
+      
+      - metric: "quality_score"
+        target: 85
+        alert_threshold: 70
+      
+      - metric: "resource_utilization"
+        target: 0.8
+        alert_threshold: 0.95
+      
+      - metric: "dependency_satisfaction"
+        target: 0.95
+        alert_threshold: 0.8
+    
+    # 监控频率
+    monitoring_frequency: "5m"
+    
+    # 报告配置
+    reporting:
+      enabled: true
+      frequency: "daily"
+      format: "json"
+      recipients: ["project_manager", "quality_manager"]
+      
+      # 报告内容
+      report_content:
+        - "performance_summary"
+        - "bottlenecks"
+        - "recommendations"
+        - "trends"
+  
+  # 学习和改进配置
+  learning_improvement:
+    enabled: true
+    
+    # 学习算法
+    learning_algorithms:
+      - algorithm: "reinforcement_learning"
+        enabled: true
+        parameters:
+          learning_rate: 0.01
+          discount_factor: 0.95
+          exploration_rate: 0.1
+      
+      - algorithm: "pattern_recognition"
+        enabled: true
+        parameters:
+          pattern_window: 30
+          similarity_threshold: 0.8
+      
+      - algorithm: "anomaly_detection"
+        enabled: true
+        parameters:
+          anomaly_threshold: 0.05
+          detection_window: 10
+    
+    # 知识库
+    knowledge_base:
+      enabled: true
+      storage: "knowledge_base.json"
+      
+      # 知识类型
+      knowledge_types:
+        - type: "best_practices"
+          auto_extract: true
+        - type: "common_patterns"
+          auto_extract: true
+        - type: "failure_modes"
+          auto_extract: true
+        - type: "optimization_strategies"
+          auto_extract: true
+    
+    # 持续改进
+    continuous_improvement:
+      enabled: true
+      improvement_cycle: "weekly"
+      
+      # 改进目标
+      improvement_goals:
+        - goal: "reduce_execution_time"
+          target: 0.1
+          measurement: "percentage"
+        - goal: "improve_quality"
+          target: 5
+          measurement: "points"
+        - goal: "increase_throughput"
+          target: 0.15
+          measurement: "percentage"
+
+---
+# 配置验证规则
+validation_rules:
+  - rule: "required_fields"
+    fields: ["dynamic_coordinator.enabled", "dynamic_coordinator.version"]
+    error_message: "缺少必需的配置字段"
+  
+  - rule: "version_format"
+    pattern: "^\\d+\\.\\d+\\.\\d+$"
+    error_message: "版本号格式不正确，应为x.y.z格式"
+  
+  - rule: "boolean_fields"
+    fields: ["dynamic_coordinator.enabled", "dynamic_coordinator.execution_planning.enabled"]
+    error_message: "布尔字段值必须为true或false"
+  
+  - rule: "positive_numbers"
+    fields: ["dynamic_coordinator.dynamic_task_rules.max_tasks_per_milestone"]
+    error_message: "数值字段必须为正数"
+
+---
+# 配置元数据
+metadata:
+  name: "DynamicCoordinator配置"
+  description: "DynamicCoordinator的完整配置文件"
+  version: "1.0.0"
+  author: "system"
+  created: "2026-03-12"
+  updated: "2026-03-12"
+  
+  # 配置类别
+  categories:
+    - "coordination"
+    - "planning"
+    - "quality"
+    - "risk_management"
+    - "learning"
+  
+  # 依赖关系
+  dependencies:
+    - "execution-framework.yaml"
+    - "intelligent-coordinator.yaml"
+  
+  # 兼容性
+  compatibility:
+    min_version: "1.0.0"
+    max_version: "2.0.0"

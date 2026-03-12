@@ -1,0 +1,367 @@
+# Developer Specialist Configuration
+specialist:
+  id: "developer-specialist"
+  category: "role_expert"
+  sub_category: "developer"
+  name: "软件开发专家"
+  description: "专门负责软件开发、代码实现、技术实现的AI专家，具备深度的开发能力和技术专长"
+  version: "1.0.0"
+  author: "PO System Team"
+  created: "2026-03-12"
+  tags: ["developer", "role_expert", "software_development", "implementation"]
+  
+# 专业能力定义
+capabilities:
+  primary_expertise:
+    - "软件开发"
+    - "代码实现"
+    - "技术实现"
+    - "代码质量"
+    - "测试开发"
+    - "部署运维"
+    
+  sub_specializations:
+    software_development:
+      name: "软件开发专家"
+      description: "专门负责软件开发和代码实现的专家"
+      capabilities:
+        - "代码开发"
+          description: "高质量代码开发和实现"
+          tools: ["ide_tools", "code_editors", "debugging_tools"]
+          quality_standards:
+            - "代码质量"
+              description: "代码的可读性、可维护性"
+              validation: "code_review"
+            - "性能优化"
+              description: "代码的性能和效率"
+              validation: "performance_testing"
+            - "安全性"
+              description: "代码的安全性和防护"
+              validation: "security_scan"
+            - "测试覆盖"
+              description: "代码的测试覆盖率"
+              validation: "coverage_analysis"
+        - "代码重构"
+          description: "代码重构和优化"
+          tools: ["refactoring_tools", "code_analysis", "design_patterns"]
+          quality_standards:
+            - "重构效果"
+              description: "重构后的代码质量提升"
+              validation: "quality_improvement"
+            - "性能提升"
+              description: "重构后的性能提升"
+              validation: "performance_improvement"
+            - "可维护性"
+              description: "重构后的可维护性提升"
+              validation: "maintainability_assessment"
+            - "技术债务"
+              description: "技术债务的减少"
+              validation: "debt_reduction"
+        - "代码审查"
+          description: "代码审查和质量保证"
+          tools: ["review_tools", "static_analysis", "code_metrics"]
+          quality_standards:
+            - "审查全面性"
+              description: "代码审查的全面性"
+              validation: "review_completeness"
+            - "问题发现"
+              description: "代码问题的发现和解决"
+              validation: "issue_detection"
+            - "知识传递"
+              description: "代码审查中的知识传递"
+              validation: "knowledge_transfer"
+            - "标准遵循"
+              description: "编码标准的遵循情况"
+              validation: "standard_compliance"
+            
+      experience_level: "mid"
+      specialization: "software_development"
+      preferred_tools: ["vscode", "intellij_idea", "git", "jenkins"]
+      certifications: ["Software_Developer", "Cloud_Developer", "Full_Stack_Developer"]
+      
+    testing_development:
+      name: "测试开发专家"
+      description: "专门负责测试开发和质量保证的专家"
+      capabilities:
+        - "单元测试"
+          description: "单元测试开发和执行"
+          tools: ["unit_testing_frameworks", "mocking_tools", "test_runners"]
+          quality_standards:
+            - "测试覆盖率"
+              description: "单元测试的覆盖率"
+              validation: "coverage_analysis"
+            - "测试质量"
+              description: "单元测试的质量和有效性"
+              validation: "test_quality"
+            - "测试效率"
+              description: "单元测试的执行效率"
+              validation: "performance_testing"
+            - "维护性"
+              description: "单元测试的可维护性"
+              validation: "maintainability_assessment"
+        - "集成测试"
+          description: "集成测试开发和执行"
+          tools: ["integration_testing_frameworks", "api_testing_tools", "contract_testing"]
+          quality_standards:
+            - "集成完整性"
+              description: "集成测试的完整性"
+              validation: "integration_completeness"
+            - "接口测试"
+              description: "API接口测试的覆盖"
+              validation: "api_coverage"
+            - "数据一致性"
+              description: "集成测试的数据一致性"
+              validation: "data_consistency"
+            - "错误处理"
+              description: "集成测试的错误处理"
+              validation: "error_handling"
+        - "自动化测试"
+          description: "自动化测试框架和流程"
+          tools: ["automation_frameworks", "ci_cd_tools", "test_automation"]
+          quality_standards:
+            - "自动化覆盖率"
+              description: "测试自动化的覆盖率"
+              validation: "automation_coverage"
+            - "执行效率"
+              description: "自动化测试的执行效率"
+              validation: "execution_efficiency"
+            - "维护成本"
+              description: "自动化测试的维护成本"
+              validation: "maintenance_cost"
+            - "稳定性"
+              description: "自动化测试的稳定性"
+              validation: "stability_assessment"
+            
+      experience_level: "mid"
+      specialization: "testing_development"
+      preferred_tools: ["junit", "pytest", "cypress", "selenium"]
+      certifications: ["QA_Engineer", "Test_Automation_Engineer", "ISTQB"]
+      
+    devops_development:
+      name: "DevOps开发专家"
+      description: "专门负责DevOps和运维自动化的专家"
+      capabilities:
+        - "CI/CD开发"
+          description: "CI/CD流水线开发和维护"
+          tools: ["ci_cd_tools", "pipeline_tools", "automation_frameworks"]
+          quality_standards:
+            - "流水线效率"
+              description: "CI/CD流水线的执行效率"
+              validation: "pipeline_efficiency"
+            - "部署稳定性"
+              description: "自动化部署的稳定性"
+              validation: "deployment_stability"
+            - "回滚机制"
+              description: "部署回滚机制的有效性"
+              validation: "rollback_effectiveness"
+            - "监控覆盖"
+              description: "部署监控的覆盖度"
+              validation: "monitoring_coverage"
+        - "基础设施即代码"
+          description: "基础设施即代码开发和维护"
+          tools: ["infrastructure_tools", "configuration_management", "orchestration_tools"]
+          quality_standards:
+            - "代码质量"
+              description: "基础设施代码的质量"
+              validation: "code_quality"
+            - "环境一致性"
+              description: "环境配置的一致性"
+              validation: "environment_consistency"
+            - "安全性"
+              description: "基础设施的安全性"
+              validation: "security_assessment"
+            - "可扩展性"
+              description: "基础设施的可扩展性"
+              validation: "scalability_test"
+        - "监控开发"
+          description: "监控系统开发和维护"
+          tools: ["monitoring_tools", "logging_tools", "alerting_tools"]
+          quality_standards:
+            - "监控覆盖"
+              description: "监控系统的覆盖度"
+              validation: "monitoring_coverage"
+            - "告警有效性"
+              description: "告警机制的有效性"
+              validation: "alert_effectiveness"
+            - "数据准确性"
+              description: "监控数据的准确性"
+              validation: "data_accuracy"
+            - "响应及时性"
+              description: "监控响应的及时性"
+              validation: "response_timeliness"
+            
+      experience_level: "mid"
+      specialization: "devops_development"
+      preferred_tools: ["docker", "kubernetes", "jenkins", "terraform"]
+      certifications: ["DevOps_Engineer", "Cloud_Engineer", "SRE"]
+
+# 协调配置
+coordination_config:
+  skill_id: "developer-specialist"
+  variant: "role_expert"
+  coordination_type: "implementation_advisory"
+  execution_pattern: "development_driven"
+  collaboration_style: "technical_focused"
+  
+  # 在team配置中的使用方式
+  team_integration:
+    member_id: "developer_expert_01"
+    agent: "specialist"
+    variant: "developer-specialist"
+    role: "software_developer"
+    responsibilities:
+      - "软件开发"
+      - "代码实现"
+      - "测试开发"
+      - "部署运维"
+      - "技术实现"
+    coordination:
+      provides_expertise_to: ["architect", "qa", "devops", "product_owner"]
+      collaborates_with: ["technical_expert", "backend_expert", "frontend_expert"]
+      quality_assurance: "code_quality_validation"
+      knowledge_sharing: "development_best_practices"
+      
+    skill_config:
+      execution_mode: "development_driven"
+      quality_standard: "production_grade"
+      communication_style: "technical_precise"
+      decision_authority: "implementation_authority"
+      innovation_level: "medium"
+      
+    performance_metrics:
+      code_quality: ">= 90%"
+      delivery_timeliness: ">= 95%"
+      defect_rate: "< 5%"
+      test_coverage: ">= 85%"
+
+# 质量标准
+quality_standards:
+  code_quality:
+    readability: "high"
+    maintainability: "high"
+    performance: "high"
+    security: "high"
+    testability: "high"
+    
+  development_quality:
+    efficiency: "high"
+    consistency: "high"
+    documentation: "medium"
+    collaboration: "high"
+    
+  deployment_quality:
+    stability: "high"
+    reliability: "high"
+    scalability: "high"
+    security: "high"
+
+# 工具配置
+tool_config:
+  primary_tools:
+    - "vscode"
+    - "intellij_idea"
+    - "git"
+    - "docker"
+    - "kubernetes"
+    
+  secondary_tools:
+    - "jenkins"
+    - "terraform"
+    - "ansible"
+    - "monitoring_tools"
+    - "testing_frameworks"
+    
+  integration_methods:
+    - "api_integrations"
+    - "plugin_extensions"
+    - "script_automation"
+    - "tool_chains"
+    
+  automation_level:
+    code_quality: "high"
+    testing: "high"
+    deployment: "high"
+    monitoring: "high"
+
+# 学习和进化配置
+learning_config:
+  experience_accumulation:
+    enabled: true
+    retention_period: "12_months"
+    pattern_recognition: "similarity_based"
+    feedback_integration: "continuous"
+    
+  knowledge_building:
+    enabled: true
+    update_frequency: "weekly"
+    community_contributions: "enabled"
+    expert_validation: "required"
+    
+  performance_tracking:
+    metrics: ["code_quality", "delivery_timeliness", "defect_rate", "test_coverage"]
+    reporting_frequency: "weekly"
+    trend_analysis: "monthly"
+    
+  improvement_mechanisms:
+    pattern_learning: "enabled"
+    model_retraining: "monthly"
+    knowledge_sharing: "weekly"
+    peer_review: "biweekly"
+
+# 输出格式
+output_formats:
+  code_deliverables:
+    format: "source_code"
+    detail_level: "production_ready"
+    include_documentation: true
+    include_tests: true
+    include_ci_cd: true
+    
+  testing_artifacts:
+    format: "test_suite"
+    detail_level: "comprehensive"
+    include_unit_tests: true
+    include_integration_tests: true
+    include_automation: true
+    
+  deployment_packages:
+    format: "deployment_package"
+    detail_level: "complete"
+    include_infrastructure: true
+    include_monitoring: true
+    include_documentation: true
+
+# 使用示例
+usage_examples:
+  feature_development:
+    description: "功能开发"
+    input: "功能需求、技术规范、设计文档"
+    output: "功能代码、测试用例、部署配置"
+    recommended_specialists: ["developer_expert_01", "technical_expert"]
+    
+  bug_fixing:
+    description: "缺陷修复"
+    input: "缺陷报告、错误日志、复现步骤"
+    output: "修复代码、测试验证、部署更新"
+    recommended_specialists: ["developer_expert_01", "qa_expert"]
+    
+  performance_optimization:
+    description: "性能优化"
+    input: "性能问题、性能指标、优化目标"
+    output: "优化代码、性能测试、监控配置"
+    recommended_specialists: ["developer_expert_01", "performance_expert"]
+    
+  infrastructure_deployment:
+    description: "基础设施部署"
+    input: "部署需求、环境配置、部署计划"
+    output: "部署脚本、监控配置、运维文档"
+    recommended_specialists: ["developer_expert_01", "devops_expert"]
+
+# 性能指标
+performance_metrics:
+  code_delivery_time: "< 2days"
+  code_quality_score: "> 90%"
+  defect_rate: "< 5%"
+  test_coverage: "> 85%"
+  deployment_success_rate: "> 95%"
+  incident_resolution_time: "< 4hours"

@@ -1,0 +1,446 @@
+# ExecutionFramework配置文件
+# 提供HARNESS.md集成和Ralph Wiggum Loop内置功能
+
+execution_framework:
+  # 基础配置
+  enabled: true
+  version: "1.0.0"
+  
+  # HARNESS.md集成配置
+  harness_integration:
+    enabled: true
+    auto_load: true
+    validation: true
+    rule_priority: ["project_specific", "domain_specific", "general"]
+    
+    # 规则应用策略
+    rule_application:
+      strategy: "merge_and_override"
+      conflict_resolution: "project_specific_first"
+      
+    # 规则缓存
+    cache:
+      enabled: true
+      ttl: "1h"
+      max_size: 100
+  
+  # Ralph Wiggum Loop配置
+  ralph_wiggum_loop:
+    enabled: true
+    auto_trigger: true
+    max_iterations: 3
+    
+    # Loop触发条件
+    trigger_conditions:
+      quality_score_below: 80
+      error_rate_above: 0.1
+      stakeholder_feedback_negative: true
+      
+    # Loop执行步骤
+    execution_steps:
+      - step: "analyze_issue"
+        timeout: "5m"
+        required: true
+      - step: "identify_root_cause"
+        timeout: "10m"
+        required: true
+      - step: "propose_solution"
+        timeout: "15m"
+        required: true
+      - step: "implement_solution"
+        timeout: "30m"
+        required: true
+      - step: "validate_result"
+        timeout: "10m"
+        required: true
+    
+    # Loop质量门禁
+    quality_gates:
+      - gate: "completeness"
+        threshold: 0.9
+        weight: 0.3
+      - gate: "accuracy"
+        threshold: 0.85
+        weight: 0.3
+      - gate: "actionability"
+        threshold: 0.8
+        weight: 0.2
+      - gate: "consistency"
+        threshold: 0.85
+        weight: 0.2
+  
+  # 新增：Milestone执行支持
+  milestone_execution:
+    enabled: true
+    auto_decompose: true
+    task_coordination: true
+    
+    # Milestone分解策略
+    decomposition:
+      default_strategy: "template_based"
+      fallback_strategy: "hybrid"
+      
+      # 模板配置
+      templates:
+        - id: "requirements-analysis-template"
+          name: "需求分析模板"
+          task_types:
+            - "business-analysis"
+            - "user-research"
+            - "market-analysis"
+          default_assignments:
+            business-analysis: "analyst"
+            user-research: "analyst"
+            market-analysis: "analyst"
+          
+          # 依赖关系
+          dependencies:
+            - task: "user-research"
+              depends_on: ["business-analysis"]
+            - task: "market-analysis"
+              depends_on: ["business-analysis"]
+        
+        - id: "architecture-design-template"
+          name: "架构设计模板"
+          task_types:
+            - "system-architecture"
+            - "technical-design"
+            - "api-design"
+          default_assignments:
+            system-architecture: "architect"
+            technical-design: "architect"
+            api-design: "architect"
+          
+          dependencies:
+            - task: "technical-design"
+              depends_on: ["system-architecture"]
+            - task: "api-design"
+              depends_on: ["system-architecture"]
+        
+        - id: "development-template"
+          name: "开发模板"
+          task_types:
+            - "frontend-development"
+            - "backend-development"
+            - "database-design"
+            - "testing"
+          default_assignments:
+            frontend-development: "developer"
+            backend-development: "developer"
+            database-design: "developer"
+            testing: "qa"
+          
+          dependencies:
+            - task: "backend-development"
+              depends_on: ["database-design"]
+            - task: "frontend-development"
+              depends_on: ["backend-development"]
+            - task: "testing"
+              depends_on: ["frontend-development", "backend-development"]
+    
+    # Task执行配置
+    task_execution:
+      parallel_execution: true
+      max_parallel_tasks: 5
+      timeout_per_task: "24h"
+      
+      # 质量检查配置
+      quality_checks:
+        automated_checks:
+          - "completeness"
+          - "format_validation"
+          - "consistency_check"
+        
+        manual_checks:
+          - "stakeholder_review"
+          - "expert_validation"
+          - "business_alignment"
+    
+    # 结果整合配置
+    result_integration:
+      auto_integrate: true
+      integration_strategy: "merge_and_validate"
+      
+      # 整合模板
+      integration_templates:
+        - id: "requirements-integration"
+          name: "需求整合模板"
+          inputs:
+            - "business_analysis_result"
+            - "user_research_result"
+            - "market_analysis_result"
+          outputs:
+            - "integrated_requirements.md"
+            - "requirements_summary.md"
+            - "stakeholder_feedback.md"
+          
+          # 整合规则
+          integration_rules:
+            - rule: "merge_similar_requirements"
+              condition: "similarity > 0.8"
+              action: "merge"
+            - rule: "resolve_conflicts"
+              condition: "conflict_detected"
+              action: "escalate_to_lead"
+            - rule: "validate_completeness"
+              condition: "coverage < 0.9"
+              action: "request_additional_info"
+        
+        - id: "architecture-integration"
+          name: "架构整合模板"
+          inputs:
+            - "system_architecture_result"
+            - "technical_design_result"
+            - "api_design_result"
+          outputs:
+            - "integrated_architecture.md"
+            - "architecture_summary.md"
+            - "technical_specifications.md"
+          
+          integration_rules:
+            - rule: "validate_consistency"
+              condition: "inconsistency_detected"
+              action: "resolve_with_architect"
+            - rule: "check_feasibility"
+              condition: "feasibility_score < 0.8"
+              action: "request_feasibility_analysis"
+        
+        - id: "development-integration"
+          name: "开发整合模板"
+          inputs:
+            - "frontend_result"
+            - "backend_result"
+            - "database_result"
+            - "testing_result"
+          outputs:
+            - "integrated_system.md"
+            - "deployment_package.md"
+            - "testing_report.md"
+          
+          integration_rules:
+            - rule: "validate_integration"
+              condition: "integration_test_failed"
+              action: "fix_integration_issues"
+            - rule: "ensure_quality"
+              condition: "quality_score < 85"
+              action: "improve_quality"
+  
+  # 技能执行配置
+  skill_execution:
+    default_timeout: "30m"
+    max_retries: 3
+    retry_delay: "1m"
+    
+    # 执行环境
+    environment:
+      variables:
+        - name: "WORKSPACE_ROOT"
+          value: "${PWD}"
+        - name: "LOG_LEVEL"
+          value: "INFO"
+        - name: "QUALITY_THRESHOLD"
+          value: "80"
+      
+      # 资源限制
+      resources:
+        max_memory: "2GB"
+        max_cpu: "2 cores"
+        max_disk: "1GB"
+  
+  # 质量保证配置
+  quality_assurance:
+    enabled: true
+    auto_fix: false
+    
+    # 质量检查器
+    quality_checkers:
+      - name: "completeness_checker"
+        enabled: true
+        threshold: 0.9
+        weight: 0.3
+      
+      - name: "accuracy_checker"
+        enabled: true
+        threshold: 0.85
+        weight: 0.3
+      
+      - name: "consistency_checker"
+        enabled: true
+        threshold: 0.85
+        weight: 0.2
+      
+      - name: "format_checker"
+        enabled: true
+        threshold: 0.9
+        weight: 0.2
+    
+    # 质量报告
+    quality_reporting:
+      enabled: true
+      format: "json"
+      destination: "logs/quality_reports/"
+      
+      # 报告内容
+      report_content:
+        - "overall_score"
+        - "individual_scores"
+        - "violations"
+        - "recommendations"
+  
+  # 监控和日志
+  monitoring:
+    enabled: true
+    
+    # 性能监控
+    performance:
+      enabled: true
+      metrics:
+        - "execution_time"
+        - "memory_usage"
+        - "cpu_usage"
+        - "success_rate"
+      
+      # 告警配置
+      alerts:
+        - metric: "execution_time"
+          threshold: "5m"
+          action: "log_warning"
+        - metric: "success_rate"
+          threshold: 0.8
+          action: "log_error"
+    
+    # 日志配置
+    logging:
+      level: "INFO"
+      format: "json"
+      destination: "logs/execution_framework.log"
+      
+      # 日志轮转
+      rotation:
+        enabled: true
+        max_size: "100MB"
+        max_files: 10
+  
+  # 缓存配置
+  caching:
+    enabled: true
+    
+    # 结果缓存
+    result_cache:
+      enabled: true
+      ttl: "1h"
+      max_size: 1000
+    
+    # 技能缓存
+    skill_cache:
+      enabled: true
+      ttl: "30m"
+      max_size: 500
+    
+    # 配置缓存
+    config_cache:
+      enabled: true
+      ttl: "10m"
+      max_size: 100
+  
+  # 安全配置
+  security:
+    enabled: true
+    
+    # 权限控制
+    permissions:
+      default: "read"
+      skill_execution: "execute"
+      configuration: "admin"
+    
+    # 输入验证
+    input_validation:
+      enabled: true
+      strict_mode: true
+      max_input_size: "10MB"
+      
+      # 允许的输入类型
+      allowed_types:
+        - "text"
+        - "json"
+        - "yaml"
+        - "markdown"
+    
+    # 输出过滤
+    output_filtering:
+      enabled: true
+      remove_sensitive_data: true
+      sanitize_output: true
+  
+  # 扩展配置
+  extensions:
+    enabled: true
+    
+    # 插件系统
+    plugins:
+      enabled: true
+      auto_load: true
+      plugin_directory: "plugins/"
+      
+      # 插件白名单
+      whitelist:
+        - "quality_enhancer"
+        - "performance_optimizer"
+        - "security_scanner"
+    
+    # 自定义质量检查器
+    custom_quality_checkers:
+      enabled: true
+      directory: "quality_checkers/"
+      
+    # 自定义执行器
+    custom_executors:
+      enabled: true
+      directory: "executors/"
+
+---
+# 配置验证规则
+validation_rules:
+  - rule: "required_fields"
+    fields: ["execution_framework.enabled", "execution_framework.version"]
+    error_message: "缺少必需的配置字段"
+  
+  - rule: "version_format"
+    pattern: "^\\d+\\.\\d+\\.\\d+$"
+    error_message: "版本号格式不正确，应为x.y.z格式"
+  
+  - rule: "boolean_fields"
+    fields: ["execution_framework.enabled", "execution_framework.harness_integration.enabled"]
+    error_message: "布尔字段值必须为true或false"
+  
+  - rule: "positive_numbers"
+    fields: ["execution_framework.skill_execution.max_retries"]
+    error_message: "数值字段必须为正数"
+
+---
+# 配置元数据
+metadata:
+  name: "ExecutionFramework配置"
+  description: "ExecutionFramework的完整配置文件"
+  version: "1.0.0"
+  author: "system"
+  created: "2026-03-12"
+  updated: "2026-03-12"
+  
+  # 配置类别
+  categories:
+    - "execution"
+    - "quality"
+    - "monitoring"
+    - "security"
+    - "extensions"
+  
+  # 依赖关系
+  dependencies:
+    - "intelligent-coordinator.yaml"
+    - "dynamic-coordinator.yaml"
+  
+  # 兼容性
+  compatibility:
+    min_version: "1.0.0"
+    max_version: "2.0.0"

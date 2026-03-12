@@ -1,0 +1,677 @@
+# Development Phase配置文件
+# 开发阶段的完整配置
+
+phase:
+  id: "development"
+  name: "开发阶段"
+  description: "系统开发和实现阶段"
+  version: "1.0.0"
+  category: "implementation"
+  
+  # 阶段元数据
+  metadata:
+    author: "system"
+    created: "2026-03-12"
+    tags: ["development", "implementation", "coding"]
+    estimated_duration: "4-6 weeks"
+    complexity: "high"
+    
+    # 适用场景
+    applicable_scenarios:
+      - "new_system_development"
+      - "feature_development"
+      - "system_enhancement"
+      - "bug_fixing"
+    
+    # 前置条件
+    prerequisites:
+      required:
+        - "architecture_design_completed"
+        - "technical_specifications_approved"
+        - "development_environment_ready"
+        - "team_assigned"
+      optional:
+        - "prototype_available"
+        - "performance_benchmarks"
+        - "security_guidelines"
+  
+  # 阶段目标
+  objectives:
+    primary:
+      - "实现系统功能"
+      - "完成代码开发"
+      - "构建可运行系统"
+      - "通过单元测试"
+    
+    secondary:
+      - "优化性能"
+      - "确保安全性"
+      - "完善文档"
+      - "准备部署"
+  
+  # 阶段输入
+  inputs:
+    required:
+      - name: "system_architecture_document"
+        type: "markdown"
+        description: "系统架构文档"
+        validation: "completeness_check"
+      
+      - name: "technical_specifications"
+        type: "markdown"
+        description: "技术规格说明"
+        validation: "accuracy_check"
+      
+      - name: "api_documentation"
+        type: "markdown"
+        description: "API接口文档"
+        validation: "consistency_check"
+      
+      - name: "database_design"
+        type: "markdown"
+        description: "数据库设计文档"
+        validation: "feasibility_check"
+    
+    optional:
+      - name: "ui_ux_designs"
+        type: "figma"
+        description: "UI/UX设计稿"
+        validation: "completeness_check"
+      
+      - name: "performance_requirements"
+        type: "json"
+        description: "性能需求规格"
+        validation: "measurability_check"
+      
+      - name: "security_requirements"
+        type: "markdown"
+        description: "安全需求规格"
+        validation: "completeness_check"
+  
+  # 阶段输出
+  outputs:
+    required:
+      - name: "source_code"
+        type: "code_repository"
+        description: "完整源代码"
+        validation: "code_quality_check"
+      
+      - name: "unit_tests"
+        type: "test_repository"
+        description: "单元测试代码"
+        validation: "test_coverage_check"
+      
+      - name: "integration_tests"
+        type: "test_repository"
+        description: "集成测试代码"
+        validation: "test_coverage_check"
+      
+      - name: "deployment_package"
+        type: "deployment_artifact"
+        description: "部署包"
+        validation: "deployment_readiness_check"
+    
+    optional:
+      - name: "performance_test_results"
+        type: "json"
+        description: "性能测试结果"
+        validation: "performance_benchmark_check"
+      
+      - name: "security_test_results"
+        type: "json"
+        description: "安全测试结果"
+        validation: "security_compliance_check"
+      
+      - name: "user_documentation"
+        type: "markdown"
+        description: "用户文档"
+        validation: "completeness_check"
+  
+  # 新增：Milestone配置
+  milestones:
+    - id: "development-implementation"
+      name: "开发实现"
+      description: "完成系统开发和实现"
+      
+      # Milestone到Task分解配置
+      task_decomposition:
+        strategy: "template_based"
+        template: "development-template"
+        
+        # Task生成规则
+        task_generation:
+          auto_generate: true
+          based_on:
+            - "phase_objectives"
+            - "team_composition"
+            - "project_complexity"
+            - "technical_specifications"
+          
+          # Task模板映射
+          task_templates:
+            - task_type: "frontend-development"
+              template_id: "frontend-development-task"
+              required_roles: ["developer"]
+              estimated_hours: 80
+              priority: "high"
+              depends_on: []
+              
+            - task_type: "backend-development"
+              template_id: "backend-development-task"
+              required_roles: ["developer"]
+              estimated_hours: 100
+              priority: "high"
+              depends_on: []
+              
+            - task_type: "database-development"
+              template_id: "database-development-task"
+              required_roles: ["developer"]
+              estimated_hours: 40
+              priority: "high"
+              depends_on: ["backend-development"]
+              
+            - task_type: "api-implementation"
+              template_id: "api-implementation-task"
+              required_roles: ["developer"]
+              estimated_hours: 60
+              priority: "high"
+              depends_on: ["backend-development"]
+              
+            - task_type: "unit-testing"
+              template_id: "unit-testing-task"
+              required_roles: ["developer", "qa"]
+              estimated_hours: 30
+              priority: "medium"
+              depends_on: ["frontend-development", "backend-development"]
+              
+            - task_type: "integration-testing"
+              template_id: "integration-testing-task"
+              required_roles: ["qa"]
+              estimated_hours: 20
+              priority: "medium"
+              depends_on: ["unit-testing"]
+              
+            - task_type: "performance-optimization"
+              template_id: "performance-optimization-task"
+              required_roles: ["developer"]
+              estimated_hours: 25
+              priority: "medium"
+              depends_on: ["api-implementation"]
+              
+            - task_type: "security-hardening"
+              template_id: "security-hardening-task"
+              required_roles: ["developer", "qa"]
+              estimated_hours: 20
+              priority: "medium"
+              depends_on: ["api-implementation"]
+        
+        # Task分配策略
+        task_assignment:
+          strategy: "skill_based"
+          auto_assign: true
+          conflict_resolution: "lead_agent_decision"
+          
+          # 分配规则
+          assignment_rules:
+            - rule: "frontend_developer"
+              role: "developer"
+              tasks: ["frontend-development"]
+              weight: 0.3
+            - rule: "backend_developer"
+              role: "developer"
+              tasks: ["backend-development", "database-development", "api-implementation"]
+              weight: 0.4
+            - rule: "full_stack_developer"
+              role: "developer"
+              tasks: ["performance-optimization", "security-hardening"]
+              weight: 0.2
+            - rule: "qa_engineer"
+              role: "qa"
+              tasks: ["unit-testing", "integration-testing"]
+              weight: 0.1
+        
+        # Task执行协调
+        task_coordination:
+          type: "collaborative"
+          lead_agent: "agent_developer_01"
+          integration_points:
+            - "source_code"
+            - "test_results"
+            - "deployment_package"
+          
+          # 协作规则
+          collaboration_rules:
+            - rule: "parallel_development"
+              description: "前端和后端并行开发"
+            - rule: "continuous_integration"
+              description: "持续集成和测试"
+            - rule: "regular_sync"
+              description: "定期同步进度和代码"
+          
+          # 同步频率
+          sync_frequency: "daily"
+          sync_method: "daily_standup"
+        
+        # 质量保证
+        quality_assurance:
+          overall_threshold: 85
+          task_thresholds:
+            frontend-development: 85
+            backend-development: 85
+            database-development: 80
+            api-implementation: 85
+            unit-testing: 90
+            integration-testing: 85
+            performance-optimization: 80
+            security-hardening: 90
+          
+          # 质量检查
+          quality_checks:
+            - type: "code_quality"
+              weight: 0.3
+              description: "代码质量"
+            - type: "test_coverage"
+              weight: 0.25
+              description: "测试覆盖率"
+            - type: "performance"
+              weight: 0.2
+              description: "性能指标"
+            - type: "security"
+              weight: 0.15
+              description: "安全性"
+            - type: "maintainability"
+              weight: 0.1
+              description: "可维护性"
+          
+          # 质量门禁
+          quality_gates:
+            - gate: "code_review"
+              required: true
+              reviewers: ["senior_developer", "tech_lead"]
+              criteria: ["code_quality", "best_practices", "security"]
+            - gate: "test_validation"
+              required: true
+              reviewers: ["qa_lead", "test_engineer"]
+              criteria: ["test_coverage", "test_quality", "performance"]
+            - gate: "security_scan"
+              required: true
+              reviewers: ["security_specialist", "devops_engineer"]
+              criteria: ["vulnerability_scan", "compliance_check"]
+      
+      # 预期输出
+      expected_outputs:
+        - "source_code_repository"
+        - "unit_test_suite"
+        - "integration_test_suite"
+        - "deployment_package"
+        - "performance_test_results"
+        - "security_scan_results"
+        - "developer_documentation"
+      
+      # 验收标准
+      acceptance_criteria:
+        - "所有功能实现完成"
+        - "代码质量达标"
+        - "测试覆盖率达标"
+        - "性能指标满足要求"
+        - "安全性检查通过"
+        - "部署包准备就绪"
+        - "文档完整准确"
+        - "集成测试通过"
+  
+  # 团队配置
+  team:
+    # 阶段负责人
+    phase_lead:
+      role: "developer"
+      agent: "agent_developer_01"
+      responsibilities: ["开发管理", "技术决策", "代码审查"]
+    
+    # 团队成员
+    members:
+      - member_id: "agent_developer_01"
+        agent: "agent_developer_01"
+        role: "developer"
+        responsibilities: ["后端开发", "API实现", "数据库开发"]
+        availability: "full_time"
+        
+        # 新增：Task执行配置
+        task_execution:
+          max_concurrent_tasks: 2
+          preferred_task_types: ["backend-development", "api-implementation", "database-development"]
+          quality_focus: ["code_quality", "performance", "security"]
+          
+        # 协作配置
+        collaboration:
+          collaboration_style: "lead"
+          communication_preference: "technical"
+          conflict_resolution: "technical_discussion"
+      
+      - member_id: "agent_developer_02"
+        agent: "agent_developer_02"
+        role: "developer"
+        responsibilities: ["前端开发", "UI实现", "用户体验"]
+        availability: "full_time"
+        
+        task_execution:
+          max_concurrent_tasks: 2
+          preferred_task_types: ["frontend-development", "ui_implementation"]
+          quality_focus: ["user_experience", "code_quality", "performance"]
+          
+        collaboration:
+          collaboration_style: "support"
+          communication_preference: "user_focused"
+          conflict_resolution: "user_testing"
+      
+      - member_id: "agent_developer_03"
+        agent: "agent_developer_03"
+        role: "developer"
+        responsibilities: ["全栈开发", "性能优化", "安全加固"]
+        availability: "full_time"
+        
+        task_execution:
+          max_concurrent_tasks: 2
+          preferred_task_types: ["performance-optimization", "security-hardening", "full_stack_tasks"]
+          quality_focus: ["performance", "security", "scalability"]
+          
+        collaboration:
+          collaboration_style: "specialist"
+          communication_preference: "performance_focused"
+          conflict_resolution: "benchmarking"
+      
+      - member_id: "agent_qa_01"
+        agent: "agent_qa_01"
+        role: "qa"
+        responsibilities: ["测试设计", "质量保证", "安全测试"]
+        availability: "full_time"
+        
+        task_execution:
+          max_concurrent_tasks: 2
+          preferred_task_types: ["unit-testing", "integration-testing", "security-testing"]
+          quality_focus: ["test_coverage", "defect_prevention", "quality_metrics"]
+          
+        collaboration:
+          collaboration_style: "reviewer"
+          communication_preference: "quality_focused"
+          conflict_resolution: "quality_standards"
+      
+      - member_id: "agent_qa_02"
+        agent: "agent_qa_02"
+        role: "qa"
+        responsibilities: ["自动化测试", "性能测试", "持续集成"]
+        availability: "full_time"
+        
+        task_execution:
+          max_concurrent_tasks: 2
+          preferred_task_types: ["automation_testing", "performance_testing", "ci_cd"]
+          quality_focus: ["automation", "performance", "reliability"]
+          
+        collaboration:
+          collaboration_style: "automation_specialist"
+          communication_preference: "automation_focused"
+          conflict_resolution: "automation_standards"
+  
+  # 阶段执行配置
+  execution:
+    # 执行模式
+    execution_mode: "hybrid"
+    
+    # 时间管理
+    time_management:
+      estimated_duration: "4-6 weeks"
+      buffer_time: "25%"
+      milestone_checkpoints: ["week_1", "week_2", "week_3", "week_4", "week_5", "week_6"]
+      
+      # 关键时间点
+      key_dates:
+        - date: "feature_complete"
+          relative: "+3 weeks"
+          importance: "high"
+        - date: "testing_complete"
+          relative: "+4 weeks"
+          importance: "high"
+        - date: "deployment_ready"
+          relative: "+5 weeks"
+          importance: "critical"
+        - date: "final_delivery"
+          relative: "+6 weeks"
+          importance: "critical"
+    
+    # 资源管理
+    resource_management:
+      # 技术资源
+      technical_resources:
+        - resource: "development_environment"
+          type: "environment"
+          required: true
+          examples: ["IDE", "version_control", "build_tools"]
+        
+        - resource: "testing_environment"
+          type: "environment"
+          required: true
+          examples: ["test_servers", "testing_tools", "automation_framework"]
+        
+        - resource: "deployment_environment"
+          type: "environment"
+          required: true
+          examples: ["staging_servers", "deployment_tools", "monitoring"]
+      
+      # 人力资源
+      human_resources:
+        - role: "senior_developer"
+          min_count: 1
+          max_count: 3
+          required_skills: ["backend_development", "database_design", "api_design"]
+        
+        - role: "frontend_developer"
+          min_count: 1
+          max_count: 2
+          required_skills: ["frontend_frameworks", "ui_ux", "responsive_design"]
+        
+        - role: "qa_engineer"
+          min_count: 1
+          max_count: 2
+          required_skills: ["test_automation", "performance_testing", "security_testing"]
+    
+    # 风险管理
+    risk_management:
+      # 识别的风险
+      identified_risks:
+        - risk: "technical_debt"
+          probability: "medium"
+          impact: "medium"
+          mitigation: "code_review_standards"
+        
+        - risk: "integration_issues"
+          probability: "high"
+          impact: "medium"
+          mitigation: "continuous_integration"
+        
+        - risk: "performance_bottlenecks"
+          probability: "medium"
+          impact: "high"
+          mitigation: "performance_monitoring"
+        
+        - risk: "security_vulnerabilities"
+          probability: "medium"
+          impact: "high"
+          mitigation: "security_scanning"
+        
+        - risk: "scope_creep"
+          probability: "high"
+          impact: "medium"
+          mitigation: "change_control_process"
+      
+      # 风险监控
+      risk_monitoring:
+        frequency: "daily"
+        escalation_threshold: 0.6
+        reporting_format: "risk_dashboard"
+  
+  # 质量保证配置
+  quality_assurance:
+    # 质量标准
+    quality_standards:
+      code_quality:
+        maintainability_index: 0.8
+        cyclomatic_complexity: 10
+        code_coverage: 0.8
+        duplicate_code: 0.05
+      
+      performance_quality:
+        response_time: "< 200ms"
+        throughput: "> 1000 req/s"
+        memory_usage: "< 512MB"
+        cpu_usage: "< 70%"
+      
+      security_quality:
+        vulnerability_score: 0
+        security_coverage: 0.95
+        compliance_level: "high"
+        encryption_strength: "AES-256"
+    
+    # 质量检查流程
+    quality_checks:
+      - check: "static_code_analysis"
+        frequency: "per_commit"
+        tools: ["sonarqube", "eslint", "pylint"]
+        criteria: ["code_smells", "vulnerabilities", "duplications"]
+      
+      - check: "unit_testing"
+        frequency: "per_feature"
+        coverage_threshold: 0.8
+        criteria: ["functionality", "edge_cases", "error_handling"]
+      
+      - check: "integration_testing"
+        frequency: "per_build"
+        criteria: ["api_integration", "data_flow", "error_scenarios"]
+      
+      - check: "performance_testing"
+        frequency: "per_release"
+        criteria: ["load_testing", "stress_testing", "scalability"]
+      
+      - check: "security_testing"
+        frequency: "per_release"
+        criteria: ["vulnerability_scan", "penetration_test", "compliance_check"]
+    
+    # 质量度量
+    quality_metrics:
+      - metric: "defect_density"
+        target: "< 2 per KLOC"
+        measurement: "static_analysis"
+      
+      - metric: "test_coverage"
+        target: "> 80%"
+        measurement: "coverage_tools"
+      
+      - metric: "code_review_findings"
+        target: "< 5 per review"
+        measurement: "review_tracking"
+      
+      - metric: "performance_baseline"
+        target: "established_benchmark"
+        measurement: "performance_monitoring"
+  
+  # 工具和环境
+  tools_environment:
+    # 开发工具
+    development_tools:
+      - tool: "ide"
+        name: "VS Code / IntelliJ"
+        version: ">= latest"
+        purpose: "代码开发"
+      
+      - tool: "version_control"
+        name: "Git"
+        version: ">= 2.30"
+        purpose: "版本控制"
+      
+      - tool: "build_tools"
+        name: "Maven / Gradle / npm"
+        version: ">= latest"
+        purpose: "构建管理"
+      
+      - tool: "database_tools"
+        name: "DBeaver / pgAdmin"
+        version: ">= latest"
+        purpose: "数据库管理"
+    
+    # 测试工具
+    testing_tools:
+      - tool: "unit_testing"
+        name: "JUnit / pytest / jest"
+        version: ">= latest"
+        purpose: "单元测试"
+      
+      - tool: "integration_testing"
+        name: "Postman / RestAssured"
+        version: ">= latest"
+        purpose: "集成测试"
+      
+      - tool: "performance_testing"
+        name: "JMeter / Gatling"
+        version: ">= latest"
+        purpose: "性能测试"
+      
+      - tool: "security_testing"
+        name: "OWASP ZAP / Nessus"
+        version: ">= latest"
+        purpose: "安全测试"
+    
+    # 环境要求
+    environment_requirements:
+      - requirement: "development_environment"
+        specification: "isolated_dev_env"
+        purpose: "开发环境"
+      
+      - requirement: "testing_environment"
+        specification: "dedicated_test_env"
+        purpose: "测试环境"
+      
+      - requirement: "staging_environment"
+        specification: "production_like_env"
+        purpose: "预发布环境"
+
+---
+# 配置验证规则
+validation_rules:
+  - rule: "required_fields"
+    fields: ["phase.id", "phase.name", "phase.objectives"]
+    error_message: "缺少必需的配置字段"
+  
+  - rule: "milestone_completeness"
+    check: "task_decomposition.template"
+    error_message: "Milestone必须包含任务分解模板"
+  
+  - rule: "team_completeness"
+    check: "team.phase_lead"
+    error_message: "Phase必须指定阶段负责人"
+
+---
+# 配置元数据
+metadata:
+  name: "Development Phase配置"
+  description: "开发阶段的完整配置"
+  version: "1.0.0"
+  author: "system"
+  created: "2026-03-12"
+  updated: "2026-03-12"
+  
+  # 配置类别
+  categories:
+    - "phase"
+    - "milestone"
+    - "team"
+    - "execution"
+    - "quality"
+  
+  # 依赖关系
+  dependencies:
+    - "architecture-phase.yaml"
+    - "execution-framework.yaml"
+    - "dynamic-coordinator.yaml"
+  
+  # 兼容性
+  compatibility:
+    min_version: "1.0.0"
+    max_version: "2.0.0"

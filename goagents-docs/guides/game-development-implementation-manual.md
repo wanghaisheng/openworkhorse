@@ -2,51 +2,65 @@
 
 ## 🎯 实施概览
 
-本指南基于"以终为始"的理念，提供游戏从策划到开发的具体实施步骤，确保AI Specialist团队能够高效协作，按时交付高质量游戏产品。
+本指南基于Go Agents v2.0的配置驱动架构，提供游戏从策划到开发的具体实施步骤，确保AI Specialist团队能够高效协作，按时交付高质量游戏产品。
 
 ## 📋 实施准备检查清单
 
 ### 前置条件验证
 - [ ] **PicoClaw环境就绪**: 确认PicoClaw最新版本已安装
-- [ ] **AI Specialist团队配置**: 确认游戏开发相关技能已加载
-- [ ] **HARNESS.md准备**: 游戏开发约束和质量标准已定义
-- [ ] **WBS.md创建**: 游戏开发里程碑和工作分解已规划
-- [ ] **OpenSpec配置**: 游戏开发规范和验证规则已配置
+- [ ] **配置驱动架构**: 确认配置驱动架构已启用
+- [ ] **Phase配置**: 游戏开发Phase配置已创建
+- [ ] **Team配置**: 游戏开发Team配置已设置
+- [ ] **Milestone配置**: 游戏开发Milestone配置已定义
 
 ### 团队角色确认
-- [ ] **Game Designer AI Specialist**: 游戏策划专家已配置
-- [ ] **Game Developer AI Specialist**: 游戏开发专家已配置  
-- [ ] **Game Artist AI Specialist**: 美术创作专家已配置
-- [ ] **Sound Designer AI Specialist**: 音频创作专家已配置
-- [ ] **QA Specialist**: 质量保证专家已配置
+- [ ] **Game Designer**: 游戏策划角色已配置
+- [ ] **Game Developer**: 游戏开发角色已配置  
+- [ ] **Game Artist**: 美术创作角色已配置
+- [ ] **Sound Designer**: 音频创作角色已配置
+- [ ] **QA Engineer**: 质量保证角色已配置
 
 ## 🚀 阶段实施指南
 
-### 阶段1: Research + Discovery (调研与概念验证)
+### 阶段1: Discovery Phase (发现阶段)
 
 #### 实施步骤
 
-**Step 1: 项目启动会**
+**Step 1: 项目启动配置**
 ```bash
+# 配置游戏开发Phase
+picoclaw goagents phase create game-discovery
+picoclaw goagents team create game-discovery-team
+
 # 启动游戏开发项目
 @go "启动游戏开发项目：[游戏名称]，进行市场调研、竞品分析和概念验证"
 ```
 
 **Step 2: 市场和用户调研**
 ```bash
+# 创建市场分析Milestone
+picoclaw goagents milestone create market-analysis-milestone
+picoclaw goagents task create market-analysis
+
 # 市场分析
 @go "分析目标游戏市场，包括市场规模、用户画像、竞品分析和趋势判断"
 
 # 竞品深度分析  
+picoclaw goagents task create competitor-analysis
 @go "深入分析主要竞品的玩法机制、美术风格、商业模式和用户评价"
 ```
 
 **Step 3: 概念设计和验证**
 ```bash
+# 创建概念设计Milestone
+picoclaw goagents milestone create concept-design-milestone
+picoclaw goagents task create concept-design
+
 # 游戏概念设计
 @go "设计游戏核心概念，包括玩法机制、独特卖点、目标用户和商业定位"
 
 # 概念可行性评估
+picoclaw goagents task create feasibility-assessment
 @go "评估游戏概念的技术可行性、商业潜力和开发风险"
 ```
 

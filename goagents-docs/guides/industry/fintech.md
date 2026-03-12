@@ -2,33 +2,37 @@
 
 ## 🎯 概述
 
-金融科技项目具有安全合规要求高、风险控制严格、数据处理复杂等特点。Go Agents 为金融科技项目提供符合行业标准的开发流程，确保项目满足监管要求和技术标准。
+金融科技项目具有安全合规要求高、风险控制严格、数据处理复杂等特点。Go Agents v2.0 采用配置驱动架构，为金融科技项目提供符合行业标准的开发流程，确保项目满足监管要求和技术标准。
 
 ## 🏗️ 推荐配置
 
-### 工作流配置
+### Phase配置
 ```bash
-# 创建金融科技专用工作流
-picoclaw goagents workflow create fintech-development
+# 创建金融科技专用Phase配置
+picoclaw goagents phase create fintech-discovery
+picoclaw goagents phase create fintech-architecture
+picoclaw goagents phase create fintech-development
+picoclaw goagents phase create fintech-validation
 
 # 配置特点：
-# - Research: 监管研究 + 合规分析
-# - Requirements: 业务规则 + 风险控制
-# - Planning: 安全架构 + 合规设计
-# - Development: 安全开发 + 审计跟踪
-# - Validation: 合规验证 + 安全测试
+# - Discovery: 监管研究 + 合规分析 + 风险评估
+# - Architecture: 安全架构 + 合规设计 + 风险控制
+# - Development: 安全开发 + 审计跟踪 + 数据保护
+# - Validation: 合规验证 + 安全测试 + 风险评估
 ```
 
-### 团队配置
+### Team配置
 ```bash
 # 创建金融科技团队
-picoclaw goagents team create fintech-team
+picoclaw goagents team create fintech-discovery-team
+picoclaw goagents team create fintech-architecture-team
+picoclaw goagents team create fintech-development-team
+picoclaw goagents team create fintech-validation-team
 
 # 推荐团队构成：
-# - Research: compliance_analyst + risk_analyst + market_researcher
-# - Requirements: business_analyst + compliance_officer + product_manager
-# - Planning: security_architect + solution_architect + compliance_architect
-# - Development: secure_dev + backend_dev + blockchain_dev + qa_engineer
+# - Discovery: compliance_analyst + risk_analyst + market_researcher
+# - Architecture: security_architect + solution_architect + compliance_architect
+# - Development: secure_developer + backend_developer + blockchain_developer
 # - Validation: security_auditor + compliance_auditor + penetration_tester
 ```
 
@@ -39,7 +43,7 @@ picoclaw goagents team create fintech-team
 
 ## 📋 阶段指南
 
-### Research（调研与机会识别）
+### Discovery（发现阶段）
 
 #### 目标
 - 监管政策研究

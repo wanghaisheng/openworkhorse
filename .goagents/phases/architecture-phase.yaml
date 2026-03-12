@@ -1,0 +1,588 @@
+# Architecture Phase配置文件
+# 架构设计阶段的完整配置
+
+phase:
+  id: "architecture"
+  name: "架构阶段"
+  description: "系统架构设计和技术规划阶段"
+  version: "1.0.0"
+  category: "design"
+  
+  # 阶段元数据
+  metadata:
+    author: "system"
+    created: "2026-03-12"
+    tags: ["architecture", "design", "technical"]
+    estimated_duration: "2-3 weeks"
+    complexity: "high"
+    
+    # 适用场景
+    applicable_scenarios:
+      - "new_system_development"
+      - "system_refactoring"
+      - "integration_project"
+      - "performance_optimization"
+    
+    # 前置条件
+    prerequisites:
+      required:
+        - "requirements_analysis_completed"
+        - "technical_requirements_defined"
+        - "stakeholder_approval"
+      optional:
+        - "existing_system_documentation"
+        - "performance_requirements"
+        - "security_requirements"
+  
+  # 阶段目标
+  objectives:
+    primary:
+      - "设计系统整体架构"
+      - "定义技术栈和组件"
+      - "制定集成策略"
+      - "确定性能指标"
+    
+    secondary:
+      - "评估技术风险"
+      - "制定开发计划"
+      - "准备部署策略"
+      - "定义质量标准"
+  
+  # 阶段输入
+  inputs:
+    required:
+      - name: "requirements_document"
+        type: "markdown"
+        description: "详细的需求规格说明"
+        validation: "completeness_check"
+      
+      - name: "business_analysis_report"
+        type: "markdown"
+        description: "业务分析报告"
+        validation: "accuracy_check"
+      
+      - name: "user_research_findings"
+        type: "markdown"
+        description: "用户研究结果"
+        validation: "insight_check"
+    
+    optional:
+      - name: "existing_system_analysis"
+        type: "markdown"
+        description: "现有系统分析报告"
+        validation: "relevance_check"
+      
+      - name: "performance_requirements"
+        type: "json"
+        description: "性能需求规格"
+        validation: "measurability_check"
+      
+      - name: "security_requirements"
+        type: "markdown"
+        description: "安全需求规格"
+        validation: "completeness_check"
+  
+  # 阶段输出
+  outputs:
+    required:
+      - name: "system_architecture_document"
+        type: "markdown"
+        description: "系统架构文档"
+        template: "architecture_template.md"
+      
+      - name: "technical_specifications"
+        type: "markdown"
+        description: "技术规格说明"
+        template: "tech_spec_template.md"
+      
+      - name: "api_documentation"
+        type: "markdown"
+        description: "API接口文档"
+        template: "api_doc_template.md"
+      
+      - name: "deployment_architecture"
+        type: "markdown"
+        description: "部署架构图"
+        template: "deployment_template.md"
+    
+    optional:
+      - name: "performance_model"
+        type: "json"
+        description: "性能模型"
+        template: "performance_model_template.json"
+      
+      - name: "security_architecture"
+        type: "markdown"
+        description: "安全架构设计"
+        template: "security_template.md"
+      
+      - name: "integration_plan"
+        type: "markdown"
+        description: "集成计划"
+        template: "integration_plan_template.md"
+  
+  # 新增：Milestone配置
+  milestones:
+    - id: "architecture-design"
+      name: "架构设计"
+      description: "完成系统架构设计"
+      
+      # Milestone到Task分解配置
+      task_decomposition:
+        strategy: "template_based"
+        template: "architecture-design-template"
+        
+        # Task生成规则
+        task_generation:
+          auto_generate: true
+          based_on:
+            - "phase_objectives"
+            - "team_composition"
+            - "project_complexity"
+            - "technical_requirements"
+          
+          # Task模板映射
+          task_templates:
+            - task_type: "system-architecture"
+              template_id: "system-architecture-task"
+              required_roles: ["architect"]
+              estimated_hours: 40
+              priority: "high"
+              
+            - task_type: "technical-design"
+              template_id: "technical-design-task"
+              required_roles: ["architect"]
+              estimated_hours: 32
+              priority: "high"
+              depends_on: ["system-architecture"]
+              
+            - task_type: "api-design"
+              template_id: "api-design-task"
+              required_roles: ["architect"]
+              estimated_hours: 24
+              priority: "medium"
+              depends_on: ["system-architecture"]
+              
+            - task_type: "database-design"
+              template_id: "database-design-task"
+              required_roles: ["architect", "developer"]
+              estimated_hours: 20
+              priority: "medium"
+              depends_on: ["system-architecture"]
+              
+            - task_type: "security-design"
+              template_id: "security-design-task"
+              required_roles: ["architect", "qa"]
+              estimated_hours: 16
+              priority: "medium"
+              depends_on: ["system-architecture"]
+        
+        # Task分配策略
+        task_assignment:
+          strategy: "skill_based"
+          auto_assign: true
+          conflict_resolution: "lead_agent_decision"
+          
+          # 分配规则
+          assignment_rules:
+            - rule: "primary_architect"
+              role: "architect"
+              tasks: ["system-architecture", "technical-design"]
+              weight: 0.6
+            - rule: "secondary_architect"
+              role: "architect"
+              tasks: ["api-design", "database-design"]
+              weight: 0.3
+            - rule: "security_specialist"
+              role: "qa"
+              tasks: ["security-design"]
+              weight: 0.1
+        
+        # Task执行协调
+        task_coordination:
+          type: "collaborative"
+          lead_agent: "agent_architect_01"
+          integration_points:
+            - "architecture_document"
+            - "technical_specifications"
+            - "api_documentation"
+          
+          # 协作规则
+          collaboration_rules:
+            - rule: "sequential_dependency"
+              description: "有依赖关系的任务顺序执行"
+            - rule: "parallel_independent"
+              description: "无依赖关系的任务并行执行"
+            - rule: "regular_sync"
+              description: "定期同步进度和结果"
+          
+          # 同步频率
+          sync_frequency: "daily"
+          sync_method: "standup_meeting"
+        
+        # 质量保证
+        quality_assurance:
+          overall_threshold: 85
+          task_thresholds:
+            system-architecture: 90
+            technical-design: 85
+            api-design: 85
+            database-design: 80
+            security-design: 90
+          
+          # 质量检查
+          quality_checks:
+            - type: "completeness"
+              weight: 0.25
+              description: "架构设计完整性"
+            - type: "consistency"
+              weight: 0.25
+              description: "架构一致性"
+            - type: "feasibility"
+              weight: 0.2
+              description: "技术可行性"
+            - type: "scalability"
+              weight: 0.15
+              description: "可扩展性"
+            - type: "security"
+              weight: 0.15
+              description: "安全性"
+          
+          # 质量门禁
+          quality_gates:
+            - gate: "architecture_review"
+              required: true
+              reviewers: ["senior_architect", "technical_lead"]
+              criteria: ["completeness", "consistency", "feasibility"]
+            - gate: "security_review"
+              required: true
+              reviewers: ["security_specialist", "qa_lead"]
+              criteria: ["security", "compliance"]
+            - gate: "stakeholder_approval"
+              required: true
+              reviewers: ["product_owner", "business_stakeholder"]
+              criteria: ["business_alignment", "user_acceptance"]
+      
+      # 预期输出
+      expected_outputs:
+        - "system_architecture_document.md"
+        - "technical_specifications.md"
+        - "api_documentation.md"
+        - "database_design.md"
+        - "security_architecture.md"
+        - "deployment_architecture.md"
+      
+      # 验收标准
+      acceptance_criteria:
+        - "系统架构设计完整"
+        - "技术规格明确"
+        - "API接口定义清晰"
+        - "数据库设计合理"
+        - "安全架构符合要求"
+        - "部署架构可行"
+        - "性能指标可测量"
+        - "集成策略明确"
+  
+  # 团队配置
+  team:
+    # 阶段负责人
+    phase_lead:
+      role: "architect"
+      agent: "agent_architect_01"
+      responsibilities: ["架构设计", "技术决策", "团队协调"]
+    
+    # 团队成员
+    members:
+      - member_id: "agent_architect_01"
+        agent: "agent_architect_01"
+        role: "architect"
+        responsibilities: ["系统架构", "技术设计", "API设计"]
+        availability: "full_time"
+        
+        # 新增：Task执行配置
+        task_execution:
+          max_concurrent_tasks: 2
+          preferred_task_types: ["system-architecture", "technical-design"]
+          quality_focus: ["feasibility", "scalability", "consistency"]
+          
+        # 协作配置
+        collaboration:
+          collaboration_style: "lead"
+          communication_preference: "technical"
+          conflict_resolution: "technical_expertise"
+      
+      - member_id: "agent_architect_02"
+        agent: "agent_architect_02"
+        role: "architect"
+        responsibilities: ["API设计", "数据库设计", "安全设计"]
+        availability: "full_time"
+        
+        task_execution:
+          max_concurrent_tasks: 2
+          preferred_task_types: ["api-design", "database-design", "security-design"]
+          quality_focus: ["security", "performance", "maintainability"]
+          
+        collaboration:
+          collaboration_style: "support"
+          communication_preference: "detailed"
+          conflict_resolution: "collaborative"
+      
+      - member_id: "agent_developer_01"
+        agent: "agent_developer_01"
+        role: "developer"
+        responsibilities: ["技术实现", "原型开发", "技术验证"]
+        availability: "part_time"
+        
+        task_execution:
+          max_concurrent_tasks: 1
+          preferred_task_types: ["database-design", "technical_validation"]
+          quality_focus: ["implementability", "performance", "code_quality"]
+          
+        collaboration:
+          collaboration_style: "consultant"
+          communication_preference: "practical"
+          conflict_resolution: "technical_discussion"
+      
+      - member_id: "agent_qa_01"
+        agent: "agent_qa_01"
+        role: "qa"
+        responsibilities: ["架构评审", "安全检查", "质量保证"]
+        availability: "part_time"
+        
+        task_execution:
+          max_concurrent_tasks: 1
+          preferred_task_types: ["security-design", "quality_review"]
+          quality_focus: ["security", "testability", "quality_standards"]
+          
+        collaboration:
+          collaboration_style: "reviewer"
+          communication_preference: "quality_focused"
+          conflict_resolution: "quality_standards"
+  
+  # 阶段执行配置
+  execution:
+    # 执行模式
+    execution_mode: "hybrid"
+    
+    # 时间管理
+    time_management:
+      estimated_duration: "2-3 weeks"
+      buffer_time: "20%"
+      milestone_checkpoints: ["week_1", "week_2", "week_3"]
+      
+      # 关键时间点
+      key_dates:
+        - date: "architecture_review"
+          relative: "+1 week"
+          importance: "high"
+        - date: "technical_review"
+          relative: "+2 weeks"
+          importance: "high"
+        - date: "final_approval"
+          relative: "+3 weeks"
+          importance: "critical"
+    
+    # 资源管理
+    resource_management:
+      # 技术资源
+      technical_resources:
+        - resource: "architecture_tools"
+          type: "software"
+          required: true
+          examples: ["draw.io", "enterprise_architect", "visio"]
+        
+        - resource: "modeling_tools"
+          type: "software"
+          required: true
+          examples: ["uml_tools", "bpmn_tools"]
+        
+        - resource: "documentation_tools"
+          type: "software"
+          required: true
+          examples: ["markdown_editors", "wiki_systems"]
+      
+      # 人力资源
+      human_resources:
+        - role: "senior_architect"
+          min_count: 1
+          max_count: 2
+          required_skills: ["system_design", "technical_leadership"]
+        
+        - role: "technical_specialist"
+          min_count: 1
+          max_count: 3
+          required_skills: ["api_design", "database_design", "security"]
+    
+    # 风险管理
+    risk_management:
+      # 识别的风险
+      identified_risks:
+        - risk: "technical_complexity"
+          probability: "medium"
+          impact: "high"
+          mitigation: "incremental_design"
+        
+        - risk: "requirement_changes"
+          probability: "high"
+          impact: "medium"
+          mitigation: "flexible_architecture"
+        
+        - risk: "technology_obsolescence"
+          probability: "low"
+          impact: "high"
+          mitigation: "technology_research"
+        
+        - risk: "integration_challenges"
+          probability: "medium"
+          impact: "medium"
+          mitigation: "early_prototyping"
+      
+      # 风险监控
+      risk_monitoring:
+        frequency: "weekly"
+        escalation_threshold: 0.7
+        reporting_format: "risk_dashboard"
+  
+  # 质量保证配置
+  quality_assurance:
+    # 质量标准
+    quality_standards:
+      architecture_quality:
+        completeness: 0.95
+        consistency: 0.9
+        feasibility: 0.85
+        scalability: 0.8
+        maintainability: 0.85
+      
+      documentation_quality:
+        clarity: 0.9
+        accuracy: 0.95
+        completeness: 0.9
+        maintainability: 0.85
+      
+      design_quality:
+        innovation: 0.7
+        practicality: 0.9
+        efficiency: 0.85
+        security: 0.9
+    
+    # 质量检查流程
+    quality_checks:
+      - check: "peer_review"
+        frequency: "per_task"
+        required_reviewers: 2
+        checklist: ["completeness", "consistency", "feasibility"]
+      
+      - check: "expert_review"
+        frequency: "per_milestone"
+        required_experts: 1
+        checklist: ["technical_excellence", "best_practices"]
+      
+      - check: "stakeholder_review"
+        frequency: "per_phase"
+        required_stakeholders: 1
+        checklist: ["business_alignment", "user_acceptance"]
+    
+    # 质量度量
+    quality_metrics:
+      - metric: "defect_density"
+        target: "< 1 per KLOC"
+        measurement: "static_analysis"
+      
+      - metric: "review_coverage"
+        target: "> 90%"
+        measurement: "review_tracking"
+      
+      - metric: "stakeholder_satisfaction"
+        target: "> 4.0/5.0"
+        measurement: "survey"
+  
+  # 工具和环境
+  tools_environment:
+    # 设计工具
+    design_tools:
+      - tool: "architecture_modeling"
+        name: "Enterprise Architect"
+        version: ">= 15.0"
+        purpose: "系统架构建模"
+      
+      - tool: "uml_modeling"
+        name: "Visual Paradigm"
+        version: ">= 16.0"
+        purpose: "UML图表设计"
+      
+      - tool: "api_design"
+        name: "Swagger Editor"
+        version: ">= 3.0"
+        purpose: "API接口设计"
+    
+    # 协作工具
+    collaboration_tools:
+      - tool: "version_control"
+        name: "Git"
+        version: ">= 2.30"
+        purpose: "版本控制"
+      
+      - tool: "documentation"
+        name: "Confluence"
+        version: ">= 7.0"
+        purpose: "文档协作"
+      
+      - tool: "communication"
+        name: "Slack"
+        version: ">= 4.0"
+        purpose: "团队沟通"
+    
+    # 环境要求
+    environment_requirements:
+      - requirement: "development_environment"
+        specification: "isolated_dev_env"
+        purpose: "架构设计环境"
+      
+      - requirement: "prototype_environment"
+        specification: "prototype_server"
+        purpose: "原型验证环境"
+
+---
+# 配置验证规则
+validation_rules:
+  - rule: "required_fields"
+    fields: ["phase.id", "phase.name", "phase.objectives"]
+    error_message: "缺少必需的配置字段"
+  
+  - rule: "milestone_completeness"
+    check: "task_decomposition.template"
+    error_message: "Milestone必须包含任务分解模板"
+  
+  - rule: "team_completeness"
+    check: "team.phase_lead"
+    error_message: "Phase必须指定阶段负责人"
+
+---
+# 配置元数据
+metadata:
+  name: "Architecture Phase配置"
+  description: "架构设计阶段的完整配置"
+  version: "1.0.0"
+  author: "system"
+  created: "2026-03-12"
+  updated: "2026-03-12"
+  
+  # 配置类别
+  categories:
+    - "phase"
+    - "milestone"
+    - "team"
+    - "execution"
+    - "quality"
+  
+  # 依赖关系
+  dependencies:
+    - "discovery-phase.yaml"
+    - "execution-framework.yaml"
+    - "dynamic-coordinator.yaml"
+  
+  # 兼容性
+  compatibility:
+    min_version: "1.0.0"
+    max_version: "2.0.0"

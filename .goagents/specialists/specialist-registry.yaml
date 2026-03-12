@@ -1,0 +1,593 @@
+# AI Specialist Registry
+registry:
+  version: "1.0.0"
+  last_updated: "2026-03-12"
+  description: "AI专家注册表，定义所有可用的专家类型和能力"
+  
+# 专家分类
+categories:
+  domain_experts:
+    description: "领域专家，具备特定行业深度知识"
+    specialists:
+      - "ecommerce-specialist"
+      - "fintech-specialist"
+      - "healthcare-specialist"
+      - "education-specialist"
+      - "logistics-specialist"
+      - "retail-specialist"
+      - "manufacturing-specialist"
+      - "government-specialist"
+      
+  technical_experts:
+    description: "技术专家，具备特定技术栈深度知识"
+    specialists:
+      - "frontend-specialist"
+      - "backend-specialist"
+      - "devops-specialist"
+      - "mobile-specialist"
+      - "ai-specialist"
+      - "security-specialist"
+      - "database-specialist"
+      - "network-specialist"
+      - "cloud-specialist"
+      - "blockchain-specialist"
+      
+  role_experts:
+    description: "角色专家，具备特定角色专业能力"
+    specialists:
+      - "analyst-specialist"
+      - "architect-specialist"
+      - "developer-specialist"
+      - "qa-specialist"
+      - "product-owner-specialist"
+      - "scrum-master-specialist"
+      - "project-manager-specialist"
+      - "business-analyst-specialist"
+      
+  process_experts:
+    description: "流程专家，具备特定流程管理知识"
+    specialists:
+      - "agile-coach"
+      - "scrum-master"
+      - "product-owner"
+      - "quality-assurance"
+      - "project-manager"
+      - "business-analyst"
+      - "system-architect"
+      - "ux-designer"
+      - "data-scientist"
+      - "compliance-officer"
+
+# 专家能力映射
+expertise_mapping:
+  project_types:
+    ecommerce:
+      required_experts: ["ecommerce-specialist", "frontend-specialist", "backend-specialist"]
+      recommended_experts: ["fintech-specialist", "devops-specialist", "ux-designer"]
+      optional_experts: ["mobile-specialist", "ai-specialist", "data-scientist", "analyst-specialist"]
+      role_experts: ["analyst-specialist", "architect-specialist", "developer-specialist", "qa-specialist"]
+      quality_standards: "enterprise_grade"
+      
+    fintech:
+      required_experts: ["fintech-specialist", "security-specialist", "backend-specialist"]
+      recommended_experts: ["devops-specialist", "frontend-specialist", "compliance-officer"]
+      optional_experts: ["mobile-specialist", "ai-specialist", "data-scientist", "analyst-specialist"]
+      role_experts: ["analyst-specialist", "architect-specialist", "developer-specialist", "qa-specialist"]
+      quality_standards: "enterprise_plus"
+      
+    healthcare:
+      required_experts: ["healthcare-specialist", "security-specialist", "backend-specialist"]
+      recommended_experts: ["data-scientist", "mobile-specialist", "compliance-officer"]
+      optional_experts: ["ai-specialist", "frontend-specialist", "ux-designer", "analyst-specialist"]
+      role_experts: ["analyst-specialist", "architect-specialist", "developer-specialist", "qa-specialist"]
+      quality_standards: "healthcare_grade"
+      
+    education:
+      required_experts: ["education-specialist", "frontend-specialist", "ux-designer"]
+      recommended_experts: ["mobile-specialist", "backend-specialist", "data-scientist"]
+      optional_experts: ["ai-specialist", "devops-specialist", "quality-assurance", "analyst-specialist"]
+      role_experts: ["analyst-specialist", "architect-specialist", "developer-specialist", "qa-specialist"]
+      quality_standards: "education_grade"
+      
+    logistics:
+      required_experts: ["logistics-specialist", "backend-specialist", "database-specialist"]
+      recommended_experts: ["devops-specialist", "network-specialist", "cloud-specialist"]
+      optional_experts: ["mobile-specialist", "ai-specialist", "data-scientist", "analyst-specialist"]
+      role_experts: ["analyst-specialist", "architect-specialist", "developer-specialist", "qa-specialist"]
+      quality_standards: "enterprise_grade"
+      
+    retail:
+      required_experts: ["retail-specialist", "frontend-specialist", "backend-specialist"]
+      recommended_experts: ["ecommerce-specialist", "ux-designer", "data-scientist"]
+      optional_experts: ["mobile-specialist", "ai-specialist", "devops-specialist", "analyst-specialist"]
+      role_experts: ["analyst-specialist", "architect-specialist", "developer-specialist", "qa-specialist"]
+      quality_standards: "enterprise_grade"
+      
+    manufacturing:
+      required_experts: ["manufacturing-specialist", "backend-specialist", "database-specialist"]
+      recommended_experts: ["network-specialist", "cloud-specialist", "security-specialist"]
+      optional_experts: ["ai-specialist", "mobile-specialist", "data-scientist", "analyst-specialist"]
+      role_experts: ["analyst-specialist", "architect-specialist", "developer-specialist", "qa-specialist"]
+      quality_standards: "industrial_grade"
+      
+    government:
+      required_experts: ["government-specialist", "security-specialist", "compliance-officer"]
+      recommended_experts: ["backend-specialist", "database-specialist", "system-architect"]
+      optional_experts: ["frontend-specialist", "ux-designer", "quality-assurance", "analyst-specialist"]
+      role_experts: ["analyst-specialist", "architect-specialist", "developer-specialist", "qa-specialist"]
+      quality_standards: "government_grade"
+      
+  technology_stacks:
+    react:
+      required_experts: ["frontend-specialist"]
+      recommended_experts: ["backend-specialist", "devops-specialist"]
+      optional_experts: ["mobile-specialist", "ux-designer", "quality-assurance"]
+      
+    vue:
+      required_experts: ["frontend-specialist"]
+      recommended_experts: ["backend-specialist", "devops-specialist"]
+      optional_experts: ["mobile-specialist", "ux-designer", "quality-assurance"]
+      
+    angular:
+      required_experts: ["frontend-specialist"]
+      recommended_experts: ["backend-specialist", "devops-specialist"]
+      optional_experts: ["mobile-specialist", "ux-designer", "quality-assurance"]
+      
+    golang:
+      required_experts: ["backend-specialist"]
+      recommended_experts: ["devops-specialist", "cloud-specialist"]
+      optional_experts: ["security-specialist", "database-specialist", "network-specialist"]
+      
+    python:
+      required_experts: ["backend-specialist"]
+      recommended_experts: ["ai-specialist", "data-scientist", "devops-specialist"]
+      optional_experts: ["frontend-specialist", "mobile-specialist", "security-specialist"]
+      
+    java:
+      required_experts: ["backend-specialist"]
+      recommended_experts: ["devops-specialist", "system-architect", "database-specialist"]
+      optional_experts: ["frontend-specialist", "security-specialist", "quality-assurance"]
+      
+    nodejs:
+      required_experts: ["backend-specialist"]
+      recommended_experts: ["frontend-specialist", "devops-specialist"]
+      optional_experts: ["mobile-specialist", "security-specialist", "quality-assurance"]
+      
+    ruby:
+      required_experts: ["backend-specialist"]
+      recommended_experts: ["frontend-specialist", "devops-specialist"]
+      optional_experts: ["ux-designer", "quality-assurance", "data-scientist"]
+      
+    php:
+      required_experts: ["backend-specialist"]
+      recommended_experts: ["frontend-specialist", "devops-specialist"]
+      optional_experts: ["ecommerce-specialist", "security-specialist", "quality-assurance"]
+      
+    dotnet:
+      required_experts: ["backend-specialist"]
+      recommended_experts: ["devops-specialist", "system-architect", "database-specialist"]
+      optional_experts: ["frontend-specialist", "security-specialist", "quality-assurance"]
+      
+    rust:
+      required_experts: ["backend-specialist"]
+      recommended_experts: ["security-specialist", "system-architect"]
+      optional_experts: ["devops-specialist", "database-specialist", "network-specialist"]
+      
+  project_complexity:
+    simple:
+      required_experts: ["frontend-specialist", "backend-specialist"]
+      recommended_experts: ["devops-specialist", "quality-assurance"]
+      optional_experts: ["ux-designer", "project-manager"]
+      
+    medium:
+      required_experts: ["frontend-specialist", "backend-specialist", "system-architect"]
+      recommended_experts: ["devops-specialist", "quality-assurance", "project-manager"]
+      optional_experts: ["ux-designer", "data-scientist", "security-specialist"]
+      
+    complex:
+      required_experts: ["frontend-specialist", "backend-specialist", "system-architect", "devops-specialist"]
+      recommended_experts: ["security-specialist", "database-specialist", "quality-assurance", "project-manager"]
+      optional_experts: ["ux-designer", "data-scientist", "network-specialist", "cloud-specialist"]
+      
+    enterprise:
+      required_experts: ["frontend-specialist", "backend-specialist", "system-architect", "devops-specialist", "security-specialist"]
+      recommended_experts: ["database-specialist", "quality-assurance", "project-manager", "compliance-officer"]
+      optional_experts: ["ux-designer", "data-scientist", "network-specialist", "cloud-specialist"]
+
+# 专家能力矩阵
+expertise_matrix:
+  role_experts:
+    analyst-specialist:
+      primary_expertise:
+        - "业务需求分析"
+        - "市场调研"
+        - "用户研究"
+        - "竞品分析"
+        - "业务流程优化"
+        - "数据驱动决策"
+      sub_specializations:
+        - "business_analysis"
+        - "market_research"
+        - "data_analysis"
+      tools: ["business_canvas", "swot_analysis", "user_research_tools", "data_analysis_tools"]
+      quality_standards: "data_driven"
+      experience_level: "senior"
+      
+    architect-specialist:
+      primary_expertise:
+        - "系统架构设计"
+        - "技术选型决策"
+        - "架构评估优化"
+        - "技术标准制定"
+        - "架构治理"
+        - "技术路线规划"
+      sub_specializations:
+        - "system_architecture"
+        - "technical_design"
+        - "technology_selection"
+      tools: ["enterprise_architect", "archimate", "c4_model", "design_patterns"]
+      quality_standards: "enterprise_grade"
+      experience_level: "senior"
+      
+    developer-specialist:
+      primary_expertise:
+        - "软件开发"
+        - "代码实现"
+        - "技术实现"
+        - "代码质量"
+        - "测试开发"
+        - "部署运维"
+      sub_specializations:
+        - "software_development"
+        - "testing_development"
+        - "devops_development"
+      tools: ["vscode", "intellij_idea", "git", "docker", "testing_frameworks"]
+      quality_standards: "production_grade"
+      experience_level: "mid"
+      
+    qa-specialist:
+      primary_expertise:
+        - "质量保证"
+        - "测试策略"
+        - "质量管理"
+        - "缺陷管理"
+        - "质量度量"
+        - "流程改进"
+      sub_specializations:
+        - "quality_assurance"
+        - "testing_strategy"
+        - "defect_management"
+      tools: ["jira", "testrail", "quality_center", "automation_frameworks"]
+      quality_standards: "enterprise_grade"
+      experience_level: "mid"
+      
+    product-owner-specialist:
+      primary_expertise:
+        - "产品规划"
+        - "需求管理"
+        - "优先级排序"
+        - "利益相关者管理"
+        - "产品路线图"
+        - "业务价值最大化"
+      sub_specializations:
+        - "product_strategy"
+        - "requirement_management"
+        - "stakeholder_management"
+      tools: ["productboard", "mixpanel", "figma", "jira"]
+      quality_standards: "product_best_practices"
+      experience_level: "senior"
+      
+    scrum-master-specialist:
+      primary_expertise:
+        - "Scrum框架实施"
+        - "冲刺管理"
+        - "障碍移除"
+        - "团队协调"
+        - "流程改进"
+        - "敏捷教练"
+      sub_specializations:
+        - "scrum_facilitation"
+        - "team_coaching"
+        - "process_improvement"
+      tools: ["jira", "trello", "version_one", "scrum_poker"]
+      quality_standards: "scrum_best_practices"
+      experience_level: "mid"
+      
+    project-manager-specialist:
+      primary_expertise:
+        - "项目规划"
+        - "进度管理"
+        - "风险管理"
+        - "资源分配"
+        - "沟通协调"
+        - "变更管理"
+      sub_specializations:
+        - "project_planning"
+        - "risk_management"
+        - "stakeholder_management"
+      tools: ["ms_project", "asana", "slack", "power_bi"]
+      quality_standards: "pmp_best_practices"
+      experience_level: "senior"
+      
+    business-analyst-specialist:
+      primary_expertise:
+        - "业务分析"
+        - "需求工程"
+        - "流程建模"
+        - "数据建模"
+        - "解决方案设计"
+        - "业务价值分析"
+      sub_specializations:
+        - "requirement_engineering"
+        - "process_modeling"
+        - "solution_design"
+      tools: ["visio", "powerpoint", "excel", "business_analysis_tools"]
+      quality_standards: "business_analysis_best_practices"
+      experience_level: "mid"
+      
+  technical_experts:
+    frontend-specialist:
+      primary_expertise:
+        - "React/Vue/Angular开发"
+        - "响应式设计"
+        - "性能优化"
+        - "可访问性"
+      secondary_expertise:
+        - "移动端适配"
+        - "组件库设计"
+        - "状态管理"
+      tools: ["react_devtools", "vue_devtools", "lighthouse", "axe_core"]
+      quality_standards: "wcag_2.1_aa"
+      experience_level: "senior"
+      
+    backend-specialist:
+      primary_expertise:
+        - "API设计"
+        - "数据库设计"
+        - "微服务架构"
+        - "性能优化"
+      secondary_expertise:
+        - "缓存策略"
+        - "消息队列"
+        - "搜索技术"
+      tools: ["postman", "swagger", "redis", "kafka"]
+      quality_standards: "enterprise_grade"
+      experience_level: "senior"
+      
+    devops-specialist:
+      primary_expertise:
+        - "CI/CD流水线"
+        - "容器化部署"
+        - "监控告警"
+        - "基础设施即代码"
+      secondary_expertise:
+        - "云平台管理"
+        - "自动化运维"
+        - "性能调优"
+      tools: ["docker", "kubernetes", "jenkins", "terraform"]
+      quality_standards: "devops_best_practices"
+      experience_level: "senior"
+      
+    security-specialist:
+      primary_expertise:
+        - "安全架构设计"
+        - "漏洞评估"
+        - "加密技术"
+        - "合规审计"
+      secondary_expertise:
+        - "身份认证"
+        - "访问控制"
+        - "安全监控"
+      tools: ["owasp_zap", "nessus", "burp_suite", "metasploit"]
+      quality_standards: "security_best_practices"
+      experience_level: "senior"
+      
+    ai-specialist:
+      primary_expertise:
+        - "机器学习模型"
+        - "深度学习框架"
+        - "数据处理"
+        - "模型部署"
+      secondary_expertise:
+        - "自然语言处理"
+        - "计算机视觉"
+        - "强化学习"
+      tools: ["tensorflow", "pytorch", "scikit-learn", "mlflow"]
+      quality_standards: "ml_best_practices"
+      experience_level: "senior"
+      
+  process_experts:
+    agile-coach:
+      primary_expertise:
+        - "敏捷方法论"
+        - "团队教练"
+        - "流程改进"
+        - "绩效管理"
+      secondary_expertise:
+        - "Scrum框架"
+        - "Kanban方法"
+        - "精益思想"
+      tools: ["jira", "confluence", "mural", "retrospectives"]
+      quality_standards: "agile_best_practices"
+      experience_level: "senior"
+      
+    scrum-master:
+      primary_expertise:
+        - "Scrum框架"
+        - "冲刺管理"
+        - "障碍移除"
+        - "团队协调"
+      secondary_expertise:
+        - "用户故事"
+        - "估算技术"
+        - "燃尽图"
+      tools: ["jira", "trello", "version_one", "scrum_poker"]
+      quality_standards: "scrum_best_practices"
+      experience_level: "mid"
+      
+    product-owner:
+      primary_expertise:
+        - "产品规划"
+        - "需求管理"
+        - "优先级排序"
+        - "利益相关者管理"
+      secondary_expertise:
+        - "用户研究"
+        - "市场分析"
+        - "商业模式"
+      tools: ["productboard", "mixpanel", "google_analytics", "figma"]
+      quality_standards: "product_best_practices"
+      experience_level: "senior"
+      
+    quality-assurance:
+      primary_expertise:
+        - "测试策略"
+        - "自动化测试"
+        - "性能测试"
+        - "质量度量"
+      secondary_expertise:
+        - "测试框架"
+        - "缺陷管理"
+        - "持续集成"
+      tools: ["selenium", "cypress", "jmeter", "testrail"]
+      quality_standards: "qa_best_practices"
+      experience_level: "mid"
+      
+    project-manager:
+      primary_expertise:
+        - "项目规划"
+        - "进度管理"
+        - "风险管理"
+        - "资源分配"
+      secondary_expertise:
+        - "沟通协调"
+        - "干系人管理"
+        - "变更管理"
+      tools: ["ms_project", "asana", "slack", "power_bi"]
+      quality_standards: "pmp_best_practices"
+      experience_level: "senior"
+
+# 专家兼容性矩阵
+compatibility_matrix:
+  high_compatibility:
+    - ["ecommerce-specialist", "frontend-specialist"]
+    - ["fintech-specialist", "security-specialist"]
+    - ["backend-specialist", "database-specialist"]
+    - ["devops-specialist", "cloud-specialist"]
+    - ["ai-specialist", "data-scientist"]
+    - ["agile-coach", "scrum-master"]
+    - ["product-owner", "ux-designer"]
+    
+  medium_compatibility:
+    - ["ecommerce-specialist", "backend-specialist"]
+    - ["fintech-specialist", "backend-specialist"]
+    - ["frontend-specialist", "ux-designer"]
+    - ["security-specialist", "compliance-officer"]
+    - ["ai-specialist", "backend-specialist"]
+    - ["quality-assurance", "devops-specialist"]
+    
+  low_compatibility:
+    - ["fintech-specialist", "ecommerce-specialist"]
+    - ["healthcare-specialist", "retail-specialist"]
+    - ["government-specialist", "startup_expert"]
+    - ["agile-coach", "waterfall_manager"]
+
+# 专家性能指标
+performance_metrics:
+  decision_accuracy:
+    senior: ">= 95%"
+    mid: ">= 90%"
+    junior: ">= 85%"
+    
+  response_time:
+    senior: "< 2min"
+    mid: "< 5min"
+    junior: "< 10min"
+    
+  quality_score:
+    senior: ">= 95"
+    mid: ">= 90"
+    junior: ">= 85"
+    
+  user_satisfaction:
+    senior: ">= 95%"
+    mid: ">= 90%"
+    junior: ">= 85%"
+
+# 专家发展路径
+development_paths:
+  junior_to_mid:
+    requirements:
+      - "完成10个项目"
+      - "用户满意度 >= 85%"
+      - "质量分数 >= 85"
+      - "通过技能认证"
+    training:
+      - "高级技能培训"
+      - "项目实战经验"
+      - "导师指导"
+    timeline: "6-12个月"
+    
+  mid_to_senior:
+    requirements:
+      - "完成25个项目"
+      - "用户满意度 >= 90%"
+      - "质量分数 >= 90"
+      - "指导初级专家"
+    training:
+      - "专家级培训"
+      - "复杂项目经验"
+      - "知识分享"
+    timeline: "12-24个月"
+    
+  senior_to_expert:
+    requirements:
+      - "完成50个项目"
+      - "用户满意度 >= 95%"
+      - "质量分数 >= 95"
+      - "行业影响力"
+    training:
+      - "行业认证"
+      - "创新项目"
+      - "知识贡献"
+    timeline: "24-36个月"
+
+# 专家认证体系
+certification_system:
+  levels:
+    - "初级认证"
+    - "中级认证"
+    - "高级认证"
+    - "专家认证"
+    
+  requirements:
+    初级认证:
+      - "基础技能测试"
+      - "项目实战考核"
+      - "代码审查能力"
+      
+    中级认证:
+      - "高级技能测试"
+      - "复杂项目经验"
+      - "团队协作能力"
+      
+    高级认证:
+      - "专家技能测试"
+      - "架构设计能力"
+      - "指导能力"
+      
+    专家认证:
+      - "行业影响力"
+      - "创新能力"
+      - "知识贡献"
+      
+  validity:
+    初级认证: "1年"
+    中级认证: "2年"
+    高级认证: "3年"
+    专家认证: "5年"
+    
+  renewal:
+    requirements: "持续学习和项目经验"
+    process: "重新认证"
+    grace_period: "3个月"
