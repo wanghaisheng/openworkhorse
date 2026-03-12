@@ -137,21 +137,46 @@ automatic_coordination:
 
 ## 🔧 技能实现细节
 
+### 与ExecutionFramework集成
+```yaml
+execution_framework_integration:
+  framework_config:
+    workspace: "/workspace/picoclaw"
+    harness_path: "HARNESS.md"
+    wbs_path: "WBS.md"
+    openspec_path: "openspec"
+    enable_ralph_loop: true
+    granularity_control:
+      min_lines: 300
+      max_lines: 800
+      target_files: 6
+      max_files: 12
+      
+  integration_points:
+    - "harness_rules_loading": "自动加载HARNESS.md约束"
+    - "wbs_structure_parsing": "解析WBS工作分解结构"
+    - "openspec_validation": "OpenSpec规范验证"
+    - "ralph_wiggum_loop": "质量检查循环"
+    - "granularity_control": "任务粒度验证"
+```
+
 ### 技能协调器实现
 ```yaml
 skill_coordinator:
-  implementation: "skill_execution_framework"
+  implementation: "execution_framework.ExecuteSkill"
   
   coordination_methods:
     sequential: "按顺序执行技能"
     parallel: "并行执行独立技能"
     conditional: "基于条件选择技能"
     
-  error_handling:
-    skill_failure: "使用默认值或跳过"
-    timeout: "设置合理超时时间"
-    retry: "失败重试机制"
-```
+  execution_flow:
+    1. "创建ExecutionFramework实例"
+    2. "按顺序协调子技能执行"
+    3. "自动集成HARNESS.md约束"
+    4. "执行Ralph Wiggum Loop验证"
+    5. "更新WBS里程碑状态"
+    6. "验证OpenSpec一致性"
 
 ### 数据结构定义
 ```yaml
