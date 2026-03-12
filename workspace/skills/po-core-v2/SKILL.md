@@ -29,7 +29,8 @@ skill_orchestration:
     - "mode-selector"
     - "team-builder"
     - "phase-manager-v2"
-    - "harness-integrator"  # 新增HARNESS.md集成技能
+    - "harness-integrator"
+    - "ralph-wiggum-loop"  # 新增Ralph Wiggum Loop技能
   
   execution_flow:
     1. "接收项目请求"
@@ -39,7 +40,8 @@ skill_orchestration:
     5. "调用team-builder组建团队"
     6. "调用phase-manager-v2规划阶段"
     7. "调用harness-integrator进行后检查"
-    8. "生成完整项目响应"
+    8. "调用ralph-wiggum-loop执行质量循环"
+    9. "生成完整项目响应"
 ```
 
 ### 技能间数据流
@@ -321,7 +323,10 @@ skill_dependencies:
       critical: true
     - name: "harness-integrator"
       version: ">=1.0.0"
-      critical: true  # HARNESS.md集成是关键依赖
+      critical: true
+    - name: "ralph-wiggum-loop"
+      version: ">=1.0.0"
+      critical: true  # Ralph Wiggum Loop是质量保证核心
       
   optional_skills:
     - name: "quality-analyzer"
@@ -339,7 +344,8 @@ execution_parameters:
     team_building: 45
     phase_planning: 60
     harness_post_check: 30   # HARNESS.md后检查
-    total_execution: 300
+    ralph_wiggum_loop: 60     # Ralph Wiggum Loop质量循环
+    total_execution: 360      # 增加总执行时间
     
   retry_policy:
     max_retries: 3
@@ -349,15 +355,16 @@ execution_parameters:
     min_confidence: 0.7
     min_team_score: 70
     min_phase_coverage: 0.8
-    min_harness_compliance: 0.9  # HARNESS.md合规性要求
+    min_harness_compliance: 0.9
+    min_quality_score: 0.85    # Ralph Wiggum Loop质量分数要求
 ```
 
 ## 🚀 部署和使用
 
 ### 技能部署
 ```bash
-# 部署PO Core v2及依赖技能（包含HARNESS.md集成）
-@go "部署技能组合：po-core-v2 + requirement-analyzer + mode-selector + team-builder + phase-manager-v2 + harness-integrator"
+# 部署PO Core v2及完整依赖技能（包含质量保证体系）
+@go "部署技能组合：po-core-v2 + requirement-analyzer + mode-selector + team-builder + phase-manager-v2 + harness-integrator + ralph-wiggum-loop"
 
 # 验证技能组合
 @go "验证技能组合：po-core-v2完整功能测试"
