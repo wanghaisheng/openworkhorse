@@ -10,6 +10,7 @@ import (
 	"time"
 
 	"github.com/sipeed/picoclaw/pkg/logger"
+	"gopkg.in/yaml.v2"
 )
 
 // ExecutionFramework 提供技能执行的通用框架
@@ -18,22 +19,43 @@ type ExecutionFramework struct {
 	harnessPath     string
 	wbsPath         string
 	openspecPath     string
+	goagentsPath     string
 	enableRalphLoop bool
 	granularityControl *GranularityControl
 	logger          *slog.Logger
+	
+	// 动态配置缓存
+	configCache     map[string]interface{}
+	cacheExpiry     time.Time
+	config          *GoAgentsConfig
 }
 
 // NewExecutionFramework 创建新的执行框架
 func NewExecutionFramework(workspace string, enableRalphLoop bool) *ExecutionFramework {
-	return &ExecutionFramework{
+	goagentsPath := filepath.Join(workspace, ".goagents")
+	
+	ef := &ExecutionFramework{
 		workspace:       workspace,
 		harnessPath:     filepath.Join(workspace, "HARNESS.md"),
 		wbsPath:         filepath.Join(workspace, "WBS.md"),
 		openspecPath:     filepath.Join(workspace, "openspec"),
+		goagentsPath:     goagentsPath,
 		enableRalphLoop: enableRalphLoop,
 		granularityControl: NewGranularityControl(),
 		logger:          logger.GetLogger("skills.execution"),
+		configCache:     make(map[string]interface{}),
 	}
+	
+	// 加载GoAgents配置
+	if err := ef.loadGoAgentsConfig(); err != nil {
+		ef.logger.Warn("加载GoAgents配置失败，使用默认配置", "error", err)
+		ef.config = ef.getDefaultGoAgentsConfig()
+	}
+	
+	// 根据GoAgents配置更新粒度控制
+	ef.updateGranularityControlFromConfig()
+	
+	return ef
 }
 
 // ExecuteSkill 执行技能，自动集成HARNESS.md和Ralph Wiggum Loop
@@ -81,7 +103,164 @@ func (ef *ExecutionFramework) ExecuteSkill(
 	return result, nil
 }
 
-// HarnessRules HARNESS.md规则定义
+// GoAgentsConfig GoAgents配置结构
+type GoAgentsConfig struct {
+	Version      string                 `yaml:"version"`
+	LastUpdated  string                 `yaml:"last_updated"`
+	System       SystemConfig           `yaml:"system"`
+	Skills       SkillsConfig           `yaml:"skills"`
+	Workflows    WorkflowsConfig        `yaml:"workflows"`
+	Teams        TeamsConfig            `yaml:"teams"`
+	Phases       PhasesConfig           `yaml:"phases"`
+	Tasks        TasksConfig            `yaml:"tasks"`
+	Logging      LoggingConfig          `yaml:"logging"`
+	Monitoring   MonitoringConfig       `yaml:"monitoring"`
+}
+
+// SystemConfig 系统配置
+type SystemConfig struct {
+	DefaultTaskMode   string                 `yaml:"default_task_mode"`
+	SupportedModes    []string               `yaml:"supported_modes"`
+	QualityGates      map[string]interface{} `yaml:"quality_gates"`
+	Granularity       GranularityConfig       `yaml:"granularity"`
+}
+
+// GranularityConfig 粒度配置
+type GranularityConfig struct {
+	SweetSpotLines   []int `yaml:"sweet_spot_lines"`
+	MaxFilesAffected int   `yaml:"max_files_affected"`
+	EstimatedTimeRange []int `yaml:"estimated_time_range"`
+}
+
+// SkillsConfig 技能配置
+type SkillsConfig struct {
+	SearchPaths []string      `yaml:"search_paths"`
+	Cache       CacheConfig   `yaml:"cache"`
+}
+
+// WorkflowsConfig 工作流配置
+type WorkflowsConfig struct {
+	Default      string      `yaml:"default"`
+	SearchPaths  []string    `yaml:"search_paths"`
+}
+
+// TeamsConfig 团队配置
+type TeamsConfig struct {
+	Default      string      `yaml:"default"`
+	SearchPaths  []string    `yaml:"search_paths"`
+}
+
+// PhasesConfig 阶段配置
+type PhasesConfig struct {
+	Supported    []string    `yaml:"supported"`
+	SearchPaths  []string    `yaml:"search_paths"`
+}
+
+// TasksConfig 任务配置
+type TasksConfig struct {
+	SearchPaths     []string      `yaml:"search_paths"`
+	TemplateCache   CacheConfig   `yaml:"template_cache"`
+}
+
+// CacheConfig 缓存配置
+type CacheConfig struct {
+	Enabled bool   `yaml:"enabled"`
+	TTL     int    `yaml:"ttl"`
+	MaxSize int    `yaml:"max_size"`
+}
+
+// LoggingConfig 日志配置
+type LoggingConfig struct {
+	Level      string `yaml:"level"`
+	Structured bool   `yaml:"structured"`
+	OutputDir  string `yaml:"output_dir"`
+}
+
+// MonitoringConfig 监控配置
+type MonitoringConfig struct {
+	Enabled bool     `yaml:"enabled"`
+	Metrics []string `yaml:"metrics"`
+}
+
+// TeamConfig 团队配置
+type TeamConfig struct {
+	Team        TeamInfo              `yaml:"team"`
+	Metadata    map[string]string     `yaml:"metadata"`
+	TeamLead    AgentConfig           `yaml:"team_lead"`
+	Phases      map[string]PhaseConfig `yaml:"phases"`
+}
+
+// TeamInfo 团队信息
+type TeamInfo struct {
+	ID          string `yaml:"id"`
+	Name        string `yaml:"name"`
+	Description string `yaml:"description"`
+	Version     string `yaml:"version"`
+	Category    string `yaml:"category"`
+}
+
+// AgentConfig 代理配置
+type AgentConfig struct {
+	Agent             string   `yaml:"agent"`
+	Variant           string   `yaml:"variant"`
+	Responsibilities  []string `yaml:"responsibilities"`
+	AuthorityLevel    string   `yaml:"authority_level"`
+	DecisionScope     []string `yaml:"decision_scope"`
+	Capabilities      []string `yaml:"capabilities,omitempty"`
+	Priority          string   `yaml:"priority,omitempty"`
+}
+
+// PhaseConfig 阶段配置
+type PhaseConfig struct {
+	Description        string      `yaml:"description"`
+	EstimatedDuration  string      `yaml:"estimated_duration"`
+	TaskMode           string      `yaml:"task_mode"`
+	PhaseLead         AgentConfig `yaml:"phase_lead"`
+	StandardTasks      []TaskTemplate `yaml:"standard_tasks,omitempty"`
+	QualityGates       []QualityGate `yaml:"quality_gates,omitempty"`
+}
+
+// TaskTemplate 任务模板
+type TaskTemplate struct {
+	TemplateID      string   `yaml:"template_id"`
+	Name            string   `yaml:"name"`
+	Description     string   `yaml:"description"`
+	EstimatedTime   string   `yaml:"estimated_time"`
+	Priority        string   `yaml:"priority"`
+	RequiredAgents  []string `yaml:"required_agents"`
+	Deliverables    []string `yaml:"deliverables"`
+	QualityGates    []QualityGate `yaml:"quality_gates,omitempty"`
+}
+
+// PhaseDefinition 阶段定义
+type PhaseDefinition struct {
+	Phase          PhaseInfo              `yaml:"phase"`
+	Metadata       map[string]string     `yaml:"metadata"`
+	Objectives     ObjectivesConfig       `yaml:"objectives"`
+	SuccessCriteria SuccessCriteriaConfig `yaml:"success_criteria"`
+	StandardTasks  []TaskTemplate         `yaml:"standard_tasks"`
+}
+
+// PhaseInfo 阶段信息
+type PhaseInfo struct {
+	ID          string `yaml:"id"`
+	Name        string `yaml:"name"`
+	Description string `yaml:"description"`
+	Version     string `yaml:"version"`
+	Category    string `yaml:"category"`
+}
+
+// ObjectivesConfig 目标配置
+type ObjectivesConfig struct {
+	Primary   string   `yaml:"primary"`
+	Secondary []string `yaml:"secondary"`
+}
+
+// SuccessCriteriaConfig 成功标准配置
+type SuccessCriteriaConfig struct {
+	Mandatory []string `yaml:"mandatory"`
+	Optional  []string `yaml:"optional"`
+}
 type HarnessRules struct {
 	Prohibitions []string `json:"prohibitions"`
 	Requirements []string `json:"requirements"`
@@ -818,5 +997,283 @@ func (ef *ExecutionFramework) buildEnhancedSkillContent(skillName, skillContent 
 	builder.WriteString("## 📋 原始技能内容\n\n")
 	builder.WriteString(skillContent)
 
-	return builder.ToString()
+	return builder.String()
+}
+
+// loadGoAgentsConfig 加载GoAgents配置
+func (ef *ExecutionFramework) loadGoAgentsConfig() error {
+	configPath := filepath.Join(ef.goagentsPath, "config.yaml")
+	
+	// 检查缓存
+	if ef.config != nil && time.Now().Before(ef.cacheExpiry) {
+		return nil
+	}
+	
+	// 读取配置文件
+	content, err := os.ReadFile(configPath)
+	if err != nil {
+		return fmt.Errorf("读取GoAgents配置失败: %w", err)
+	}
+	
+	// 解析配置
+	var config GoAgentsConfig
+	err = yaml.Unmarshal(content, &config)
+	if err != nil {
+		return fmt.Errorf("解析GoAgents配置失败: %w", err)
+	}
+	
+	ef.config = &config
+	
+	// 设置缓存过期时间（1小时）
+	ef.cacheExpiry = time.Now().Add(time.Hour)
+	
+	ef.logger.Info("GoAgents配置加载成功", 
+		"version", config.Version,
+		"last_updated", config.LastUpdated,
+	)
+	
+	return nil
+}
+
+// getDefaultGoAgentsConfig 获取默认GoAgents配置
+func (ef *ExecutionFramework) getDefaultGoAgentsConfig() *GoAgentsConfig {
+	return &GoAgentsConfig{
+		Version:     "1.0.0",
+		LastUpdated: "2026-03-12",
+		System: SystemConfig{
+			DefaultTaskMode: "standard",
+			SupportedModes:  []string{"standard", "free", "hybrid"},
+			QualityGates: map[string]interface{}{
+				"test_coverage_min": 85,
+				"lint_pass_rate":    100,
+				"task_size_min":     200,
+				"task_size_max":     1200,
+			},
+			Granularity: GranularityConfig{
+				SweetSpotLines:   []int{300, 800},
+				MaxFilesAffected: 12,
+				EstimatedTimeRange: []int{10, 90},
+			},
+		},
+		Skills: SkillsConfig{
+			SearchPaths: []string{
+				filepath.Join(ef.workspace, "workspace/skills"),
+				filepath.Join(ef.goagentsPath, "skills"),
+			},
+			Cache: CacheConfig{
+				Enabled: true,
+				TTL:     3600,
+				MaxSize: 100,
+			},
+		},
+		Workflows: WorkflowsConfig{
+			Default:     "standard-development",
+			SearchPaths: []string{
+				filepath.Join(ef.goagentsPath, "workflows"),
+				filepath.Join(ef.workspace, "skills/workflows"),
+			},
+		},
+		Teams: TeamsConfig{
+			Default:     "general-development",
+			SearchPaths: []string{
+				filepath.Join(ef.goagentsPath, "teams"),
+				filepath.Join(ef.workspace, "skills/team-roles"),
+			},
+		},
+		Phases: PhasesConfig{
+			Supported: []string{"discovery", "planning", "development", "validation"},
+			SearchPaths: []string{
+				filepath.Join(ef.goagentsPath, "phases"),
+				filepath.Join(ef.workspace, "skills/phase-templates"),
+			},
+		},
+		Tasks: TasksConfig{
+			SearchPaths: []string{
+				filepath.Join(ef.goagentsPath, "tasks"),
+				filepath.Join(ef.workspace, "skills/task-templates"),
+			},
+			TemplateCache: CacheConfig{
+				Enabled:   true,
+				MaxTemplates: 50,
+			},
+		},
+		Logging: LoggingConfig{
+			Level:      "info",
+			Structured: true,
+			OutputDir:  filepath.Join(ef.workspace, "logs"),
+		},
+		Monitoring: MonitoringConfig{
+			Enabled: true,
+			Metrics: []string{
+				"task_execution_time",
+				"skill_loading_time",
+				"quality_gate_pass_rate",
+				"agent_collaboration_efficiency",
+			},
+		},
+	}
+}
+
+// updateGranularityControlFromConfig 根据配置更新粒度控制
+func (ef *ExecutionFramework) updateGranularityControlFromConfig() {
+	if ef.config == nil || ef.granularityControl == nil {
+		return
+	}
+	
+	granularity := ef.config.System.Granularity
+	if len(granularity.SweetSpotLines) >= 2 {
+		ef.granularityControl.MinLines = granularity.SweetSpotLines[0]
+		ef.granularityControl.MaxLines = granularity.SweetSpotLines[1]
+	}
+	
+	if granularity.MaxFilesAffected > 0 {
+		ef.granularityControl.MaxFiles = granularity.MaxFilesAffected
+		ef.granularityControl.TargetFiles = granularity.MaxFilesAffected / 2
+	}
+	
+	ef.logger.Info("粒度控制配置已更新", 
+		"min_lines", ef.granularityControl.MinLines,
+		"max_lines", ef.granularityControl.MaxLines,
+		"target_files", ef.granularityControl.TargetFiles,
+		"max_files", ef.granularityControl.MaxFiles,
+	)
+}
+
+// LoadTeamConfig 动态加载团队配置
+func (ef *ExecutionFramework) LoadTeamConfig(teamID string) (*TeamConfig, error) {
+	// 检查缓存
+	cacheKey := fmt.Sprintf("team_%s", teamID)
+	if cached, exists := ef.configCache[cacheKey]; exists {
+		return cached.(*TeamConfig), nil
+	}
+	
+	// 搜索团队配置文件
+	var teamConfig *TeamConfig
+	var err error
+	
+	for _, searchPath := range ef.config.Teams.SearchPaths {
+		configPath := filepath.Join(searchPath, fmt.Sprintf("%s-team.yaml", teamID))
+		if _, statErr := os.Stat(configPath); statErr == nil {
+			teamConfig, err = ef.loadTeamConfigFile(configPath)
+			if err == nil {
+				break
+			}
+		}
+	}
+	
+	if teamConfig == nil {
+		return nil, fmt.Errorf("未找到团队配置: %s", teamID)
+	}
+	
+	// 缓存配置
+	if ef.config.Skills.Cache.Enabled {
+		ef.configCache[cacheKey] = teamConfig
+	}
+	
+	return teamConfig, nil
+}
+
+// loadTeamConfigFile 加载团队配置文件
+func (ef *ExecutionFramework) loadTeamConfigFile(configPath string) (*TeamConfig, error) {
+	content, err := os.ReadFile(configPath)
+	if err != nil {
+		return nil, fmt.Errorf("读取团队配置文件失败: %w", err)
+	}
+	
+	var teamConfig TeamConfig
+	err = yaml.Unmarshal(content, &teamConfig)
+	if err != nil {
+		return nil, fmt.Errorf("解析团队配置文件失败: %w", err)
+	}
+	
+	return &teamConfig, nil
+}
+
+// LoadPhaseConfig 动态加载阶段配置
+func (ef *ExecutionFramework) LoadPhaseConfig(phaseID string) (*PhaseDefinition, error) {
+	// 检查缓存
+	cacheKey := fmt.Sprintf("phase_%s", phaseID)
+	if cached, exists := ef.configCache[cacheKey]; exists {
+		return cached.(*PhaseDefinition), nil
+	}
+	
+	// 搜索阶段配置文件
+	var phaseConfig *PhaseDefinition
+	var err error
+	
+	for _, searchPath := range ef.config.Phases.SearchPaths {
+		configPath := filepath.Join(searchPath, fmt.Sprintf("%s.yaml", phaseID))
+		if _, statErr := os.Stat(configPath); statErr == nil {
+			phaseConfig, err = ef.loadPhaseConfigFile(configPath)
+			if err == nil {
+				break
+			}
+		}
+	}
+	
+	if phaseConfig == nil {
+		return nil, fmt.Errorf("未找到阶段配置: %s", phaseID)
+	}
+	
+	// 缓存配置
+	if ef.config.Skills.Cache.Enabled {
+		ef.configCache[cacheKey] = phaseConfig
+	}
+	
+	return phaseConfig, nil
+}
+
+// loadPhaseConfigFile 加载阶段配置文件
+func (ef *ExecutionFramework) loadPhaseConfigFile(configPath string) (*PhaseDefinition, error) {
+	content, err := os.ReadFile(configPath)
+	if err != nil {
+		return nil, fmt.Errorf("读取阶段配置文件失败: %w", err)
+	}
+	
+	var phaseConfig PhaseDefinition
+	err = yaml.Unmarshal(content, &phaseConfig)
+	if err != nil {
+		return nil, fmt.Errorf("解析阶段配置文件失败: %w", err)
+	}
+	
+	return &phaseConfig, nil
+}
+
+// GetSupportedTaskModes 获取支持的任务模式
+func (ef *ExecutionFramework) GetSupportedTaskModes() []string {
+	if ef.config != nil {
+		return ef.config.System.SupportedModes
+	}
+	return []string{"standard", "free", "hybrid"}
+}
+
+// GetDefaultTaskMode 获取默认任务模式
+func (ef *ExecutionFramework) GetDefaultTaskMode() string {
+	if ef.config != nil {
+		return ef.config.System.DefaultTaskMode
+	}
+	return "standard"
+}
+
+// GetQualityGates 获取质量门禁配置
+func (ef *ExecutionFramework) GetQualityGates() map[string]interface{} {
+	if ef.config != nil {
+		return ef.config.System.QualityGates
+	}
+	return map[string]interface{}{
+		"test_coverage_min": 85,
+		"lint_pass_rate":    100,
+		"task_size_min":     200,
+		"task_size_max":     1200,
+	}
+}
+
+// RefreshConfig 刷新配置缓存
+func (ef *ExecutionFramework) RefreshConfig() error {
+	// 清空缓存
+	ef.configCache = make(map[string]interface{})
+	ef.cacheExpiry = time.Time{}
+	
+	// 重新加载配置
+	return ef.loadGoAgentsConfig()
 }

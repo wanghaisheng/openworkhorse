@@ -145,12 +145,35 @@ execution_framework_integration:
     harness_path: "HARNESS.md"
     wbs_path: "WBS.md"
     openspec_path: "openspec"
+    goagents_path: ".goagents"
     enable_ralph_loop: true
-    granularity_control:
-      min_lines: 300
-      max_lines: 800
-      target_files: 6
-      max_files: 12
+    dynamic_config_loading: true
+    
+  dynamic_configuration:
+    goagents_config:
+      method: "execution_framework.loadGoAgentsConfig()"
+      cache_enabled: true
+      cache_ttl: 3600 seconds
+      
+    team_configuration:
+      method: "execution_framework.LoadTeamConfig(teamID)"
+      search_paths: 
+        - ".goagents/teams"
+        - "workspace/skills/team-roles"
+      file_pattern: "{teamID}-team.yaml"
+      
+    phase_configuration:
+      method: "execution_framework.LoadPhaseConfig(phaseID)"
+      search_paths:
+        - ".goagents/phases"
+        - "workspace/skills/phase-templates"
+      file_pattern: "{phaseID}.yaml"
+      
+    system_configuration:
+      supported_modes: "execution_framework.GetSupportedTaskModes()"
+      default_mode: "execution_framework.GetDefaultTaskMode()"
+      quality_gates: "execution_framework.GetQualityGates()"
+      granularity_control: "从config.yaml动态加载"
       
   integration_points:
     - "harness_rules_loading": "自动加载HARNESS.md约束"
@@ -158,6 +181,7 @@ execution_framework_integration:
     - "openspec_validation": "OpenSpec规范验证"
     - "ralph_wiggum_loop": "质量检查循环"
     - "granularity_control": "任务粒度验证"
+    - "dynamic_config_loading": "动态加载.goagents配置"
 ```
 
 ### 技能协调器实现
