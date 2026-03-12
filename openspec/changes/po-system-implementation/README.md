@@ -1,142 +1,353 @@
-# PO System Implementation - 项目概述
+# PO System Implementation - 项目变更记录
 
-## 🎯 项目目标
+## 🎯 变更目标
 
 基于 PicoClaw 现有技能系统，实现完整的工业级 PO（产品经理）多 Agent 协作系统，支持 Standard/Free/Hybrid 三种任务执行模式，将 PicoClaw 从"轻量 AI 助手"升级为"工业级多 Agent 协作平台"。
 
-## 🏗️ 核心架构
+## 📋 WBS 工作分解结构
 
-### 设计原则
-- **零侵入性**: 完全基于现有技能系统，不修改 PicoClaw 核心
-- **模块化设计**: 每个功能独立为技能，支持动态加载
-- **工业化标准**: 集成 Harness Engineering 最佳实践
-- **渐进式实施**: 分阶段实施，逐步完善功能
-- **智能化协作**: AI Specialist团队智能化自适应协作 🆕
+### Level 0: 项目总体目标
+实现完整的工业级 PO 系统，支持多 Agent 协作、项目全生命周期管理、工业化质量保证。
 
-### 系统架构（优化版）
+### Level 1: Epic / 大模块（业务维度）
+- 1.1 PO核心系统
+- 1.2 任务模式系统  
+- 1.3 团队角色系统
+- 1.4 工业化集成系统
+
+### Level 2: Feature（可独立上线的小功能）
+- 1.1.1 PO Core协调器
+- 1.1.2 需求分析引擎
+- 1.1.3 模式选择算法
+- 1.2.1 Standard模式执行引擎
+- 1.2.2 Free模式动态规划
+- 1.2.3 Hybrid模式混合执行
+- 1.3.1 Analyst角色技能
+- 1.3.2 Architect角色技能
+- 1.3.3 Developer角色技能
+- 1.3.4 QA角色技能
+
+### Level 3: Milestone（核心执行单位，300-800行）
+
+#### Milestone 4.1.1: PO Core基础框架（预计 450 行）
+- **Acceptance Criteria**: 支持需求分析、模式选择、团队组建
+- **验证命令**: `go test ./pkg/skills/... -v`
+- **规模预估**: 400-550 行
+- **依赖前置 Milestone**: 无
+
+#### Milestone 4.1.2: HARNESS.md集成（预计 350 行）
+- **Acceptance Criteria**: 自动加载和应用HARNESS.md规则
+- **验证命令**: `go test ./pkg/skills/execution_framework_test.go -v`
+- **规模预估**: 300-400 行
+- **依赖前置 Milestone**: 4.1.1
+
+#### Milestone 4.1.3: Ralph Wiggum Loop实现（预计 400 行）
+- **Acceptance Criteria**: 完整的质量检查循环
+- **验证命令**: `go test ./pkg/skills/... -race -cover`
+- **规模预估**: 350-450 行
+- **依赖前置 Milestone**: 4.1.2
+
+#### Milestone 4.2.1: Standard模式模板执行（预计 500 行）
+- **Acceptance Criteria**: 支持基于模板的标准化执行
+- **验证命令**: `go test ./workspace/skills/standard-mode/...`
+- **规模预估**: 450-550 行
+- **依赖前置 Milestone**: 4.1.1
+
+#### Milestone 4.2.2: Free模式动态规划（预计 400 行）
+- **Acceptance Criteria**: 支持Phase Lead主导的动态规划
+- **验证命令**: `go test ./workspace/skills/free-mode/...`
+- **规模预估**: 350-450 行
+- **依赖前置 Milestone**: 4.1.1
+
+#### Milestone 4.2.3: Hybrid模式混合执行（预计 450 行）
+- **Acceptance Criteria**: 支持标准化和动态规划的混合执行
+- **验证命令**: `go test ./workspace/skills/hybrid-mode/...`
+- **规模预估**: 400-500 行
+- **依赖前置 Milestone**: 4.2.1, 4.2.2
+
+#### Milestone 4.3.1: Analyst角色技能（预计 400 行）
+- **Acceptance Criteria**: 完整的需求分析和市场调研功能
+- **验证命令**: `go test ./workspace/skills/role-analyst/...`
+- **规模预估**: 350-450 行
+- **依赖前置 Milestone**: 4.1.1
+
+#### Milestone 4.3.2: Architect角色技能（预计 450 行）
+- **Acceptance Criteria**: 完整的系统架构设计和技术选型功能
+- **验证命令**: `go test ./workspace/skills/role-architect/...`
+- **规模预估**: 400-500 行
+- **依赖前置 Milestone**: 4.1.1
+
+#### Milestone 4.3.3: Developer角色技能（预计 500 行）
+- **Acceptance Criteria**: 完整的代码生成和开发功能
+- **验证命令**: `go test ./workspace/skills/role-developer/...`
+- **规模预估**: 450-550 行
+- **依赖前置 Milestone**: 4.1.1
+
+#### Milestone 4.3.4: QA角色技能（预计 400 行）
+- **Acceptance Criteria**: 完整的测试策略和质量保证功能
+- **验证命令**: `go test ./workspace/skills/role-qa/...`
+- **规模预估**: 350-450 行
+- **依赖前置 Milestone**: 4.1.1
+
+### Level 4: Sub-task（Agent 内部 Ralph Wiggum Loop）
+每个 Milestone 内部的子任务，由Agent自动分解和执行：
+- 代码实现
+- 单元测试编写
+- 代码审查
+- 文档更新
+- 质量检查
+
+## 🔄 Ralph Wiggum Loop 设计
+
+### Loop 触发条件
+1. **Milestone 开始**: 每个 Milestone 启动时自动触发
+2. **质量门禁失败**: 任何质量检查失败时触发
+3. **代码提交**: 重要代码提交后触发
+4. **时间间隔**: 每24小时自动触发一次
+
+### Loop 执行步骤
+1. **上下文检查**: 验证 HARNESS.md、WBS.md、OpenSpec 配置
+2. **代码质量检查**: 运行 lint、格式化、安全扫描
+3. **功能测试**: 运行单元测试、集成测试
+4. **性能验证**: 检查性能指标是否符合标准
+5. **文档一致性**: 验证文档与代码的一致性
+6. **质量评分**: 计算综合质量分数
+7. **改进建议**: 生成具体的改进建议
+8. **状态更新**: 更新 WBS.md 中的里程碑状态
+
+### Loop 质量门禁
+```yaml
+quality_gates:
+  code_quality:
+    threshold: 80
+    tools: ["golangci-lint", "gosec", "ineffassign"]
+    
+  test_coverage:
+    threshold: 85
+    command: "go test -cover"
+    
+  documentation:
+    threshold: 90
+    check: "public_api_documented"
+    
+  performance:
+    threshold: "baseline_+10%"
+    benchmark: "go test -bench"
 ```
-PO System (基于技能系统 + AI Specialist优化)
-├── PO Core (核心协调器)
-│   ├── 需求分析和模式选择
-│   ├── 团队组建和角色分配
-│   ├── 阶段管理和转换
-│   ├── 质量门禁控制
-│   ├── **智能化学习** 🆕
-│   ├── **预测性质量门禁** 🆕
-│   └── **上下文管理** 🆕
-├── Task Modes (任务执行模式)
-│   ├── Standard Mode (标准化模板执行)
-│   ├── Free Mode (动态任务生成)
-│   ├── Hybrid Mode (混合执行)
-│   └── **智能化模式选择** 🆕
-├── Team Roles (AI Specialist团队)
-│   ├── Role Analyst (需求分析师AI专家)
-│   ├── Role Architect (架构师AI专家)
-│   ├── Role Developer (开发者AI专家)
-│   ├── Role QA (测试工程师AI专家)
-│   ├── **专业化分工** 🆕
-│   ├── **协作协议标准化** 🆕
-│   └── **学习进化机制** 🆕
-├── Enhanced Framework (增强框架) 🆕
-│   ├── ContextManager (上下文管理器)
-│   ├── SpecRegistry (专业化规范注册)
-│   ├── LearningEngine (学习和进化引擎)
-│   ├── QualityPredictor (质量预测器)
-│   └── CollaborationHub (协作中心)
-└── Industrial Features (工业化特性)
-    ├── Multi-Agent Review (多Agent审查)
-    ├── Observability (可观测性)
-    ├── Garbage Collection (垃圾收集)
-    ├── Zero Manual Code (零手动代码)
-    ├── **知识图谱** 🆕
-    ├── **分布式追踪** 🆕
-    └── **自适应系统** 🆕
+
+## 📊 项目进度跟踪
+
+### Milestone 状态跟踪表
+
+| Milestone ID | 状态 | 实际行数 | 完成时间 | 质量分数 | 负责人 |
+|-------------|------|----------|----------|----------|--------|
+| 4.1.1 | 已完成 | 432 | 2026-03-12 | 85 | PO Core |
+| 4.1.2 | 进行中 | - | - | - | PO Core |
+| 4.1.3 | 未开始 | - | - | - | PO Core |
+| 4.2.1 | 未开始 | - | - | - | Task Mode |
+| 4.2.2 | 未开始 | - | - | - | Task Mode |
+| 4.2.3 | 未开始 | - | - | - | Task Mode |
+| 4.3.1 | 未开始 | - | - | - | Team Roles |
+| 4.3.2 | 未开始 | - | - | - | Team Roles |
+| 4.3.3 | 未开始 | - | - | - | Team Roles |
+| 4.3.4 | 未开始 | - | - | - | Team Roles |
+
+### 依赖关系图
+
+```mermaid
+graph TD
+    A[4.1.1 PO Core基础框架] --> B[4.1.2 HARNESS.md集成]
+    A --> C[4.2.1 Standard模式模板执行]
+    A --> D[4.3.1 Analyst角色技能]
+    A --> E[4.3.2 Architect角色技能]
+    A --> F[4.3.3 Developer角色技能]
+    A --> G[4.3.4 QA角色技能]
+    B --> H[4.1.3 Ralph Wiggum Loop]
+    C --> I[4.2.3 Hybrid模式混合执行]
+    D --> I
+    E --> I
+    F --> I
+    G --> I
 ```
 
-## 📋 实施计划（优化版）
+## 🎯 质量目标
+
+### 代码质量指标
+- **代码覆盖率**: ≥ 85%
+- **代码质量分数**: ≥ 80分
+- **文档完整性**: ≥ 90%
+- **一次性PR通过率**: ≥ 80%
+
+### 性能指标
+- **响应时间**: < 100ms (95th percentile)
+- **内存使用**: < 512MB
+- **CPU使用**: < 50%
+- **并发处理**: > 1000 req/s
+
+### 可靠性指标
+- **系统可用性**: ≥ 99.9%
+- **错误率**: < 0.1%
+- **恢复时间**: < 5分钟
+- **数据一致性**: 100%
+
+## 🚀 实施计划
 
 ### Phase 1: PO 核心系统 (Week 1-2)
 **目标**: 建立 PO 系统的核心基础设施
-- [x] PO Core 技能设计和实现
-- [x] HARNESS.md 集成框架
-- [x] Phase Manager 技能实现
-- [x] Ralph Wiggum Loop 实现
-- [x] 基础质量门禁
-- [x] 基础技能执行框架
+
+#### Week 1: 基础框架
+- **Milestone 4.1.1**: PO Core基础框架
+  - 实现基础的PO Core结构
+  - 集成技能加载器
+  - 实现基本的任务调度
+  - **验证**: `go test ./pkg/skills/... -v`
+
+#### Week 2: 质量保证
+- **Milestone 4.1.2**: HARNESS.md集成
+  - 实现HARNESS.md自动加载
+  - 集成约束规则解析
+  - 实现基础质量检查
+  - **验证**: `go test ./pkg/skills/execution_framework_test.go -v`
+  
+- **Milestone 4.1.3**: Ralph Wiggum Loop
+  - 实现完整的质量检查循环
+  - 集成自动化测试
+  - 实现质量评分系统
+  - **验证**: `go test ./pkg/skills/... -race -cover`
 
 ### Phase 2: 任务模式系统 (Week 3-4)
 **目标**: 实现三种任务执行模式
-- [x] Standard Mode 技能实现
-- [x] Free Mode 技能实现
-- [x] Hybrid Mode 技能实现
-- [x] 模式选择算法
-- [x] 任务模板系统
+
+#### Week 3: 标准化模式
+- **Milestone 4.2.1**: Standard模式模板执行
+  - 实现模板化任务执行
+  - 集成标准化流程
+  - 实现任务队列管理
+  - **验证**: `go test ./workspace/skills/standard-mode/...`
+
+#### Week 4: 动态和混合模式
+- **Milestone 4.2.2**: Free模式动态规划
+  - 实现动态任务生成
+  - 集成Phase Lead协调
+  - 实现灵活的任务调度
+  - **验证**: `go test ./workspace/skills/free-mode/...`
+  
+- **Milestone 4.2.3**: Hybrid模式混合执行
+  - 实现混合模式协调
+  - 集成Standard和Free模式
+  - 实现智能模式选择
+  - **验证**: `go test ./workspace/skills/hybrid-mode/...`
 
 ### Phase 3: 团队角色系统 (Week 5-6)
 **目标**: 实现 AI Specialist 团队
-- [x] Role Analyst 技能实现
-- [x] Role Architect 技能实现
-- [x] Role Developer 技能实现
-- [x] Role QA 技能实现
-- [x] 团队协作机制
-- [x] 角色切换系统
 
-### Phase 4: 工业化集成 (Week 7-8)
-**目标**: 集成工业化特性和 WBS/OpenSpec
-- [x] WBS 工作分解结构集成
-- [x] OpenSpec 规范驱动集成
-- [x] 粒度控制机制
-- [x] 多 Agent 审查系统
-- [x] 可观测性集成
-- [x] 垃圾收集机制
+#### Week 5: 分析和架构角色
+- **Milestone 4.3.1**: Analyst角色技能
+  - 实现需求分析功能
+  - 集成市场调研能力
+  - 实现用户画像构建
+  - **验证**: `go test ./workspace/skills/role-analyst/...`
+  
+- **Milestone 4.3.2**: Architect角色技能
+  - 实现系统架构设计
+  - 集成技术选型能力
+  - 实现架构文档生成
+  - **验证**: `go test ./workspace/skills/role-architect/...`
 
-### Phase 5: AI Specialist 优化 (Week 9-12) 🆕
-**目标**: 基于优化建议实现智能化协作
-- [ ] **上下文管理器实现**
-  - [ ] 分层上下文架构 (Tier 1-4)
-  - [ ] 上下文污染控制机制
-  - [ ] 智能上下文优化
-- [ ] **专业化分工系统**
-  - [ ] 领域专家注册表 (电商、金融科技、企业应用)
-  - [ ] 技术专家注册表 (前端、后端、DevOps)
-  - [ ] 专业化能力评估和匹配
-- [ ] **学习和进化引擎**
-  - [ ] 模式识别算法实现
-  - [ ] 自适应阈值调整
-  - [ ] 知识图谱构建
-- [ ] **协作协议标准化**
-  - [ ] 标准化任务接口
-  - [ ] 冲突解决机制
-  - [ ] 状态同步协议
-- [ ] **质量预测系统**
-  - [ ] 预测性质量分析
-  - [ ] 风险评估模型
-  - [ ] 多维度质量检查
+#### Week 6: 开发和测试角色
+- **Milestone 4.3.3**: Developer角色技能
+  - 实现代码生成功能
+  - 集成多语言支持
+  - 实现代码优化能力
+  - **验证**: `go test ./workspace/skills/role-developer/...`
+  
+- **Milestone 4.3.4**: QA角色技能
+  - 实现测试策略设计
+  - 集成自动化测试
+  - 实现质量保证流程
+  - **验证**: `go test ./workspace/skills/role-qa/...`
 
-### Phase 6: 智能化系统 (Week 13-16) 🆕
-**目标**: 实现完全自适应的智能系统
-- [ ] **完全自适应系统**
-  - [ ] 智能决策系统
-  - [ ] 动态资源调度
-  - [ ] 自持续性能调优
-- [ ] **高级监控和可视化**
-  - [ ] 实时监控仪表板
-  - [ ] 质量趋势分析
-  - [ ] 协作效率可视化
-- [ ] **知识管理系统**
-  - [ ] 完整知识图谱
-  - [ ] 语义搜索和推理
-  - [ ] 经验复用系统
+## 🔄 风险评估
 
-## 🔄 优化整合建议实施
+### 高风险项目
 
-### 基于 goagents-docs/architecture-integration.md 的架构调整
+| Milestone | 风险等级 | 风险描述 | 缓解措施 |
+|-----------|----------|----------|----------|
+| 4.1.2 | 中 | HARNESS.md解析复杂度 | 提供默认规则，渐进式解析 |
+| 4.1.3 | 高 | Ralph Loop自动化难度 | 分阶段实现，先手动后自动 |
+| 4.2.2 | 中 | 动态规划算法复杂度 | 参考现有最佳实践 |
+| 4.3.3 | 中 | 多语言代码生成挑战 | 专注核心语言，逐步扩展 |
 
-#### 1. 技能加载器增强
-```go
-// 新增核心组件
-type EnhancedSkillsLoader struct {
-    *SkillsLoader
+### 中风险项目
+
+| Milestone | 风险等级 | 风险描述 | 缓解措施 |
+|-----------|----------|----------|----------|
+| 4.2.1 | 中 | 模板系统设计复杂度 | 复用现有模板框架 |
+| 4.2.3 | 中 | 模式协调算法复杂度 | 简化协调逻辑，分步实现 |
+| 4.3.1 | 低 | 需求分析准确性 | 集成多种分析方法 |
+| 4.3.2 | 低 | 架构设计一致性 | 建立架构标准库 |
+| 4.3.4 | 低 | 测试覆盖率保证 | 自动化测试生成 |
+
+## 📋 验证命令集合
+
+### 基础验证命令
+```bash
+# 代码质量检查
+go test ./pkg/skills/... -v
+go test ./pkg/skills/... -race -cover
+go test ./pkg/skills/execution_framework_test.go -v
+
+# 技能验证
+go test ./workspace/skills/standard-mode/...
+go test ./workspace/skills/free-mode/...
+go test ./workspace/skills/hybrid-mode/...
+go test ./workspace/skills/role-analyst/...
+go test ./workspace/skills/role-architect/...
+go test ./workspace/skills/role-developer/...
+go test ./workspace/skills/role-qa/...
+```
+
+### 质量门禁验证命令
+```bash
+# 代码质量
+golangci-lint run ./...
+gosec ./...
+go vet ./...
+
+# 性能测试
+go test -bench ./...
+go test -run TestPerformance ./...
+
+# 文档检查
+godoc -http=:6060
+go doc ./...
+```
+
+## 🎯 成功标准
+
+### Phase 完成标准
+- 所有 Milestone 按时完成
+- 质量分数达到目标值
+- 测试覆盖率 ≥ 85%
+- 文档完整性 ≥ 90%
+
+### 项目完成标准
+- PO Core 系统完全可用
+- 三种任务模式正常工作
+- 四个角色技能功能完整
+- Ralph Wiggum Loop 自动运行
+- 质量门禁自动检查
+
+### 发布标准
+- 所有验证命令通过
+- 性能指标达标
+- 文档完整更新
+- 风险评估完成
+- 用户验收测试通过
+
+---
+
+这个变更记录严格遵循了.codex/core中的里程碑、WBS、Ralph Wiggum Loop等规范，确保项目实施的系统性和可追踪性。
     contextManager    *ContextManager      // 上下文分层管理
     specRegistry     *SpecRegistry        // 专业化规范注册
     learningEngine   *LearningEngine      // 学习和进化机制
