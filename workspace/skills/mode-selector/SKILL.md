@@ -315,7 +315,7 @@ validation:
 
 ## 🔄 模式执行器映射
 
-### 执行器分配
+### 模式执行器映射
 ```yaml
 mode_executor_mapping:
   standard:
@@ -325,10 +325,11 @@ mode_executor_mapping:
     template_library: "enterprise_web_application, ecommerce_platform, financial_system"
     
   free:
-    executor_skill: "free-mode-executor"  # 待实现
+    executor_skill: "free-mode-executor"
     execution_style: "dynamic"
-    quality_control: "flexible"
-    exploration_methods: "prototype_driven, iterative_development"
+    quality_control: "adaptive"
+    innovation_focus: "high"
+    phase_lead_authority: "full"
     
   hybrid:
     executor_skill: "hybrid-mode-executor"  # 待实现

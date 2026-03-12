@@ -31,7 +31,8 @@ skill_orchestration:
     - "phase-manager-v2"
     - "harness-integrator"
     - "ralph-wiggum-loop"
-    - "standard-mode-executor"  # 新增Standard模式执行器
+    - "standard-mode-executor"
+    - "free-mode-executor"  # 新增Free模式执行器
   
   execution_flow:
     1. "接收项目请求"
@@ -47,7 +48,7 @@ skill_orchestration:
     
   mode_execution_mapping:
     standard: "standard-mode-executor"
-    free: "free-mode-executor"  # 待实现
+    free: "free-mode-executor"
     hybrid: "hybrid-mode-executor"  # 待实现
 ```
 
@@ -148,32 +149,26 @@ execution_framework_integration:
     goagents_path: ".goagents"
     enable_ralph_loop: true
     dynamic_config_loading: true
+    use_official_registry: true
     
-  dynamic_configuration:
-    goagents_config:
-      method: "execution_framework.loadGoAgentsConfig()"
-      cache_enabled: true
-      cache_ttl: 3600 seconds
+  official_registry_integration:
+    global_config:
+      type: "registry.GlobalConfig"
+      loader: "registry.ConfigManager.LoadGlobalConfig()"
       
     team_configuration:
-      method: "execution_framework.LoadTeamConfig(teamID)"
-      search_paths: 
-        - ".goagents/teams"
-        - "workspace/skills/team-roles"
-      file_pattern: "{teamID}-team.yaml"
+      type: "registry.TeamConfig"
+      loader: "registry.ConfigManager.LoadTeamConfig(teamID)"
       
     phase_configuration:
-      method: "execution_framework.LoadPhaseConfig(phaseID)"
-      search_paths:
-        - ".goagents/phases"
-        - "workspace/skills/phase-templates"
-      file_pattern: "{phaseID}.yaml"
+      type: "registry.PhaseConfig"
+      loader: "registry.ConfigManager.LoadPhaseConfig(phaseID)"
       
     system_configuration:
-      supported_modes: "execution_framework.GetSupportedTaskModes()"
-      default_mode: "execution_framework.GetDefaultTaskMode()"
-      quality_gates: "execution_framework.GetQualityGates()"
-      granularity_control: "从config.yaml动态加载"
+      supported_modes: "registry.SystemConfig.SupportedModes"
+      default_mode: "registry.SystemConfig.DefaultTaskMode"
+      quality_gates: "registry.SystemConfig.QualityGates"
+      granularity_control: "registry.SystemConfig.Granularity"
       
   integration_points:
     - "harness_rules_loading": "自动加载HARNESS.md约束"
@@ -181,7 +176,8 @@ execution_framework_integration:
     - "openspec_validation": "OpenSpec规范验证"
     - "ralph_wiggum_loop": "质量检查循环"
     - "granularity_control": "任务粒度验证"
-    - "dynamic_config_loading": "动态加载.goagents配置"
+    - "dynamic_config_loading": "使用官方registry动态加载配置"
+    - "official_types": "完全兼容goagents官方类型定义"
 ```
 
 ### 技能协调器实现
@@ -385,12 +381,12 @@ skill_dependencies:
       critical: true
     - name: "standard-mode-executor"
       version: ">=1.0.0"
-      critical: true  # Standard模式执行器
-      
-  optional_skills:
+      critical: true
     - name: "free-mode-executor"
       version: ">=1.0.0"
-      critical: false
+      critical: true  # Free模式执行器
+      
+  optional_skills:
     - name: "hybrid-mode-executor"
       version: ">=1.0.0"
       critical: false
@@ -411,7 +407,7 @@ execution_parameters:
     mode_execution: 120        # 模式执行时间
     harness_post_check: 30   # HARNESS.md后检查
     ralph_wiggum_loop: 60     # Ralph Wiggum Loop质量循环
-    total_execution: 480      # 增加总执行时间
+    total_execution: 480      # 总执行时间
     
   retry_policy:
     max_retries: 3
@@ -424,6 +420,18 @@ execution_parameters:
     min_harness_compliance: 0.9
     min_quality_score: 0.85    # Ralph Wiggum Loop质量分数要求
     min_execution_quality: 0.8 # 模式执行质量要求
+    
+  mode_specific_settings:
+    standard_mode:
+      execution_time: 120
+      quality_control: "strict"
+      documentation_level: "comprehensive"
+      
+    free_mode:
+      execution_time: 180      # Free模式需要更多时间
+      quality_control: "adaptive"
+      documentation_level: "minimal"
+      innovation_threshold: 0.8
 ```
 
 ## 🚀 部署和使用
@@ -431,7 +439,7 @@ execution_parameters:
 ### 技能部署
 ```bash
 # 部署PO Core v2及完整依赖技能（包含任务模式系统）
-@go "部署技能组合：po-core-v2 + requirement-analyzer + mode-selector + team-builder + phase-manager-v2 + harness-integrator + ralph-wiggum-loop + standard-mode-executor"
+@go "部署技能组合：po-core-v2 + requirement-analyzer + mode-selector + team-builder + phase-manager-v2 + harness-integrator + ralph-wiggum-loop + standard-mode-executor + free-mode-executor"
 
 # 验证技能组合
 @go "验证技能组合：po-core-v2完整功能测试"
