@@ -30,7 +30,8 @@ skill_orchestration:
     - "team-builder"
     - "phase-manager-v2"
     - "harness-integrator"
-    - "ralph-wiggum-loop"  # 新增Ralph Wiggum Loop技能
+    - "ralph-wiggum-loop"
+    - "standard-mode-executor"  # 新增Standard模式执行器
   
   execution_flow:
     1. "接收项目请求"
@@ -39,9 +40,15 @@ skill_orchestration:
     4. "调用mode-selector选择执行模式"
     5. "调用team-builder组建团队"
     6. "调用phase-manager-v2规划阶段"
-    7. "调用harness-integrator进行后检查"
-    8. "调用ralph-wiggum-loop执行质量循环"
-    9. "生成完整项目响应"
+    7. "根据选择的模式调用对应的执行器"
+    8. "调用harness-integrator进行后检查"
+    9. "调用ralph-wiggum-loop执行质量循环"
+    10. "生成完整项目响应"
+    
+  mode_execution_mapping:
+    standard: "standard-mode-executor"
+    free: "free-mode-executor"  # 待实现
+    hybrid: "hybrid-mode-executor"  # 待实现
 ```
 
 ### 技能间数据流
@@ -326,9 +333,18 @@ skill_dependencies:
       critical: true
     - name: "ralph-wiggum-loop"
       version: ">=1.0.0"
-      critical: true  # Ralph Wiggum Loop是质量保证核心
+      critical: true
+    - name: "standard-mode-executor"
+      version: ">=1.0.0"
+      critical: true  # Standard模式执行器
       
   optional_skills:
+    - name: "free-mode-executor"
+      version: ">=1.0.0"
+      critical: false
+    - name: "hybrid-mode-executor"
+      version: ">=1.0.0"
+      critical: false
     - name: "quality-analyzer"
       version: ">=1.0.0"
       critical: false
@@ -343,9 +359,10 @@ execution_parameters:
     mode_selection: 30
     team_building: 45
     phase_planning: 60
+    mode_execution: 120        # 模式执行时间
     harness_post_check: 30   # HARNESS.md后检查
     ralph_wiggum_loop: 60     # Ralph Wiggum Loop质量循环
-    total_execution: 360      # 增加总执行时间
+    total_execution: 480      # 增加总执行时间
     
   retry_policy:
     max_retries: 3
@@ -357,14 +374,15 @@ execution_parameters:
     min_phase_coverage: 0.8
     min_harness_compliance: 0.9
     min_quality_score: 0.85    # Ralph Wiggum Loop质量分数要求
+    min_execution_quality: 0.8 # 模式执行质量要求
 ```
 
 ## 🚀 部署和使用
 
 ### 技能部署
 ```bash
-# 部署PO Core v2及完整依赖技能（包含质量保证体系）
-@go "部署技能组合：po-core-v2 + requirement-analyzer + mode-selector + team-builder + phase-manager-v2 + harness-integrator + ralph-wiggum-loop"
+# 部署PO Core v2及完整依赖技能（包含任务模式系统）
+@go "部署技能组合：po-core-v2 + requirement-analyzer + mode-selector + team-builder + phase-manager-v2 + harness-integrator + ralph-wiggum-loop + standard-mode-executor"
 
 # 验证技能组合
 @go "验证技能组合：po-core-v2完整功能测试"

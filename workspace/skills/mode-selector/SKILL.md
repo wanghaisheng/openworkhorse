@@ -313,6 +313,47 @@ validation:
 - **置信度预测准确率**: > 80%
 - **评分一致性**: > 90%
 
+## 🔄 模式执行器映射
+
+### 执行器分配
+```yaml
+mode_executor_mapping:
+  standard:
+    executor_skill: "standard-mode-executor"
+    execution_style: "template_based"
+    quality_control: "strict"
+    template_library: "enterprise_web_application, ecommerce_platform, financial_system"
+    
+  free:
+    executor_skill: "free-mode-executor"  # 待实现
+    execution_style: "dynamic"
+    quality_control: "flexible"
+    exploration_methods: "prototype_driven, iterative_development"
+    
+  hybrid:
+    executor_skill: "hybrid-mode-executor"  # 待实现
+    execution_style: "mixed"
+    quality_control: "balanced"
+    combination_strategy: "structured_flexibility"
+```
+
+### 模式选择到执行器的转换
+```yaml
+selection_to_execution:
+  process_flow:
+    1. "mode-selector分析项目特征"
+    2. "计算各模式适配度分数"
+    3. "选择最优执行模式"
+    4. "映射到对应的执行器技能"
+    5. "传递执行参数给执行器"
+    
+  parameter_mapping:
+    project_request: "直接传递"
+    team_composition: "直接传递"
+    quality_requirements: "转换为质量门禁"
+    schedule_constraints: "转换为执行计划"
+```
+
 ---
 
-这个技能专门负责执行模式选择，基于项目特征智能推荐最适合的开发模式，是PO Core系统决策能力的重要组成部分。
+这个技能专门负责执行模式选择，基于项目特征智能推荐最适合的开发模式，并映射到对应的执行器技能，是PO Core系统决策能力的重要组成部分。
