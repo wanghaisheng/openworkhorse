@@ -29,14 +29,17 @@ skill_orchestration:
     - "mode-selector"
     - "team-builder"
     - "phase-manager-v2"
+    - "harness-integrator"  # 新增HARNESS.md集成技能
   
   execution_flow:
     1. "接收项目请求"
-    2. "调用requirement-analyzer进行需求分析"
-    3. "调用mode-selector选择执行模式"
-    4. "调用team-builder组建团队"
-    5. "调用phase-manager-v2规划阶段"
-    6. "生成完整项目响应"
+    2. "调用harness-integrator进行预检查"
+    3. "调用requirement-analyzer进行需求分析"
+    4. "调用mode-selector选择执行模式"
+    5. "调用team-builder组建团队"
+    6. "调用phase-manager-v2规划阶段"
+    7. "调用harness-integrator进行后检查"
+    8. "生成完整项目响应"
 ```
 
 ### 技能间数据流
@@ -316,6 +319,9 @@ skill_dependencies:
     - name: "phase-manager-v2"
       version: ">=1.0.0"
       critical: true
+    - name: "harness-integrator"
+      version: ">=1.0.0"
+      critical: true  # HARNESS.md集成是关键依赖
       
   optional_skills:
     - name: "quality-analyzer"
@@ -327,10 +333,12 @@ skill_dependencies:
 ```yaml
 execution_parameters:
   timeout_settings:
+    harness_pre_check: 30      # HARNESS.md预检查
     requirement_analysis: 60
     mode_selection: 30
     team_building: 45
     phase_planning: 60
+    harness_post_check: 30   # HARNESS.md后检查
     total_execution: 300
     
   retry_policy:
@@ -341,14 +349,15 @@ execution_parameters:
     min_confidence: 0.7
     min_team_score: 70
     min_phase_coverage: 0.8
+    min_harness_compliance: 0.9  # HARNESS.md合规性要求
 ```
 
 ## 🚀 部署和使用
 
 ### 技能部署
 ```bash
-# 部署PO Core v2及依赖技能
-@go "部署技能组合：po-core-v2 + requirement-analyzer + mode-selector + team-builder + phase-manager-v2"
+# 部署PO Core v2及依赖技能（包含HARNESS.md集成）
+@go "部署技能组合：po-core-v2 + requirement-analyzer + mode-selector + team-builder + phase-manager-v2 + harness-integrator"
 
 # 验证技能组合
 @go "验证技能组合：po-core-v2完整功能测试"
