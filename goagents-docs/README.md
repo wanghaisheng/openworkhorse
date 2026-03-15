@@ -1,8 +1,8 @@
-# 🚀 Go Agents - 工业级多 Agent 协作平台
+# 🚀 Open AI workhorse - 工业级多 Agent 协作平台
 
 ## 🎯 概述
 
-Go Agents 是基于 PicoClaw 的工业级多 Agent 协作平台，通过技能化实现和配置管理，为用户提供完整的项目全生命周期管理能力。
+Open AI workhorse  是基于 PicoClaw 的工业级多 Agent 协作平台，通过技能化实现和配置管理，为用户提供完整的项目全生命周期管理能力。
 
 ## 🏗️ 核心特性
 
@@ -52,7 +52,7 @@ picoclaw skills install po-core
 picoclaw skills enable po-core
 
 # 3. 初始化配置系统
-picoclaw goagents config init
+picoclaw wh config init
 
 # 4. 验证安装
 @go "测试 Go Agents 系统"
@@ -110,16 +110,16 @@ picoclaw goagents config init
 ### 配置管理
 ```bash
 # 创建自定义工作流
-picoclaw goagents workflow create ecommerce-development
+picoclaw wh workflow create ecommerce-development
 
 # 配置专业团队
-picoclaw goagents team create ecommerce-team
+picoclaw wh team create ecommerce-team
 
 # 创建任务模板
-picoclaw goagents task create checkout-feature
+picoclaw wh task create checkout-feature
 
 # 验证配置
-picoclaw goagents config validate
+picoclaw wh config validate
 ```
 
 ### 监控和维护
@@ -158,7 +158,7 @@ Workflow
 │   ├── task-modes/            # 任务模式技能
 │   ├── team-roles/            # 团队角色技能
 │   └── workflows/             # 完整工作流
-└── .goagents/                # 配置系统
+└── .wh/                # 配置系统
     ├── config.yaml           # 全局配置
     ├── workflows/            # 工作流配置
     ├── phases/               # 阶段配置（含里程碑）
@@ -170,7 +170,7 @@ Workflow
 
 ### 🔄 集成方式
 - **技能系统**: 通过现有技能加载机制
-- **CLI 集成**: 混合 `picoclaw goagents` 命令
+- **CLI 集成**: 混合 `picoclaw wh` 命令
 - **配置管理**: 独立的配置系统
 - **触发机制**: `@go` 命令触发
 - **层级执行**: 完整的 Workflow -> Phase -> Milestone -> Task -> Agent 执行流程
